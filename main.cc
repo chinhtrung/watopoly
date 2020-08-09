@@ -115,13 +115,6 @@ int main () {
             cin >> filename;
             cout << "invoking function to save  " << filename << endl;
 
-        } else if ( command == LOAD ) {
-            
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cin >> filename;
-            cout << "invoking function to load  " << filename << endl;
-
         } else {
             cout << "Unrecognized command!" << endl;
         }
