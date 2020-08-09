@@ -1,118 +1,129 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
 // basic command (such as roll, next,...) and action (such as buy, sell)
-const std::string ROLL = "roll";
-const std::string NEXT = "next";
-const std::string TRADE = "trade";
-const std::string IMPROVE = "improve";
-const std::string BUY = "buy";
-const std::string SELL = "sell";
-const std::string MORTGAGE = "mortgage";
-const std::string UNMORTGAGE = "unmortgage";
-const std::string BANKRUPT = "bankrupt";
-const std::string ASSETS = "assets";
-const std::string ALL = "all";
-const std::string SAVE = "save";
-const std::string LOAD = "-load";
+const string ROLL = "roll";
+const string NEXT = "next";
+const string TRADE = "trade";
+const string IMPROVE = "improve";
+const string BUY = "buy";
+const string SELL = "sell";
+const string MORTGAGE = "mortgage";
+const string UNMORTGAGE = "unmortgage";
+const string BANKRUPT = "bankrupt";
+const string ASSETS = "assets";
+const string ALL = "all";
+const string SAVE = "save";
+const string LOAD = "-load";
+const string TESTING = "-testing";
 
 // main drive
 int main () {
 
-    std::cout << "WATOPOLY PROJECT" << std::endl;
-    std::cout << "type a command" << std::endl;
+    cout << "WATOPOLY PROJECT" << endl;
+    cout << "type a command" << endl;
 
-    std::string command, name, give, receive, property, action, filename;
+    string command, name, give, receive, property, action, filename;
+
+    if (argv[0] == LOAD) {
+        cout << "+ calling " << argv[0] << " to load game state" << endl;
+	}
+
+	if (argv[1] == TESTING) {
+        cout << "+ calling " << argv[0] << ": testing mode enable" << endl;
+	}
 
     while (true) {
-        std::cin >> command;
-        if (std::cin.fail()) break;
+        cin >> command;
+        if (cin.fail()) break;
 
         // load command
         if ( command == ROLL ) {
 
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
+            cout << "+ calling " << command << endl;
 
         } else if ( command == NEXT ) {
             
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
+            cout << "+ calling " << command << endl;
 
         } else if ( command == TRADE ) {
 
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
-            std::cout << "(checking if we pass in enough parameters in)" << std::endl;
-            std::cin >> name >> give >> receive;
-            std::cout << "name: " << name << std::endl;
-            std::cout << "give: " << give << std::endl;
-            std::cout << "receive: " << receive << std::endl;
+            cout << "+ calling " << command << endl;
+            cout << "(checking if we pass in enough parameters in)" << endl;
+            cin >> name >> give >> receive;
+            cout << "name: " << name << endl;
+            cout << "give: " << give << endl;
+            cout << "receive: " << receive << endl;
 
         } else if ( command == IMPROVE ) {
 
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
-            std::cout << "(checking if we pass in enough parameters in)" << std::endl;
-            std::cin >> property >> action;
-            std::cout << "property: " << property << std::endl;
+            cout << "+ calling " << command << endl;
+            cout << "(checking if we pass in enough parameters in)" << endl;
+            cin >> property >> action;
+            cout << "property: " << property << endl;
 
             if ( action == BUY ) {
                 // calling buy action
-                std::cout << "call buy action" << std::endl;
+                cout << "call buy action" << endl;
             } else if ( action == SELL ) {
                 // calling sell action
-                std::cout << "call sell action" << std::endl;
+                cout << "call sell action" << endl;
             }
 
         } else if ( command == MORTGAGE ) {
 
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
-            std::cin >> property;
-            std::cout << "attempt to mortgage: " << property << std::endl;
+            cout << "+ calling " << command << endl;
+            cin >> property;
+            cout << "attempt to mortgage: " << property << endl;
 
         } else if ( command == UNMORTGAGE ) {
 
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
-            std::cin >> property;
-            std::cout << "attempt to unmortgage: " << property << std::endl;
+            cout << "+ calling " << command << endl;
+            cin >> property;
+            cout << "attempt to unmortgage: " << property << endl;
 
         } else if ( command == BANKRUPT ) {
             
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
-            std::cout << "(only available when a player must pay more money than they currently have)" << std::endl;
-            std::cout << "GAME OVER!!" << std::endl;
+            cout << "+ calling " << command << endl;
+            cout << "(only available when a player must pay more money than they currently have)" << endl;
+            cout << "GAME OVER!!" << endl;
             break;
 
         } else if ( command == ASSETS ) {
             
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
+            cout << "+ calling " << command << endl;
 
         } else if ( command == ALL ) {
             
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
+            cout << "+ calling " << command << endl;
 
         } else if ( command == SAVE ) {
             
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
-            std::cin >> filename;
-            std::cout << "invoking function to save  " << filename << std::endl;
+            cout << "+ calling " << command << endl;
+            cin >> filename;
+            cout << "invoking function to save  " << filename << endl;
 
         } else if ( command == LOAD ) {
             
             // replace this code
-            std::cout << "+ calling " << command << std::endl;
-            std::cin >> filename;
-            std::cout << "invoking function to load  " << filename << std::endl;
+            cout << "+ calling " << command << endl;
+            cin >> filename;
+            cout << "invoking function to load  " << filename << endl;
 
         } else {
-            std::cout << "Unrecognized command!" << std::endl;
+            cout << "Unrecognized command!" << endl;
         }
 
     }
