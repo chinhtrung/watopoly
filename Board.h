@@ -1,3 +1,10 @@
+#ifndef _BOARD_H
+#define _BOARD_H
+#include <map>
+#include <string>
+#include <memory>
+using std::shared_ptr;
+using std::string;
 using std::map;
 
 class Square;
