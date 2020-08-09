@@ -20,20 +20,27 @@ const string LOAD = "-load";
 const string TESTING = "-testing";
 
 // main drive
-int main () {
+int main (int argc, char** argv) {
 
     cout << "WATOPOLY PROJECT" << endl;
-    cout << "type a command" << endl;
 
     string command, name, give, receive, property, action, filename;
 
-    if (argv[0] == LOAD) {
-        cout << "+ calling " << argv[0] << " to load game state" << endl;
-	}
+    if ( argc == 3) { // check the number of arguments
+        if (argv[1] == LOAD) {
+            cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
+            cout << "read in file with the name " << argv[2] << endl;
+        }
 
-	if (argv[1] == TESTING) {
-        cout << "+ calling " << argv[0] << ": testing mode enable" << endl;
-	}
+        if (argv[1] == TESTING) {
+            cout << "+ calling from arguments " << argv[1] << ": testing mode enable" << endl;
+            cout << "read in file with the name " << argv[2] << endl;
+        }
+    } else {
+        cout << "fail to call load or testing mode, initial a new game" << endl;
+    }
+
+    cout << "type a command" << endl;
 
     while (true) {
         cin >> command;
