@@ -6,3 +6,6 @@ class Unownable {
 	public:
 		virtual actionAtIndex(shared_ptr<Player>) = 0;
 };
+
+
+#endif
