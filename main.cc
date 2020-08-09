@@ -19,6 +19,8 @@ const string SAVE = "save";
 const string LOAD = "-load";
 const string TESTING = "-testing";
 
+const int MAX_TIM_CUPS = 4;
+
 
 int main(int argc, char * argv[]) {
 	cout << "WATOPOLY PROJECT" << endl;
