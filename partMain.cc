@@ -7,15 +7,17 @@
 player rolls, lands on square {
     if (sqr.owner() != player){
         if (sqr.getOwnerChar() == ""){
-	    // cout << "The property is unowned! Would you like to buy or open up an auction?"
-	    // cout << "Enter <buy> to buy the building and <auction> to auction"
+	    cout << "The property is unowned!\n";
+	    cout << "Would you like to buy or open up an auction?\n";
+	    cout << "Enter <buy> to buy the building and <auction> to auction" << endl;
+	    
 	    if (buy){
 		Transaction t;
 		t.buyProperty(sqr, Player);
+		// ^if this fails bc of insufficient funds, go to auction
 	    } else if (auction){
 	        player.auctionProperty(sqr);
 	    }
-	    // buy or auction
 	} else {
 	    Transaction t;
 	    int toPay;
@@ -77,3 +79,59 @@ player attribute: map<string, map<string, bool isOwnedByMe>> acadState
 char Square::getOwnerChar(){
     return owner.getGamePiece();
 }
+
+//////////////////////////////////////////////////////////////////////
+
+main reading in # of players {
+    Board gb();
+    int numPlayers = 0;
+    cout << "Please enter the number of players, from 2 - 8.\n";
+    cin >> numPlayers;
+    if (numPlayers < 2 || numPlayers > 8){
+        cout << "Invalid number of players. Try again." << endl;
+    }
+    cout << "Your choices of gamepiece characters are: \n";
+    cout << "G, B, D, P, $, L, T\n";
+    cout << "Enter each player name followed by their gamepiece character.";
+    for (int i = 0; i < numPlayers; i++){
+        string name;
+	char gamepiece;
+	cin >> name; //do exception handling
+	cin >> gamepiece;
+	shared_ptr<Player> p(new Player(name, gamepiece));
+	gb.addPlayer(p);
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+
+// Academic and Square ctrs
+
+Academic::Academic( string name, string monoBlock, int id, int costToBuy, 	
+	              int imprCost, int tuitImpr0, int tuitImpr1,
+		       int tuitImpr2, int tuitImpr3, int tuitImpr3,
+		        int tuitImpr4, int tuitImpr5 )
+	: Ownable{costToBuy, nullptr, id, name}, imprCost{imprCost}, monoBlock{monoBlock},
+             tuition{tuitImpr0} {
+    imprScheme.reserve(6);
+    imprScheme[0] = tuitImpr0;
+    imprScheme[1] = tuitImpr1;
+    imprScheme[2] = tuitImpr2;
+    imprScheme[3] = tuitImpr3;
+    imprScheme[4] = tuitImpr4;
+    imprScheme[5] = tuitImpr5;
+}
+
+
+Residence::Residence( string name, int id )
+	: Ownable{200, nullptr, id, name} {}
+
+Gym::Gym( string name, int id ){
+	: Ownable{150, nullptr, id, name}, diceSum{-1} {}
+
+Ownable::Ownable( int costToBuy, shared_ptr<Player> owner, int id, string name )
+    : Square{id, name}, costToBuy{costToBuy}, imprLevel{0},
+          owner{owner}, isMortgaged{false} {}
+
+Square::Square( int id, string name )
+	: id{id}, name{name} {}

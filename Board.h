@@ -17,7 +17,6 @@ class Board {
     // Note: this version has 40 squares so squares.size() == 40
     vector<shared_ptr<Square>> squares;
 
-    // players.size() is at least 2, and at max 8
     vector<shared_ptr<Player>> players;
     Dice dice;
     int timsCupsRem;
@@ -39,7 +38,7 @@ class Board {
     // key: Monopoly block name (e.g. Arts1)
     // value: map of Academic buildings in that block
     // 			key: name of Academic building
-    map<string, map<string,shared_ptr<Academic>>> acadState;
+//    map<string, map<string,shared_ptr<Academic>>> acadState;
 
     // key: name of Residence
     map<string, shared_ptr<Residence>> resState;
@@ -49,14 +48,15 @@ class Board {
 
   public:
 
-    Board( num and type of players );
-    // makes more sense for main to create the player objects,
-    //   and pass in player info to Board
+    Board();
+
+    // main calls this to add a player to Board's players vector
+    void addPlayer( shared_ptr<Player> );
 
     void drawBoard();                   // Draws the board
 
     // Returns the name of the Monopoly block acadID belongs to
-    string getMonopoly( int acadID );
+//    string getMonopoly( int acadID );
 
     // Returns the number of available Tims Cups (Max = 4)
     int getTimsCupsRem();
@@ -65,7 +65,7 @@ class Board {
     //     acadID's block
     // Else if not all properties owned or if acadID is unowned, 
     //     returns false
-    bool checkAcad( string acadID );
+//    bool checkAcad( string acadID );
 
     // Returns the number of gyms owned by owner of gymID
     // Note: if gymID is unowned, returns 0
@@ -76,7 +76,8 @@ class Board {
     int checkResOwned( string resID );
 
 
-    // Updates the owner of prop1 to own2 and the owner of prop2
+    // VERSION A UPDATE METHODS
+    /*// Updates the owner of prop1 to own2 and the owner of prop2
     //    to own1
     // Note: called by transaction class after two properties are traded
     void updateByTransPforP
@@ -88,7 +89,7 @@ class Board {
     //    for money (either money for property or property for money)
     //    and after property is bought from bank
     void updateByTrans
-            ( shared_ptr<Ownable> prop, char own );
+            ( shared_ptr<Ownable> prop, char own ); */
 
 };
 
