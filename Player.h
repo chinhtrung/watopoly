@@ -21,6 +21,9 @@ class Player {
     std::map<int, std::shared_ptr<Square>> mortgagedProperties;
 
   public:
+    Player(std::string name, char gamePiece, int pos, int funds, int timsCups, std::map<int, 
+    std::shared_ptr<Square>> ownedPropertiesstd::map<int, std::shared_ptr<Square>> mortgagedProperties);
+
     std::string getName() const;
     char getGamePiece() const;
     int getCurrPos() const;
