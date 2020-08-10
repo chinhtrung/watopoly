@@ -1,5 +1,5 @@
-#ifndef _AUCTION_
-#define _AUCTION_
+#ifndef AUCTION_H
+#define AUCTION_H
 #include <memory>
 #include <map>
 #include "player.h"

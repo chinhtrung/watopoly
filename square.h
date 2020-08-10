@@ -1,5 +1,5 @@
-#ifndef _SQUARE_
-#define _SQUARE_
+#ifndef SQUARE_H
+#define SQUARE_H
 
 class Square{
     Square();

@@ -1,5 +1,5 @@
-#ifndef _GAMESTATE_
-#define _GAMESTATE_
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
 
 class GameState{
     GameState();

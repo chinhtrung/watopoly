@@ -5,7 +5,7 @@ Watopoly is the final project of CS246. It is the monopoly game style with the m
 
 ## Plan of attack
 The components are shared to build between teamate and are subject to change as the first plan of attack. We also breakdown the whole project relative classes/components with their relationship into the UML model diagram  
-The completed plan of attack this problem can be found [here](./documents/Initial game plan.pdf) and the UML model is [here](./documents/UML.pdf)
+The completed plan of attack this problem can be found [HERE](./documents/Initial game plan.pdf) and the UML model is [HERE](./documents/UML.pdf)
 
 ## Convention on parameters, classes, file names and preprocessor guards for contributors
 Here we want to be consistent in naming each code components for the sake of readability and debugging activity
@@ -43,8 +43,8 @@ main.cc
 ### Preprocessor guards
 Followed by the convention of CS246 course note, please note that DO NOT USE `using namespace std;` in the `.h` files to minimize the chance of conflict due to implicit interpretation
 ```CPP
-#ifndef _GAMESTATE_H_
-#define _GAMESTATE_H_
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
 
 ...
 

@@ -1,5 +1,5 @@
-#ifndef _PLAYER_
-#define _PLAYER_
+#ifndef PLAYER_H
+#define PLAYER_H
 #include <string>
 #include <map>
 #include <memory>

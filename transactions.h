@@ -1,5 +1,5 @@
-#ifndef _TRANSACTIONS_
-#define _TRANSACTIONS_
+#ifndef TRANSACTIONS_H
+#define TRANSACTIONS_H
 #include <memory>
 #include "player.h"
 #include "ownable.h"

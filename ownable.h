@@ -1,5 +1,5 @@
-#ifndef _OWNABLE_
-#define _OWNABLE_
+#ifndef OWNABLE_H
+#define OWNABLE_H
 
 class Ownable{
     int costToBuy;
