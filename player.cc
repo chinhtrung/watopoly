@@ -2,12 +2,12 @@
 
 using namespace std;
 
-Player::Player(std::string name, char gamePiece, int pos, int funds, int timsCups, std::map<int, 
-    std::shared_ptr<Square>> ownedProperties, std::map<int, std::shared_ptr<Square>> mortgagedProperties)
+Player::Player(string name, char gamePiece, int pos, int funds, int timsCups, map<int, 
+    shared_ptr<Square>> ownedProperties, map<int, shared_ptr<Square>> mortgagedProperties)
     : name{name}, gamePiece{gamePiece}, pos{pos}, funds{funds}, timsCups{timsCups}, ownedProperties{ownedProperties}, mortgagedProperties{mortgagedProperties}
 {}
 
-std::string Player::getName() const {
+string Player::getName() const {
     return name;
 }
 
@@ -32,5 +32,5 @@ int Player::getAssets() const {
 void Player::movePlayer(int roll);
 void Player::moveToTims();
 void Player::declareBankruptcy();
-void Player::auctionProperty(std::shared_ptr<Ownable> ptr);
-void Player::loadFromSave(std::shared_ptr<GameState> ptr);
+void Player::auctionProperty(shared_ptr<Ownable> ptr);
+void Player::loadFromSave(shared_ptr<GameState> ptr);
