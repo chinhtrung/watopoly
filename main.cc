@@ -1,23 +1,11 @@
 #include <iostream>
 #include <string>
+#include <map>
+#include <vector>
+#include "./utility/constants.h"
+#include "./utility/seeds.h"
 
 using namespace std;
-
-// basic command (such as roll, next,...) and action (such as buy, sell)
-const string ROLL = "roll";
-const string NEXT = "next";
-const string TRADE = "trade";
-const string IMPROVE = "improve";
-const string BUY = "buy";
-const string SELL = "sell";
-const string MORTGAGE = "mortgage";
-const string UNMORTGAGE = "unmortgage";
-const string BANKRUPT = "bankrupt";
-const string ASSETS = "assets";
-const string ALL = "all";
-const string SAVE = "save";
-const string LOAD = "-load";
-const string TESTING = "-testing";
 
 // main drive
 int main (int argc, char** argv) {
