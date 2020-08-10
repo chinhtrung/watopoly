@@ -32,8 +32,8 @@ class Player {
     void movePlayer(int roll);
     void moveToTims();
     void declareBankruptcy();
-    void auctionProperty(Ownable * ptr);
-    void loadFromSave(GameState * ptr);
+    void auctionProperty(std::shared_ptr<Ownable> ptr);
+    void loadFromSave(std::shared_ptr<GameState> ptr);
 };
 
 #endif
