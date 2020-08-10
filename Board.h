@@ -23,18 +23,28 @@ class Board {
     int timsCupsRem;
 
     
+    // VERSION A STATE STRUCTURES
     /*// key: Monopoly block name (e.g. Arts1)
     // value: map of Academic buildings in the block and the corresponding
     //           owner of that building
     // Note: if building is unowned, the shared_ptr<Player> is nullptr
     map<string, map<shared_ptr<Academic>, shared_ptr<Player>>> acadState;
 
-
     map<shared_ptr<Residence>, shared_ptr<Player>> resState;
     map<shared_ptr<Gym>, shared_ptr<Player>> gymState; */
 
-    map<string, map<string, shared_ptr<Academic>>> acadState;
+
+    // VERSION B STATE STRUCTURES
+
+    // key: Monopoly block name (e.g. Arts1)
+    // value: map of Academic buildings in that block
+    // 			key: name of Academic building
+    map<string, map<string,shared_ptr<Academic>>> acadState;
+
+    // key: name of Residence
     map<string, shared_ptr<Residence>> resState;
+
+    // key: name of Gym
     map<string, shared_ptr<Gym>> gymState;
 
   public:
