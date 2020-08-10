@@ -12,14 +12,30 @@ class Player;
 class Dice;
 
 class Board {
+
+    // squares contains all squares on the board
+    // Note: this version has 40 squares so squares.size() == 40
     vector<shared_ptr<Square>> squares;
-    //vector of players: dynamic size (2 - 8)
+
+    // players.size() is at least 2, and at max 8
+    vector<shared_ptr<Player>> players;
     Dice dice;
     int timsCupsRem;
 
-    map<string, map<shared_ptr<Academic>, shared_ptr<Player>> acadState;
+    
+    /*// key: Monopoly block name (e.g. Arts1)
+    // value: map of Academic buildings in the block and the corresponding
+    //           owner of that building
+    // Note: if building is unowned, the shared_ptr<Player> is nullptr
+    map<string, map<shared_ptr<Academic>, shared_ptr<Player>>> acadState;
+
+
     map<shared_ptr<Residence>, shared_ptr<Player>> resState;
-    map<shared_ptr<Gym>, shared_ptr<Player>> gymState;
+    map<shared_ptr<Gym>, shared_ptr<Player>> gymState; */
+
+    map<string, map<string, shared_ptr<Academic>>> acadState;
+    map<string, shared_ptr<Residence>> resState;
+    map<string, shared_ptr<Gym>> gymState;
 
   public:
 
@@ -39,15 +55,15 @@ class Board {
     //     acadID's block
     // Else if not all properties owned or if acadID is unowned, 
     //     returns false
-    bool checkAcad( int acadID );
+    bool checkAcad( string acadID );
 
     // Returns the number of gyms owned by owner of gymID
     // Note: if gymID is unowned, returns 0
-    int checkGymsOwned( int gymID );
+    int checkGymsOwned( string gymID );
 
     // Returns the number of res owned by owner of resID
     // Note: if resID is unowned, returns 0
-    int checkResOwned( int resID );
+    int checkResOwned( string resID );
 
 
     // Updates the owner of prop1 to own2 and the owner of prop2

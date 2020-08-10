@@ -16,7 +16,7 @@ void Board::drawBoard() {
 
 
 string Board::getMonopoly( int acadID ){
-
+    
 }
 
 
@@ -25,17 +25,17 @@ int Board::getTimsCupsRem(){
 }
 
 
-bool Board::checkAcad( int acadID ){
+bool Board::checkAcad( string acadID ){
+    string monoBlock = 
+}
+
+
+int Board::checkGymsOwned( string gymID ){
 
 }
 
 
-int Board::checkGymsOwned( int gymID ){
-
-}
-
-
-int Board::checkResOwned( int resID ){
+int Board::checkResOwned( string resID ){
 
 }
 
