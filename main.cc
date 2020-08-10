@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include "Dice.h"
+#include "Unownable.h"
 using namespace std;
 
 

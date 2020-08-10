@@ -12,12 +12,12 @@ static const int MIN = 1;
 static const int MAX = 24;
 
 
-SLC::SLC() {
+SLC::SLC(void) {
 }
 
 
 void SLC::actionAtIndex(shared_ptr<Player> p) {
-	srand((unsigned) time(NULL));
+	srand(time(NULL));
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 		+ MIN_TIMS_ROLL;
 	// Need access to board

@@ -9,9 +9,10 @@ class MonetaryServices {
 	int needlesHall(void);
 	int collectOSAP(void);
 	int payCoop(void);
-	int payTuition(void);
+	int payTuition(std::shared_ptr<Player> p);
 	public:
-		virtual void actionAtIndex(std::shard_ptr<Player> p) override;
+		MonetaryServices(void);
+		virtual void actionAtIndex(std::shared_ptr<Player> p) override;
 };
 
 

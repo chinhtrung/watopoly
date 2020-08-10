@@ -2,6 +2,7 @@
 #include <ctime>
 #include <stdexcept>
 #include "MonetaryServices.h"
+using namespace std;
 
 
 static const int MIN_TIMS_ROLL = 1;
@@ -9,10 +10,18 @@ static const int MAX_TIMS_ROLL = 100;
 static const int SECRET_NUM = 83;
 static const int MIN = 1;
 static const int MAX = 18;
+static const int OSAP = 0;
+static const int TUITION = 4;
+static const int NEEDLES_HALL = 36;
+static const int COOP_FEE = 38;
+
+
+MonetaryServices::MonetaryServices(void) {
+}
 
 
 int MonetaryServices::needlesHall(void) {
-	srand((unsigned) time(NULL));
+	srand(time(NULL));
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 	       + MIN_TIMS_ROLL;
 	if (timsRoll == SECRET_NUM) {
@@ -40,4 +49,49 @@ int MonetaryServices::needlesHall(void) {
 }
 
 
+int MonetaryServices::collectOSAP(void) {
+	return 200;
+}
 
+
+int MonetaryServices::payCoop(void) {
+	return -150;
+}
+
+
+int MonetaryServices::payTuition(shared_ptr<Player> p) {
+	char option = '\0';
+	while (option != 'A' && option != 'B' && !cin.fail()) {
+		cout << "You have landed on the Tuition square!" << endl;
+		cout << "Enter 'A' if you wish to pay a $300 ";
+		cout << "flat tuition fee." << endl;
+		cout << "Enter 'B' if you wish to pay 10% of ";
+		cout << "your total worth." << endl;
+		cin >> option;
+		if (option == 'A') {
+			return -300;
+		} else if (option == 'B') {
+			if (p % 10 < 5) {
+				return p->getAssets() / 10 * -1;
+			} else {
+				return p->getAssets() / 10 * -1 - 1;
+			}
+		}
+	}
+}
+
+
+void MonetaryServices::actionAtIndex(shared_ptr<Player> p) {
+	int amt = 0;
+	if (p->getCurrPos() == OSAP) {
+		amt = collectOSAP();
+	} else if (p->getCurrPos() == TUITION) {
+		amt = payTuition();
+	} else if (p->getCurrPos() == NEEDLES_HALL) {
+		amt = needlesHall();
+	} else if (p->getCurrPos() == COOP_FEE) {
+		amt = payCoop();
+	}
+	p->funds += amt;
+	return;
+}
