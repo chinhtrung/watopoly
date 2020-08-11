@@ -1,7 +1,10 @@
 #ifndef OWNABLE_H
 #define OWNABLE_H
+#include "square.h"
 
-class Ownable{
+class Square;
+
+class Ownable : Square{
     int costToBuy;
     int imprLevel;
     char owner;
