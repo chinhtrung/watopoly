@@ -31,8 +31,11 @@ class Player {
     bool ownThisProp(std::string squareName); // return true if the square is owned by this player
     bool addFund(int amt); // return true if player successfully add fund
     bool payFund(int amt); // return true if player successfully pay fund
-    bool addProp(std::shared_ptr<Square>); // return true if player successfully add property (side effect: add props to improvement and set the value as 0)
-    bool removeProp(std::shared_ptr<Square>); // return true if player successfully remove property (can remove only the associate key in improvement is 0 )
+    bool addProp(std::string squareName); // return true if player successfully add property (side effect: add props to improvement and set the value as 0)
+    bool removeProp(std::string squareName); // return true if player successfully remove property (can remove only the associate key in improvement is 0 )
+    bool mortageProp(std::string squareName); // return true if player successfully mortgage property
+    bool unmortageProp(std::string squareName); // return true if player successfully unmortgage property
+    bool checkPropMortgage(std::string squareName); // return true if player has this property morgated
     char getGamePiece() const;
     std::string getName() const;
     int getCurrPos() const;
