@@ -19,6 +19,7 @@ class Player {
     int funds;
     int pos = 0;
     int timsCups = 0;
+    bool bankruptStatus = false;
     std::vector<std::string> ownedProperties;
     std::vector<std::string> mortgagedProperties;
     std::vector<std::string> monopolyBlocks; // ie: {"Sci1", "Math", "Eng"}
