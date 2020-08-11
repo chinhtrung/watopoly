@@ -6,7 +6,7 @@ class Square{
     int ID;
     std::string name;
   public:
-    Square();
+    Square(int ID, std::string name);
 
     void drawSqr();
     int getID();
