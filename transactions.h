@@ -1,6 +1,8 @@
 #ifndef TRANSACTIONS_H
 #define TRANSACTIONS_H
 #include <memory>
+#include <iostream>
+#include <vector>
 #include "player.h"
 #include "ownable.h"
 
