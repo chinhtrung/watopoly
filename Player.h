@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include <string>
 #include <map>
+#include <vector>
 #include <memory>
 #include "square.h"
 #include "ownable.h"
@@ -17,14 +18,17 @@ class Player {
     int pos;
     int funds;
     int timsCups;
-    std::map<int, std::shared_ptr<Square>> ownedProperties;
-    std::map<int, std::shared_ptr<Square>> mortgagedProperties;
+    std::vector<std::shared_ptr<Square>> ownedProperties;
+    std::vector<std::shared_ptr<Square>> mortgagedProperties;
+    std::vector<std::string> monopolyBlocks;
 
   public:
     Player(std::string name, char gamePiece, int pos, int funds, int timsCups, std::map<int, 
     std::shared_ptr<Square>> ownedProperties, std::map<int, std::shared_ptr<Square>> mortgagedProperties);
 
+    bool checkIfInMonopolyBlock(std::string squareName);
     std::string getName() const;
+    bool ownThisProp(std::string name);
     char getGamePiece() const;
     int getCurrPos() const;
     int getFunds() const;
