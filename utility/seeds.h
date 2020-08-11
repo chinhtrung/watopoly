@@ -51,12 +51,26 @@ const int IMPR_PRICE_3_INDEX = 7;
 const int IMPR_PRICE_4_INDEX = 8;
 const int IMPR_PRICE_5_INDEX = 9;
 
-void traveseAcademic() { // for testing
-    int size = ACADEMIC.size();
-    int sizeProp = 9;
+const std::vector<std::string> MKV = {"MKV", "Residences", "200", "0", "25", "50", "100", "200", "0", "0"};
+const std::vector<std::string> UWP = {"UWP", "Residences", "200", "0", "25", "50", "100", "200", "0", "0"};
+const std::vector<std::string> V1 = {"V1", "Residences", "200", "0", "25", "50", "100", "200", "0", "0"};
+const std::vector<std::string> RES = {"RES", "Residences", "200", "0", "25", "50", "100", "200", "0", "0"};
+const std::vector<std::vector<std::string>> RESIDENCES = {MKV, UWP, V1, RES};
+const int RESIDENCES_SIZE = RESIDENCES.size();
 
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < sizeProp; j++) {
+const std::vector<std::string> PAC = {"PAC", "Gyms", "150", "0", "4", "10", "0", "0", "0", "0"};
+const std::vector<std::string> CIF = {"CIF", "Gyms", "150", "0", "4", "10", "0", "0", "0", "0"};
+const std::vector<std::vector<std::string>> GYM = {PAC, CIF};
+const int GYM_SIZE = GYM.size();
+
+const std::vector<std::vector<std::string>> OWNABLE = {AL, ML, ECH, PAS, HH, RCH, DWE, CPH, LHI, BMH, OPT, EV1, EV2, EV3, PHYS, B1, B2, EIT, ESC, C2, MC, DC,
+                                                       MKV, UWP, V1, RES, PAC, CIF};
+const int OWNABLE_SIZE = OWNABLE.size();
+
+
+void traveseOwnable() { // for testing
+    for (int i = 0; i < OWNABLE_SIZE; i++) {
+        for (int j = 0; j < ATTRIBUTE_BUILDING_SIZE; j++) {
             std::cout << ACADEMIC[i][j] << " " ;
         }
         std::cout << std::endl;
