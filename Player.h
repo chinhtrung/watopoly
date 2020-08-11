@@ -19,18 +19,22 @@ class Player {
     int pos;
     int funds;
     int timsCups;
-    std::vector<std::shared_ptr<Square>> ownedProperties;
-    std::vector<std::shared_ptr<Square>> mortgagedProperties;
+    std::vector<std::string> ownedProperties;
+    std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
+    std::vector<std::string> mortgagedProperties;
     std::vector<std::string> monopolyBlocks;
 
   public:
-    Player(std::string name, char gamePiece, int pos, int funds, int timsCups, std::map<int, 
-    std::shared_ptr<Square>> ownedProperties, std::map<int, std::shared_ptr<Square>> mortgagedProperties);
+    Player(std::string name, char gamePiece, int pos, int funds, int timsCups);
 
-    bool checkIfInMonopolyBlock(std::string squareName);
-    std::string getName() const;
-    bool ownThisProp(std::string name);
+    bool checkIfInMonopolyBlock(std::string squareName); // return true the square is inside the monopoly block own by this player
+    bool ownThisProp(std::string squareName); // return true if the square is owned by this player
+    bool addFund(int amt); // return true if player successfully add fund
+    bool payFund(int amt); // return true if player successfully pay fund
+    bool addProp(std::shared_ptr<Square>); // return true if player successfully add property (side effect: add props to improvement and set the value as 0)
+    bool removeProp(std::shared_ptr<Square>); // return true if player successfully remove property (can remove only the associate key in improvement is 0 )
     char getGamePiece() const;
+    std::string getName() const;
     int getCurrPos() const;
     int getFunds() const;
     int getAssets() const;
