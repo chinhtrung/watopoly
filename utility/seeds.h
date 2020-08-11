@@ -6,7 +6,6 @@
 
 // list of global methods
 void traveseOwnable();
-
 std::string monoBlockOfProp(std::string squareName);
 int costToBuyProp(std::string squareName);
 int costToImprProp(std::string squareName);
