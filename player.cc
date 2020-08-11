@@ -7,6 +7,38 @@ Player::Player(string name, char gamePiece, int pos, int funds, int timsCups, ma
     : name{name}, gamePiece{gamePiece}, pos{pos}, funds{funds}, timsCups{timsCups}, ownedProperties{ownedProperties}, mortgagedProperties{mortgagedProperties}
 {}
 
+bool Player::checkIfInMonopolyBlock(std::string squareName) {
+    std::string blockOfSquare = "";
+
+    for (int i = 0; i < ACADEMIC_SIZE; i++) {
+        if (ACADEMIC[i][NAME_INDEX] == squareName) {
+            blockOfSquare = ACADEMIC[i][MONOBLOCK_INDEX];
+        }
+    }
+
+    int size = monopolyBlocks.size();
+
+    for (int i = 0; i < size; i++) {
+        if (monopolyBlocks[i] == blockOfSquare) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Player::ownThisProp(std::string name) {
+    int size = ownedProperties.size();
+
+    for (int i = 0; i < size; i++) {
+        if (ownedProperties[i]->getName() == name) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 string Player::getName() const {
     return name;
 }
@@ -34,3 +66,4 @@ void Player::moveToTims();
 void Player::declareBankruptcy();
 void Player::auctionProperty(shared_ptr<Ownable> ptr);
 void Player::loadFromSave(shared_ptr<GameState> ptr);
+void Player::updatePlayer();
