@@ -71,7 +71,7 @@ const int OWNABLE_SIZE = OWNABLE.size();
 void traveseOwnable() { // for testing
     for (int i = 0; i < OWNABLE_SIZE; i++) {
         for (int j = 0; j < ATTRIBUTE_BUILDING_SIZE; j++) {
-            std::cout << ACADEMIC[i][j] << " " ;
+            std::cout << OWNABLE[i][j] << " " ;
         }
         std::cout << std::endl;
     }
