@@ -7,6 +7,7 @@
 #include "square.h"
 #include "ownable.h"
 #include "gameState.h"
+#include "./utility/seeds.h"
 
 class Square;
 class Ownable;
@@ -38,6 +39,7 @@ class Player {
     void declareBankruptcy();
     void auctionProperty(std::shared_ptr<Ownable> ptr);
     void loadFromSave(std::shared_ptr<GameState> ptr);
+    void updatePlayer();
 };
 
 #endif
