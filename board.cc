@@ -10,8 +10,6 @@ const int MAX_PLAYERS = 8;
 
 Board::Board() {
     players.reserve(MAX_PLAYERS);
-    Dice d;
-    dice{d};
     timsCupsRem = MAX_TIMS_CUPS;
     unique_ptr<BoardDisplay> bd(); 
 
