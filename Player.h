@@ -16,16 +16,16 @@ class GameState;
 class Player {
     std::string name;
     char gamePiece;
-    int pos;
     int funds;
-    int timsCups;
+    int pos = 0;
+    int timsCups = 0;
     std::vector<std::string> ownedProperties;
-    std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
     std::vector<std::string> mortgagedProperties;
-    std::vector<std::string> monopolyBlocks;
+    std::vector<std::string> monopolyBlocks; // ie: {"Sci1", "Math", "Eng"}
+    std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
 
   public:
-    Player(std::string name, char gamePiece, int pos, int funds, int timsCups);
+    Player(std::string name, char gamePiece, int funds);
 
     bool checkIfInMonopolyBlock(std::string squareName); // return true the square is inside the monopoly block own by this player
     bool ownThisProp(std::string squareName); // return true if the square is owned by this player
