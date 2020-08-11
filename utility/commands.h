@@ -1,3 +1,5 @@
+#ifndef COMMANDS_H
+#define COMMANDS_H
 #include <string>
 
 // basic command (such as roll, next,...) and action (such as buy, sell)
@@ -15,3 +17,5 @@ const std::string ALL = "all";
 const std::string SAVE = "save";
 const std::string LOAD = "-load";
 const std::string TESTING = "-testing";
+
+#endif
