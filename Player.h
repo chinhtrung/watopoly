@@ -39,14 +39,16 @@ class Player {
     bool checkPropMortgage(std::string squareName); // return true if player has this property morgated
     char getGamePiece() const;
     std::string getName() const;
+    std::string getSquareAtCurrPos();
     int getCurrPos() const;
     int getFunds() const;
     int getAssets() const;
     void movePlayer(int roll);
     void moveToTims();
     void declareBankruptcy();
-    void auctionProperty(std::shared_ptr<Ownable> ptr);
-    void loadFromSave(std::shared_ptr<GameState> ptr);
+    void auctionProperty(std::string squareName);
+    static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
+    static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
 };
 
 #endif
