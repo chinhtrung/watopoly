@@ -8,3 +8,6 @@ Ownable::Ownable( int costToBuy, shared_ptr<Player> owner, int id, string name )
     : Square{id, name}, costToBuy{costToBuy}, imprLevel{0},
           owner{owner}, isMortgaged{false} {}
 
+char Ownable::getOwnerChar(){
+    return owner.getGamePiece();
+}

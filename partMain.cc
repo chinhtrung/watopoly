@@ -102,36 +102,3 @@ main reading in # of players {
 	gb.addPlayer(p);
     }
 }
-
-/////////////////////////////////////////////////////////////////////
-
-// Academic and Square ctrs
-
-Academic::Academic( string name, string monoBlock, int id, int costToBuy, 	
-	              int imprCost, int tuitImpr0, int tuitImpr1,
-		       int tuitImpr2, int tuitImpr3, int tuitImpr3,
-		        int tuitImpr4, int tuitImpr5 )
-	: Ownable{costToBuy, nullptr, id, name}, imprCost{imprCost}, monoBlock{monoBlock},
-             tuition{tuitImpr0} {
-    imprScheme.reserve(6);
-    imprScheme[0] = tuitImpr0;
-    imprScheme[1] = tuitImpr1;
-    imprScheme[2] = tuitImpr2;
-    imprScheme[3] = tuitImpr3;
-    imprScheme[4] = tuitImpr4;
-    imprScheme[5] = tuitImpr5;
-}
-
-
-Residence::Residence( string name, int id )
-	: Ownable{200, nullptr, id, name} {}
-
-Gym::Gym( string name, int id ){
-	: Ownable{150, nullptr, id, name}, diceSum{-1} {}
-
-Ownable::Ownable( int costToBuy, shared_ptr<Player> owner, int id, string name )
-    : Square{id, name}, costToBuy{costToBuy}, imprLevel{0},
-          owner{owner}, isMortgaged{false} {}
-
-Square::Square( int id, string name )
-	: id{id}, name{name} {}

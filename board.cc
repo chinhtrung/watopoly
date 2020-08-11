@@ -2,6 +2,7 @@
 #include "square.h"
 #include "player.h"
 #include "dice.h"
+#include "boardDisplay.h"
 
 const int MAX_TIMS_CUPS = 4;
 const int NUM_SQUARES = 40;
@@ -12,6 +13,7 @@ Board::Board() {
     Dice d;
     dice{d};
     timsCupsRem = MAX_TIMS_CUPS;
+    unique_ptr<BoardDisplay> bd(); 
 
     squares.reserve(NUM_SQUARES);
     // would be better to initialize square in one line
@@ -111,26 +113,44 @@ void Board::addPlayer( shared_ptr<Player> p ){
     players.emplace_back(p); //doesn't throw if main doesn't add more than 8 players
 }
 
+void Board::movePlayer( char gamepiece, int newSqr ){
+    int sqrX = squares[newSqr].getPosX();
+    int sqrY = squares[newSqr].getPosY();
+    int oldSqr = players[gamepiece].getCurrSqr();
+    squares[oldSqr].removePlayer();
+    squares[newSqr].addPlayer();
 
-void Board::drawBoard() {
+    int newX = sqrX + squares[id].getNumPlayers();
+    int newY = sqrY + 4;
 
+    bd.movePlayer(player.getPosX(), player.getPosY(), newX, newY, gamepiece);
+    player.setPos(newX, newY);
 }
 
 
-/*string Board::getMonopoly( int acadID ){
-    
-}*/
+void Board::addImpr( int building ){
+    squares[building].addImprove();
+    int sqrX = squares[building].getPosX();
+    int sqrY = squares[building].getPosY();
+    int x = sqrX + squares[building].getImprLevel() - 1;
+    int y = sqrY + 2;
+    bd.addImpr( int x, int y );
+}
+
+
+void Board::removeImpr( int building ){
+    int sqrX = squares[building].getPosX();
+    int sqrY = squares[building].getPosY();
+    int x = sqrX + squares[building].getImprLevel() - 1;
+    int y = sqrY + 2;
+    squares[building].removeImprove();
+    bd.removeImpr( int x, int y );
+}
 
 
 int Board::getTimsCupsRem(){
     return timsCupsRem;
 }
-
-
-/*bool Board::checkAcad( string acadID ){
-    string monoBlock = 
-}*/
-
 
 // requires that the gym indicated by gymID is owned
 int Board::checkGymsOwned( string gymID ){
@@ -157,14 +177,7 @@ int Board::checkResOwned( string resID ){
 }
 
 
-// the update functions are not necessary with version B
-//    acad/res/gym state structures
-/*void Board::updateByTransPforP( shared_ptr<Ownable> prop1, char own1,
-                                  shared_ptr<Ownable> prop2, char own2 ){
-
+std::ostream & operator<<( std::ostream & out, const Board & b ){
+    out << *(b.bd);
+    return out;
 }
-
-
-void Board::updateByTrans( shared_ptr<Ownable> prop, char own ){
-
-}*/

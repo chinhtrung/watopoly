@@ -8,7 +8,11 @@ int Player::getPosY(){
     return posY;
 }
 
-int Player::setPos( int x, int y ){
+void Player::setPos( int x, int y ){
     posX = x;
     posY = y;
+}
+
+int Player::getCurrSqr(){
+    return currSqr;
 }

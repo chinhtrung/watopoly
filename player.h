@@ -4,10 +4,12 @@
 class Player{
     int posX;
     int posY;
+    int currSqr;
   public:
     int getPosX();
     int getPosY();
-    int setPos( int x, int y );
+    void setPos( int x, int y );
+    int getCurrSqr();
 };
 
 #endif
