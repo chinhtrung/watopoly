@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+int indexOfSquare(std::string nameSquare);
+
 // This is a global constant to keep track of position block in game map
 // where index is the position of block (string type)
 
