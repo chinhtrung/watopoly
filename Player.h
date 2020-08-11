@@ -46,7 +46,6 @@ class Player {
     void declareBankruptcy();
     void auctionProperty(std::shared_ptr<Ownable> ptr);
     void loadFromSave(std::shared_ptr<GameState> ptr);
-    void updatePlayer();
 };
 
 #endif
