@@ -4,6 +4,7 @@
 #include <vector>
 #include "utility/commands.h"
 #include "utility/seeds.h"
+#include "utility/positionMap.h"
 
 using namespace std;
 
