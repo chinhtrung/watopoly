@@ -38,6 +38,7 @@ const std::vector<std::string> C2 = {"C2", "Sci2", "320", "200", "28", "150", "4
 const std::vector<std::string> MC = {"MC", "Math", "350", "200", "35", "175", "500", "1100", "1300", "1500"};
 const std::vector<std::string> DC = {"DC", "Math", "400", "200", "50", "200", "600", "1400", "1700", "2000"};
 const std::vector<std::vector<std::string>> ACADEMIC = {AL, ML, ECH, PAS, HH, RCH, DWE, CPH, LHI, BMH, OPT, EV1, EV2, EV3, PHYS, B1, B2, EIT, ESC, C2, MC, DC};
+const int ACADEMIC_SIZE = ACADEMIC.size();
 
 void traveseAcademic() { // for testing
     int size = ACADEMIC.size();
