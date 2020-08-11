@@ -2,6 +2,14 @@
 #include <vector>
 #include <string>
 
+void traveseOwnable();
+int costToBuyProp(std::string squareName);
+int costToImprProp(std::string squareName);
+int costToMortProp(std::string squareName);
+int costToUnmortProp(std::string squareName);
+int costToPayUnimprProp(std::string squareName);
+int costToPayImprProp(std::string squareName, int imprLevel);
+
 // vector<string> nameOfBuilding = [Name, Monopoly Block, Purchase Cost, Improvement Cost, Impr price 0, Impr price 1, Impr price 2, Impr price 3, Impr price 4, Impr price 5]
 // the according index of the vector
 // index 0 => Name
