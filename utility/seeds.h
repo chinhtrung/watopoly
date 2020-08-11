@@ -39,6 +39,17 @@ const std::vector<std::string> MC = {"MC", "Math", "350", "200", "35", "175", "5
 const std::vector<std::string> DC = {"DC", "Math", "400", "200", "50", "200", "600", "1400", "1700", "2000"};
 const std::vector<std::vector<std::string>> ACADEMIC = {AL, ML, ECH, PAS, HH, RCH, DWE, CPH, LHI, BMH, OPT, EV1, EV2, EV3, PHYS, B1, B2, EIT, ESC, C2, MC, DC};
 const int ACADEMIC_SIZE = ACADEMIC.size();
+const int ATTRIBUTE_BUILDING_SIZE = ACADEMIC_SIZE[0].size();
+const int NAME_INDEX = 0;
+const int MONOBLOCK_INDEX = 1;
+const int BUY_COST_INDEX = 2;
+const int IMPR_COST_INDEX = 3;
+const int IMPR_PRICE_0_INDEX = 4;
+const int IMPR_PRICE_1_INDEX = 5;
+const int IMPR_PRICE_2_INDEX = 6;
+const int IMPR_PRICE_3_INDEX = 7;
+const int IMPR_PRICE_4_INDEX = 8;
+const int IMPR_PRICE_5_INDEX = 9;
 
 void traveseAcademic() { // for testing
     int size = ACADEMIC.size();
