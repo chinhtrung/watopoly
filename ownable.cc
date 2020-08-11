@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Ownable::Ownable(int costToBuy, int imprLevel, char owner, bool mortgageStatus) 
-    : costToBuy{costToBuy}, imprLevel{imprLevel}, owner{owner}, mortgageStatus{mortgageStatus}
+Ownable::Ownable(int ID, std::string name, int costToBuy, int imprLevel, char owner, bool mortgageStatus) 
+    : Square(ID, name), costToBuy{costToBuy}, imprLevel{imprLevel}, owner{owner}, mortgageStatus{mortgageStatus}
 {}
     
 int Ownable::amountToPay(int buildingsOwned) {
