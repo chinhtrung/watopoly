@@ -10,6 +10,7 @@ bool isOwnableBlock(std::string squareName);
 std::string monoBlockOfProp(std::string squareName);
 int costToBuyProp(std::string squareName);
 int costToImprProp(std::string squareName);
+int costToSellImprProp(std::string squareName);
 int costToMortProp(std::string squareName);
 int costToUnmortProp(std::string squareName);
 int costToPayUnimprProp(std::string squareName);
@@ -132,6 +133,19 @@ int costToImprProp(std::string squareName) {
     for (int i = 0; i < OWNABLE_SIZE; i++) {
         if (OWNABLE[i][NAME_INDEX] == squareName) {
             result += std::stoi(OWNABLE[i][IMPR_COST_INDEX]);
+        }
+    }
+
+    return result;
+}
+
+// squareName should be valid ownable building name
+int costToSellImprProp(std::string squareName) {
+    int result = 0;
+
+    for (int i = 0; i < OWNABLE_SIZE; i++) {
+        if (OWNABLE[i][NAME_INDEX] == squareName) {
+            result = std::stoi(OWNABLE[i][IMPR_COST_INDEX])* 0.5;
         }
     }
 
