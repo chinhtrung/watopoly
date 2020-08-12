@@ -1,7 +1,7 @@
 #include "boardDisplay.h"
 #include <fstream>
 
-const int B_ROWS = 89;
+const int B_ROWS = 90;
 const int B_COLS = 56;
 
 BoardDisplay::BoardDisplay(){
