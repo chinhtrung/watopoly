@@ -80,17 +80,16 @@ void Board::updateInfo(){
        int sqrY = posYOfSquare(p.second);
        auto it = numPlayers.find(p.second);
 
+       int x = sqrX;
        if (it != numPlayers.end()){
-	   int x = sqrX + it->second;
-	   int y = sqrY + 4;
-	   bd->addPlayer(x, y, p.first);
+	   int x += it->second;
            numPlayers[p.second]++;
        } else {
            numPlayers[p.second] = 1;
-	   int x = sqrX;
-	   int y = sqrY + 4;
-	   bd->addPlayer(x, y, p.first);
        }
+
+       int y = sqrY + 4;
+       bd->addPlayer(x, y, p.first);
    }
 }
 
