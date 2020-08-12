@@ -5,17 +5,20 @@
 class Square;
 
 class Ownable : Square{
-    int costToBuy;
-    int imprLevel;
     char owner;
+    int costToBuy;
+    int imprLevel = 0;
+    int payLevel = 0; //almost the same with imprLevel except for gym and resident, this one show how many gym (or res) all own together 
     bool mortgageStatus = false;
 
   public:
-    Ownable(int ID, std::string name, int costToBuy, int imprLevel, char owner, bool mortgageStatus);
+    Ownable(int ID, std::string name, int costToBuy, char owner);
 
-    int amountToPay(int buildingsOwned);
+    virtual int amountToPay() = 0;
     void setOwner(char owner);
     void setMortgage(bool status);
+    void setImprLevel(int level);
+    void setPayLevel(int level);
     char getOwner() const;
     bool isMortgaged() const;
 };

@@ -2,14 +2,9 @@
 
 using namespace std;
 
-Ownable::Ownable(int ID, std::string name, int costToBuy, int imprLevel, char owner, bool mortgageStatus) 
-    : Square(ID, name), costToBuy{costToBuy}, imprLevel{imprLevel}, owner{owner}, mortgageStatus{mortgageStatus}
+Ownable::Ownable(int ID, std::string name, int costToBuy, char owner) 
+    : Square(ID, name), costToBuy{costToBuy}, owner{owner}
 {}
-    
-int Ownable::amountToPay(int buildingsOwned) {
-    // need implementation
-    return 0;
-}
 
 void Ownable::setOwner(char owner) {
     owner = owner;
@@ -17,6 +12,14 @@ void Ownable::setOwner(char owner) {
 
 void Ownable::setMortgage(bool status) {
     mortgageStatus = status;
+}
+
+void Ownable::setImprLevel(int level) {
+    imprLevel = level;
+}
+
+void Ownable::setPayLevel(int level) {
+    payLevel = level;
 }
 
 char Ownable::getOwner() const {
