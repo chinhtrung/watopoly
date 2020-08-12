@@ -58,7 +58,7 @@ void Board::updateInfo(){
 
        int x = sqrX;
        if (it != numPlayers.end()){
-	   int x += it->second;
+	   x += it->second;
            numPlayers[p.second]++;
        } else {
            numPlayers[p.second] = 1;

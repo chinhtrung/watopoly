@@ -2,7 +2,8 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "./utility/constants.h"
+#include "./utility/commands.h"
+#include "./utility/positionMap.h"
 #include "./utility/seeds.h"
 
 using namespace std;
@@ -16,7 +17,7 @@ int main (int argc, char** argv) {
 
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
-            Board *b = new Board(argv[2]);	    
+            //Board *b = new Board(argv[2]);	    
             cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
             cout << "read in file with the name " << argv[2] << endl;
         }
@@ -26,8 +27,8 @@ int main (int argc, char** argv) {
             cout << "read in file with the name " << argv[2] << endl;
         }
     } else {
-	Board b;
-	Dice d;
+	//Board b;
+	//Dice d;
         cout << "fail to call load or testing mode, initial a new game" << endl;
     }
 
@@ -39,7 +40,7 @@ int main (int argc, char** argv) {
 
         // load command
         if ( command == ROLL ) {
-	    d.rollDice();
+/*	    d.rollDice();
 	    int numDoubles = 0;
 	    if (d.isDoubles() && numDoubles < 3){
 		numDoubles++;
@@ -50,17 +51,17 @@ int main (int argc, char** argv) {
 		// send Player to DC Tims Line
 	    } else {
 	        int dieSum = d.dieSum();
-		int currSqr = player.getCurrSqr();
+	//	int currSqr = player.getCurrSqr();
 		if (currSqr + dieSum > 40){
 		    cout << "Collecting OSAP." << endl;
 		    //pass Go, give money
 		} 
 
 		int newSqr = (currSqr + dieSum) % 40;
-		b.movePlayer( player.getGamepiece(), newSqr );
+	//	b.movePlayer( player.getGamepiece(), newSqr );
 	    }
 	    continue;
-
+*/
         } else if ( command == NEXT ) {
             
             // replace this code

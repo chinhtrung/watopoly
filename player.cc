@@ -16,3 +16,7 @@ void Player::setPos( int x, int y ){
 int Player::getCurrSqr(){
     return currSqr;
 }
+
+char Player::getGamePiece(){
+    return gamepiece;
+}

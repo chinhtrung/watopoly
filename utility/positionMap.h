@@ -2,6 +2,7 @@
 #define POSITIONMAP_H
 #include <string>
 #include <vector>
+#include <map>
 
 const std::map<int, std::vector<int>> MAP_COORD = {
     {0, {50,82}}, {1, {0,0}}, {2, {0,0}}, {3, {0,0}}, {4, {0,0}},
@@ -46,27 +47,31 @@ int indexOfSquare(std::string nameSquare) {
 
 int posXOfSquare(std::string nameSquare){
     int index = indexOfSquare(nameSquare);
-    return MAP_COORD[index][0];
+    return MAP_COORD.at(index)[0];
+    //return MAP_COORD[index][0];
     /*std::vector<int> tmp = MAP_COORD[index];
     return tmp[0];*/
 }
 
 int posYOfSquare(std::string nameSquare){
     int index = indexOfSquare(nameSquare);
-    return MAP_COORD[index][1];
+    return MAP_COORD.at(index)[1];
+    //return MAP_COORD[index][1];
     /*std::vector<int> tmp = MAP_COORD[index];
     return tmp[1];*/
 }
 
 int posXOfSquare(int indexOfSquare){
+    return MAP_COORD.at(indexOfSquare)[0];
     //std::vector<int> tmp = MAP_COORD[indexOfSquare];
-    return MAP_COORD[indexOfSquare][0];
+    //return MAP_COORD[indexOfSquare][0];
     //return tmp[0];
 }
 
 int posYOfSquare(int indexOfSquare){
+    return MAP_COORD.at(indexOfSquare)[1];
     //std::vector<int> tmp = MAP_COORD[indexOfSquare];
-    return MAP_COORD[indexOfSquare][1];
+    //return MAP_COORD[indexOfSquare][1];
     //return tmp[1];
 }
 

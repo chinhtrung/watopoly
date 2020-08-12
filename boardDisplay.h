@@ -1,6 +1,7 @@
 #ifndef _BOARD_DISPLAY_
 #define _BOARD_DISPLAY_
 #include <vector>
+#include <iostream>
 
 class BoardDisplay{
     std::vector<std::vector<char>> display;

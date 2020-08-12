@@ -43,8 +43,8 @@ void BoardDisplay::addImpr( int x, int y ){
 void BoardDisplay::draw(){
     for (size_t i = 0; i < B_HEIGHT; i++){
         for (size_t j = 0; j < B_WIDTH; j++){
-	    std::cout << td.display[i][j];
+	    std::cout << display[i][j];
         }
-        cout << std::endl;
+	std::cout << std::endl;
     }
 }
