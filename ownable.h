@@ -23,6 +23,7 @@ class Ownable : Square{
     bool getMortStatus() const;
     int getImprLevel() const;
     int getPayLevel() const;
+    int getCostToBuy() const;
 };
 
 #endif

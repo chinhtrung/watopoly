@@ -37,3 +37,7 @@ int Ownable::getImprLevel() const {
 int Ownable::getPayLevel() const {
     return payLevel;
 }
+
+int Ownable::getCostToBuy() const {
+    return costToBuy;
+}
