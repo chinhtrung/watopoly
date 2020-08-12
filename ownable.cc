@@ -29,3 +29,11 @@ char Ownable::getOwner() const {
 bool Ownable::isMortgaged() const {
     return mortgageStatus;
 }
+
+int Ownable::getImprLevel() const {
+    return imprLevel;
+}
+
+int Ownable::getPayLevel() const {
+    return payLevel;
+}

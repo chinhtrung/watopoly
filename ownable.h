@@ -21,6 +21,8 @@ class Ownable : Square{
     void setPayLevel(int level);
     char getOwner() const;
     bool isMortgaged() const;
+    int getImprLevel() const;
+    int getPayLevel() const;
 };
 
 #endif
