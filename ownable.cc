@@ -10,7 +10,7 @@ void Ownable::setOwner(char owner) {
     owner = owner;
 }
 
-void Ownable::setMortgage(bool status) {
+void Ownable::setMortStatus(bool status) {
     mortgageStatus = status;
 }
 
@@ -26,7 +26,7 @@ char Ownable::getOwner() const {
     return owner;
 }
 
-bool Ownable::isMortgaged() const {
+bool Ownable::getMortStatus() const {
     return mortgageStatus;
 }
 

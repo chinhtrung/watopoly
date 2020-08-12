@@ -16,11 +16,11 @@ class Ownable : Square{
 
     virtual int amountToPay() = 0;
     void setOwner(char owner);
-    void setMortgage(bool status);
+    void setMortStatus(bool status);
     void setImprLevel(int level);
     void setPayLevel(int level);
     char getOwner() const;
-    bool isMortgaged() const;
+    bool getMortStatus() const;
     int getImprLevel() const;
     int getPayLevel() const;
 };
