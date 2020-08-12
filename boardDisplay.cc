@@ -1,11 +1,11 @@
 #include "boardDisplay.h"
 #include <fstream>
 
-const int B_HEIGHT = 89;
-const int B_WIDTH = 56;
+const int B_ROWS = 89;
+const int B_COLS = 56;
 
 BoardDisplay::BoardDisplay(){
-    display.resize(B_HEIGHT, std::vector<char>(B_WIDTH, ' '));
+    display.resize(B_ROWS, std::vector<char>(B_COLS, ' '));
     std::ifstream disFile{ "display.txt" };
     char c;
 
@@ -41,8 +41,8 @@ void BoardDisplay::addImpr( int x, int y ){
 }
 
 void BoardDisplay::draw(){
-    for (size_t i = 0; i < B_HEIGHT; i++){
-        for (size_t j = 0; j < B_WIDTH; j++){
+    for (size_t i = 0; i < B_ROWS; i++){
+        for (size_t j = 0; j < B_COLS; j++){
 	    std::cout << display[i][j];
         }
 	std::cout << std::endl;
