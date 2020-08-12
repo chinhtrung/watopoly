@@ -3,9 +3,11 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <vector>
 using std::shared_ptr;
 using std::string;
 using std::map;
+using std::vector;
 
 class Square;
 class Player;

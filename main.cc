@@ -2,8 +2,13 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "./utility/constants.h"
-#include "./utility/seeds.h"
+// #include "./utility/constants.h"
+// #include "./utility/seeds.h"
+#include "board.h"
+#include "dice.h"
+
+class Board;
+class Dice;
 
 using namespace std;
 
@@ -16,6 +21,9 @@ int main (int argc, char** argv) {
 
     string command, name, give, receive, property, action, filename;
 
+
+
+    /*
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
             cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
@@ -135,6 +143,7 @@ int main (int argc, char** argv) {
         }
 
     }
+    */
 
 }
 
