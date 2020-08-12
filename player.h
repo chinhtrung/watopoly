@@ -22,7 +22,6 @@ class Player {
     int timsCups = 0;
     bool bankruptStatus = false;
     std::vector<std::shared_ptr<Ownable>> ownedProperties;
-    std::vector<std::string> mortgagedProperties;
     std::vector<std::string> monopolyBlocks; // ie: {"Sci1", "Math", "Eng"}
     std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
 
@@ -33,11 +32,10 @@ class Player {
     bool ownThisProp(std::string squareName); // return true if the square is owned by this player
     bool addFund(int amt); // return true if player successfully add fund
     bool payFund(int amt); // return true if player successfully pay fund
-    bool addProp(std::string squareName); // return true if player successfully add property (side effect: add props to improvement and set the value as 0)
-    bool removeProp(std::string squareName); // return true if player successfully remove property (can remove only the associate key in improvement is 0 )
-    bool mortageProp(std::string squareName); // return true if player successfully mortgage property
-    bool unmortageProp(std::string squareName); // return true if player successfully unmortgage property
-    bool checkPropMortgage(std::string squareName); // return true if player has this property morgated
+    bool addProp(std::shared_ptr<Ownable> prop); // return true if player successfully add property (side effect: add props to improvement and set the value as 0)
+    bool removeProp(std::shared_ptr<Ownable> prop); // return true if player successfully remove property (can remove only the associate key in improvement is 0 )
+    bool mortageProp(std::shared_ptr<Ownable> prop); // return true if player successfully mortgage property
+    bool unmortageProp(std::shared_ptr<Ownable> prop); // return true if player successfully unmortgage property
     char getGamePiece() const;
     std::string getName() const;
     std::string getSquareAtCurrPos();

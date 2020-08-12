@@ -54,35 +54,28 @@ bool Player::payFund(int amt) {
     return true;
 }
 
-bool Player::addProp(std::string squareName) {
+bool Player::addProp(std::shared_ptr<Ownable> prop) {
     // check if property is already owned
-    if (this->ownThisProp(squareName)) {
+    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
+    if (this->ownThisProp(tmpSquare->getName())) {
         std::cout << "(testing) this props is owned" << std::endl;
         return false;
     }
 
-    int newAddID = indexOfSquare(squareName); // the id is a unique position of property on map
-    int newAddCostToBuy = costToBuyProp(squareName);
-
-    //constuctor of Ownable(int ID, std::string name, int costToBuy, char owner);
-    auto newAddOwnable = std::make_shared<Ownable>(newAddID, squareName, newAddCostToBuy, this->getGamePiece());
-
-    ownedProperties.push_back(newAddOwnable);
+    ownedProperties.push_back(prop);
     return true;
 }
 
-bool Player::removeProp(std::string squareName) {
+bool Player::removeProp(std::shared_ptr<Ownable> prop) {
     // check if property is owned
-    if (!this->ownThisProp(squareName)) {
+    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
+    if (!this->ownThisProp(tmpSquare->getName())) {
         std::cout << "(testing) this props is not owned" << std::endl;
         return false;
     }
 
     for (int i = 0; i < ownedProperties.size(); i++) {
-        // perform upcasting from Ownable to Square
-        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
-
-        if (squareName == tmpSquare->getName()) {
+        if (prop == ownedProperties[i]) {
             ownedProperties.erase(ownedProperties.begin() + i);
             break;
         }
@@ -92,23 +85,15 @@ bool Player::removeProp(std::string squareName) {
 
 }
 
-bool Player::mortageProp(std::string squareName) {
-    // check if property is already in morgaged list
-    if (this->checkPropMortgage(squareName)) {
-        std::cout << "(testing) this props is morgaged" << std::endl;
-        return false;
-    }
-
+bool Player::mortageProp(std::shared_ptr<Ownable> prop) {
     // mortgage the prop and add fund accordingly
-    int fundFromMortgage = costToMortProp(squareName);
+    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
+    int fundFromMortgage = costToMortProp(tmpSquare->getName());
     funds += fundFromMortgage;
 
     int sizeOwnProp = ownedProperties.size();
     for (int i = 0; i < sizeOwnProp; i++) {
-        // perform upcasting from Ownable to Square
-        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
-
-        if (squareName == tmpSquare->getName()) {
+        if (prop == ownedProperties[i]) {
             ownedProperties[i]->setMortStatus(true);
             break;
         }
@@ -117,15 +102,10 @@ bool Player::mortageProp(std::string squareName) {
     return true;
 }
 
-bool Player::unmortageProp(std::string squareName) {
-    // check if property is in morgaged list
-    if (!this->checkPropMortgage(squareName)) {
-        std::cout << "(testing) this props is not in morgaged list" << std::endl;
-        return false;
-    }
-
+bool Player::unmortageProp(std::shared_ptr<Ownable> prop) {
     // pay the fund and unmortgage props
-    int fundToPay = costToUnmortProp(squareName);
+    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
+    int fundToPay = costToUnmortProp(tmpSquare->getName());
     
     if (fundToPay > funds) {
         std::cout << "(testing) you don't have enough money to unmortgage" << std::endl;
@@ -136,30 +116,13 @@ bool Player::unmortageProp(std::string squareName) {
 
     int sizeOwnProp = ownedProperties.size();
     for (int i = 0; i < sizeOwnProp; i++) {
-        // perform upcasting from Ownable to Square
-        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
-
-        if (squareName == tmpSquare->getName()) {
+        if (prop == ownedProperties[i]) {
             ownedProperties[i]->setMortStatus(false);
             break;
         }
     }
 
     return true;
-
-}
-
-bool Player::checkPropMortgage(std::string squareName) {
-    int sizeOwnProp = ownedProperties.size();
-
-    for (int i = 0; i < sizeOwnProp; i++) {
-        // perform upcasting from Ownable to Square
-        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
-
-        if (tmpSquare->getName() == squareName) return true;
-    }
-
-    return false;
 }
 
 char Player::getGamePiece() const {
@@ -184,18 +147,22 @@ int Player::getFunds() const {
 
 int Player::getAssets() const {
     int result = funds;
-    // we still need to know if mortgaged property count as assets
-    // this code is just for now
     
     int sizeOwnProp = ownedProperties.size();
     for (int i = 0; i < sizeOwnProp; i++) {
-        result += ownedProperties[i]->getCostToBuy();
+        // perform upcasting from Ownable to Square
+        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
+
+        result += costToMortProp(tmpSquare->getName());
     }
 
     // minus the mortgaged properties prize
     for (int i = 0; i < sizeOwnProp; i++) {
+        // perform upcasting from Ownable to Square
+        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
+
         if (ownedProperties[i]->getMortStatus() == true) {}
-            result -= ownedProperties[i]->getCostToBuy();
+            result -= costToMortProp(tmpSquare->getName());
     }
 
     return result;
@@ -204,7 +171,7 @@ int Player::getAssets() const {
 void Player::actionAtCurrPos() {
     std::string currSquare = this->getSquareAtCurrPos();
     if (isOwnableBlock(currSquare)) {
-        // pay fee
+        // pay fee, call the transaction class here
     } else {
         // take other actions
     }
