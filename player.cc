@@ -82,7 +82,6 @@ bool Player::removeProp(std::shared_ptr<Ownable> prop) {
     }
 
     return true;
-
 }
 
 bool Player::mortageProp(std::shared_ptr<Ownable> prop) {
