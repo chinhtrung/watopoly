@@ -12,8 +12,8 @@ using std::string;
 using std::map;
 using std::vector;
 
-class Square;
-class Player;
+//class Square;
+//class Player;
 class BoardDisplay;
 
 class Board {
@@ -43,10 +43,7 @@ class Board {
     void movePlayer( char gamepiece, int newSqr );
 
     // udpates display with added improvement
-    void addImpr( string building );
-
-    // udpates display, removing improvement
-    void removeImpr( string building );
+    void addImpr( string building ); 
 
     // Returns the number of available Tims Cups (Max = 4)
     int getTimsCupsRem();

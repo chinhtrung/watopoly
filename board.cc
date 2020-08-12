@@ -80,43 +80,13 @@ void Board::addPlayer( char player ){
 }
 
 void Board::movePlayer( char gamepiece, int newSqr ){
-    playerPos[gamepiece] = newSqr;
-    /*int sqrX = squares[newSqr].getPosX();
-    int sqrY = squares[newSqr].getPosY();
-    int oldSqr = players[gamepiece].getCurrSqr();
-    squares[oldSqr].removePlayer();
-    squares[newSqr].addPlayer();
-
-    int newX = sqrX + squares[id].getNumPlayers();
-    int newY = sqrY + 4;
-
-    bd.movePlayer(player.getPosX(), player.getPosY(), newX, newY, gamepiece);
-    player.setPos(newX, newY);*/
+    playerPos[gamepiece] = newSqr; 
 }
 
 
 void Board::addImpr( string building ){
-    sqrImproves[building]++;
-
-    /*squares[building].addImprove();
-    int sqrX = squares[building].getPosX();
-    int sqrY = squares[building].getPosY();
-    int x = sqrX + squares[building].getImprLevel() - 1;
-    int y = sqrY + 2;
-    bd.addImpr( int x, int y );*/
+    sqrImproves[building]++; 
 }
-
-
-void Board::removeImpr( string building ){
-    sqrImproves[building]--;
-    /*int sqrX = squares[building].getPosX();
-    int sqrY = squares[building].getPosY();
-    int x = sqrX + squares[building].getImprLevel() - 1;
-    int y = sqrY + 2;
-    squares[building].removeImprove();
-    bd.removeImpr( int x, int y );*/
-}
-
 
 int Board::getTimsCupsRem(){
     return timsCupsRem;

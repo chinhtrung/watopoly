@@ -2,33 +2,33 @@
 #include <fstream>
 
 const int B_HEIGHT = 89;
-const int B_WIDTH = 55;
+const int B_WIDTH = 56;
 
 BoardDisplay::BoardDisplay(){
     display.resize(B_HEIGHT, std::vector<char>(B_WIDTH, ' '));
     std::ifstream disFile{ "display.txt" };
     char c;
 
-    while (disFile.get(c)){
-        for (int i = 0; i < B_HEIGHT; i++){
-            for (int j = 0; j < B_WIDTH; j++){
-                display[i][j] = c;
-            }
+    for (int i = 0; i <= B_ROWS; i++){
+        for (int j = 0; j < B_COLS; j++){
+            disFile.get(c); 
+            display[i][j] = c; 
         }
-    }
+    }   
+    std::cout << std::endl; 
 }
 
 void BoardDisplay::reset(){
     std::ifstream disFile{ "display.txt" };
     char c;
 
-    while (disFile.get(c)){
-        for (int i = 0; i < B_HEIGHT; i++){
-            for (int j = 0; j < B_WIDTH; j++){
-                display[i][j] = c;
-            }
+    for (int i = 0; i <= B_ROWS; i++){
+        for (int j = 0; j < B_COLS; j++){
+            disFile.get(c);
+            display[i][j] = c;
         }
     }
+    std::cout << std::endl;
 }
 
 void BoardDisplay::addPlayer( int x, int y, char player ){
