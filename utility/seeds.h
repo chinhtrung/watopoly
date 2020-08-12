@@ -6,6 +6,7 @@
 
 // list of global methods
 void traveseOwnable();
+bool isOwnableBlock(std::string squareName);
 std::string monoBlockOfProp(std::string squareName);
 int costToBuyProp(std::string squareName);
 int costToImprProp(std::string squareName);
@@ -86,6 +87,16 @@ void traveseOwnable() { // for testing
         }
         std::cout << std::endl;
     }
+}
+
+bool isOwnableBlock(std::string squareName) {
+    for (int i = 0; i < OWNABLE_SIZE; i++) {
+        if (OWNABLE[i][NAME_INDEX] == squareName) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // squareName should be valid ownable building name
