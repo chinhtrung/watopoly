@@ -4,6 +4,9 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <algorithm>
+#include "utility/seeds.h"
+#include "utility/positionMap.h"
 using std::shared_ptr;
 using std::string;
 using std::map;
@@ -17,8 +20,8 @@ class Board {
     // i.e. "MC": 1, "DC": 0, "AL": -1
     map<string, int> sqrImproves; 
 
-    // i.e. "olayer a": 34, "player b" 2
-    map<string, int> playerPos;
+    // i.e. "A": 34, "G": 2
+    map<char, int> playerPos;
     //vector<shared_ptr<Square>> squares;
     //vector<shared_ptr<Player>> players;
     int timsCupsRem;
@@ -31,25 +34,22 @@ class Board {
     Board();
 
     void drawBoard();
-    // main calls this to add a player to Board's players vector
-    void addPlayer( shared_ptr<Player> );
+
+    // main calls this to add a player to Board's playerPos vector
+    void addPlayer( char player );
 
     // updates display with player's new position and modifies
     //    player's posX, posY fields acccordingly
     void movePlayer( char gamepiece, int newSqr );
 
     // udpates display with added improvement
-    void addImpr( int building );
+    void addImpr( string building );
 
     // udpates display, removing improvement
-    void removeImpr( int building );
+    void removeImpr( string building );
 
     // Returns the number of available Tims Cups (Max = 4)
     int getTimsCupsRem();
-
-    friend std::ostream & operator<<( std::ostream & out, const Board & b );
 };
-
-std::ostream & operator<<( std::ostream & out, const Board & b );
 
 #endif

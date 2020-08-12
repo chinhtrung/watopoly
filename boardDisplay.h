@@ -7,14 +7,10 @@ class BoardDisplay{
 
   public:
     BoardDisplay();
-    void movePlayer( int oldX, int oldY, int newX, int newY, char player);
+    void addPlayer( int x, int y, char player);
     void addImpr( int x, int y );
-    void removeImpr( int x, int y );
-
-    friend std::ostream &operator<<(std::ostream &out, const BoardDisplay &td);
+    void reset();
+    void draw();
 };
-
-// Outputs the display
-std::ostream &operator<<(std::ostream &out, const BoardDisplay &td);
 
 #endif

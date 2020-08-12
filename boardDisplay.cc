@@ -18,11 +18,21 @@ BoardDisplay::BoardDisplay(){
     }
 }
 
+void BoardDisplay::reset(){
+    std::ifstream disFile{ "display.txt" };
+    char c;
 
-void BoardDisplay::movePlayer
-       ( int oldX, int oldY, int newX, int newY, char player ){
-    display[oldX][oldY] = ' ';
-    display[newX][newY] = player;
+    while (disFile.get(c)){
+        for (int i = 0; i < B_HEIGHT; i++){
+            for (int j = 0; j < B_WIDTH; j++){
+                display[i][j] = c;
+            }
+        }
+    }
+}
+
+void BoardDisplay::addPlayer( int x, int y, char player ){
+    display[x][y] = player;
 }
 
 
@@ -30,18 +40,11 @@ void BoardDisplay::addImpr( int x, int y ){
     display[x][y] = 'I';
 }
 
-
-void BoardDisplay::removeImpr( int x, int y ){
-    display[x][y] = ' ';
-}
-
-
-std::ostream &operator<<(std::ostream &out, const BoardDisplay &bd) {
+void BoardDisplay::draw(){
     for (size_t i = 0; i < B_HEIGHT; i++){
         for (size_t j = 0; j < B_WIDTH; j++){
-            out << td.display[i][j];
+	    std::cout << td.display[i][j];
         }
-        out << std::endl;
+        cout << std::endl;
     }
-    return out;
 }
