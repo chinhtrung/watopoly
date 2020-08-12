@@ -9,8 +9,6 @@ using namespace std;
 
 // main drive
 int main (int argc, char** argv) {
-    Board b;
-    Dice d;
 
     cout << "WATOPOLY PROJECT" << endl;
 
@@ -18,6 +16,7 @@ int main (int argc, char** argv) {
 
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
+            Board *b = new Board(argv[2]);	    
             cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
             cout << "read in file with the name " << argv[2] << endl;
         }
@@ -27,6 +26,8 @@ int main (int argc, char** argv) {
             cout << "read in file with the name " << argv[2] << endl;
         }
     } else {
+	Board b;
+	Dice d;
         cout << "fail to call load or testing mode, initial a new game" << endl;
     }
 
@@ -58,7 +59,7 @@ int main (int argc, char** argv) {
 		int newSqr = (currSqr + dieSum) % 40;
 		b.movePlayer( player.getGamepiece(), newSqr );
 	    }
-	    continue; //save info of whose turn it is
+	    continue;
 
         } else if ( command == NEXT ) {
             

@@ -1,31 +1,36 @@
 #ifndef _BOARD_H
 #define _BOARD_H
 #include <map>
+#include <vector>
 #include <string>
 #include <memory>
 using std::shared_ptr;
 using std::string;
 using std::map;
+using std::vector;
 
 class Square;
 class Player;
 class BoardDisplay;
 
 class Board {
-    vector<shared_ptr<Square>> squares;
-    vector<shared_ptr<Player>> players;
+    // i.e. "MC": 1, "DC": 0, "AL": -1
+    map<string, int> sqrImproves; 
+
+    // i.e. "olayer a": 34, "player b" 2
+    map<string, int> playerPos;
+    //vector<shared_ptr<Square>> squares;
+    //vector<shared_ptr<Player>> players;
     int timsCupsRem;
     std::unique_ptr<BoardDisplay> bd = nullptr;
 
-    // key: name of Residence
-    map<string, shared_ptr<Residence>> resState;
-
-    // key: name of Gym
-    map<string, shared_ptr<Gym>> gymState;
+    // called in drawBoard to update BoardDisplay
+    void updateInfo();
 
   public:
     Board();
 
+    void drawBoard();
     // main calls this to add a player to Board's players vector
     void addPlayer( shared_ptr<Player> );
 
@@ -41,14 +46,6 @@ class Board {
 
     // Returns the number of available Tims Cups (Max = 4)
     int getTimsCupsRem();
-
-    // Returns the number of gyms owned by owner of gymID
-    // Note: if gymID is unowned, returns 0
-    int checkGymsOwned( string gymID );
-
-    // Returns the number of res owned by owner of resID
-    // Note: if resID is unowned, returns 0
-    int checkResOwned( string resID );
 
     friend std::ostream & operator<<( std::ostream & out, const Board & b );
 };

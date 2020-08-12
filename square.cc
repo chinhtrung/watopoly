@@ -14,7 +14,7 @@ void Square::addPlayer(){
 }
 
 void Square::removePlayer(){
-    numPlayer--;
+    numPlayers--;
 }
 
 int Square::getPosX(){

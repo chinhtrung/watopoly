@@ -39,7 +39,7 @@ void BoardDisplay::removeImpr( int x, int y ){
 std::ostream &operator<<(std::ostream &out, const BoardDisplay &bd) {
     for (size_t i = 0; i < B_HEIGHT; i++){
         for (size_t j = 0; j < B_WIDTH; j++){
-            out << td.theDisplay[i][j];
+            out << td.display[i][j];
         }
         out << std::endl;
     }

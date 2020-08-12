@@ -76,10 +76,6 @@ bool Player::checkAcad(string monoBlock){
 // value: map (key: Academic building name, value: bool isOwned by that player)
 player attribute: map<string, map<string, bool isOwnedByMe>> acadState
 
-char Square::getOwnerChar(){
-    return owner.getGamePiece();
-}
-
 //////////////////////////////////////////////////////////////////////
 
 main reading in # of players {
