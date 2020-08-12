@@ -161,13 +161,47 @@ int Player::getAssets() const {
         result += costToBuyProp(ownedProperties[i]);
     }
 
+    int sizeMortProp = mortgagedProperties.size();
+    for (int i = 0; i < sizeMortProp; i++) {
+        result -= costToMortProp(mortgagedProperties[i]);
+    }
+
     return result;
 }
 
-void Player::actionAtCurrPos();
-void Player::movePlayer(int roll);
-void Player::moveToDCTims();
-void Player::declareBankruptcy();
-void Player::auctionProperty(shared_ptr<Ownable> ptr);
-void Player::loadFromSave(shared_ptr<GameState> ptr);
-void Player::updatePlayer();
+void Player::actionAtCurrPos() {
+    std::string currSquare = this->getSquareAtCurrPos();
+    if (isOwnableBlock(currSquare)) {
+        // pay fee
+    } else {
+        // take other actions
+    }
+}
+
+void Player::movePlayer(int roll) {
+    pos += roll;
+    if (pos > (MAP_GAME_SIZE - 1)) {
+        pos -= MAP_GAME_SIZE;
+    }
+}
+
+void Player::moveToDCTims() {
+    pos = 10; // position for DC Tims Line (hard coded)
+    // action on DC Tims Line (need to change later)
+}
+
+void Player::declareBankruptcy() {
+    // check if qualify to declare bankruptcy
+}
+
+void Player::auctionProperty(std::string squareName) {
+    // call the auction class
+}
+
+bool Player::loadFromSave(std::string saveFile) {
+    return false;
+}
+
+bool saveGame(std::string saveFile) {
+    return false;
+}
