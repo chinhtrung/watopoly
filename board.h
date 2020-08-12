@@ -11,11 +11,13 @@ using std::vector;
 
 class Square;
 class Player;
+class Dice;
 class BoardDisplay;
 
 class Board {
     vector<shared_ptr<Square>> squares;
     vector<shared_ptr<Player>> players;
+    Dice dice;
     int timsCupsRem;
     std::unique_ptr<BoardDisplay> bd = nullptr;
 
