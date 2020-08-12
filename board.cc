@@ -34,30 +34,6 @@ Board::Board() {
 	{"DC", 0}
     };
 
-    /*sqrImproves["AL"] = 0;
-    sqrImproves["ML"] = 0;  
-    sqrImproves["ECH"] = 0;
-    sqrImproves["PAS"] = 0;
-    sqrImproves["HH"] = 0;
-    sqrImproves["RCH"] = 0;
-    sqrImrpoves["DWE"] = 0;
-    sqrImproves["CPH"] = 0;
-    sqrImproves["LHI"] = 0;
-    sqrImproves["BMH"] = 0;
-    sqrImproves["OPT"] = 0;
-    sqrImproves["EV1"] = 0;
-    sqrImproves["EV2"] = 0;
-    sqrImproves["EV3"] = 0;
-    sqrImproves["PHYS"] = 0;
-    sqrImproves["B1"] = 0;
-    sqrImproves["B2"] = 0;
-    sqrImproves["EIT"] = 0;
-    sqrImproves["ESC"] = 0;
-    sqrImproves["C2"] = 0;
-    sqrImproves["MC"] = 0;
-    sqrImproves["DC"] = 0;*/
-
-
     timsCupsRem = MAX_TIMS_CUPS;
     bd = std::make_unique<BoardDisplay> ();
 }
