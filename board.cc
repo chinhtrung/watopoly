@@ -40,11 +40,13 @@ Board::Board() {
 
 void Board::updateInfo(){
    for (auto &p: sqrImproves){
-       int sqrX = posXOfSquare(p.first);
-       int sqrY = posYOfSquare(p.first);
-       int x = sqrX + p.second - 1;
-       int y = sqrY + 2;
-       bd->addImpr( x, y );	       
+       if (p.second > 0){
+           int sqrX = posXOfSquare(p.first);
+           int sqrY = posYOfSquare(p.first);
+           int x = sqrX + p.second - 1;
+           int y = sqrY + 2;
+           bd->addImpr( x, y );
+       }	   
    } 
 
    // keeps track of number of players at each square,
