@@ -23,7 +23,10 @@ bool Player::ownThisProp(std::string name) {
     int size = ownedProperties.size();
 
     for (int i = 0; i < size; i++) {
-        if (ownedProperties[i] == name) {
+        // perform upcasting from Ownable to Square
+        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
+
+        if (tmpSquare->getName() == name) {
             return true;
         }
     }
@@ -58,7 +61,13 @@ bool Player::addProp(std::string squareName) {
         return false;
     }
 
-    ownedProperties.push_back(squareName);
+    int newAddID = indexOfSquare(squareName); // the id is a unique position of property on map
+    int newAddCostToBuy = costToBuyProp(squareName);
+
+    //constuctor of Ownable(int ID, std::string name, int costToBuy, char owner);
+    auto newAddOwnable = std::make_shared<Ownable>(newAddID, squareName, newAddCostToBuy, this->getGamePiece());
+
+    ownedProperties.push_back(newAddOwnable);
     return true;
 }
 
@@ -70,7 +79,10 @@ bool Player::removeProp(std::string squareName) {
     }
 
     for (int i = 0; i < ownedProperties.size(); i++) {
-        if (squareName == ownedProperties[i]) {
+        // perform upcasting from Ownable to Square
+        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
+
+        if (squareName == tmpSquare->getName()) {
             ownedProperties.erase(ownedProperties.begin() + i);
             break;
         }
@@ -90,7 +102,17 @@ bool Player::mortageProp(std::string squareName) {
     // mortgage the prop and add fund accordingly
     int fundFromMortgage = costToMortProp(squareName);
     funds += fundFromMortgage;
-    mortgagedProperties.push_back(squareName);
+
+    int sizeOwnProp = ownedProperties.size();
+    for (int i = 0; i < sizeOwnProp; i++) {
+        // perform upcasting from Ownable to Square
+        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
+
+        if (squareName == tmpSquare->getName()) {
+            ownedProperties[i]->setMortStatus(true);
+            break;
+        }
+    }
 
     return true;
 }
@@ -111,9 +133,15 @@ bool Player::unmortageProp(std::string squareName) {
     }
 
     funds -= fundToPay;
-    for (int i = 0; i < mortgagedProperties.size(); i++) {
-        if (mortgagedProperties[i] == squareName) {
-            mortgagedProperties.erase(mortgagedProperties.begin() + i);
+
+    int sizeOwnProp = ownedProperties.size();
+    for (int i = 0; i < sizeOwnProp; i++) {
+        // perform upcasting from Ownable to Square
+        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
+
+        if (squareName == tmpSquare->getName()) {
+            ownedProperties[i]->setMortStatus(false);
+            break;
         }
     }
 
@@ -122,10 +150,13 @@ bool Player::unmortageProp(std::string squareName) {
 }
 
 bool Player::checkPropMortgage(std::string squareName) {
-    int sizeMortList = mortgagedProperties.size();
-    
-    for (int i = 0; i < sizeMortList; i++) {
-        if (mortgagedProperties[i] == squareName) return true;
+    int sizeOwnProp = ownedProperties.size();
+
+    for (int i = 0; i < sizeOwnProp; i++) {
+        // perform upcasting from Ownable to Square
+        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
+
+        if (tmpSquare->getName() == squareName) return true;
     }
 
     return false;
@@ -158,12 +189,13 @@ int Player::getAssets() const {
     
     int sizeOwnProp = ownedProperties.size();
     for (int i = 0; i < sizeOwnProp; i++) {
-        result += costToBuyProp(ownedProperties[i]);
+        result += ownedProperties[i]->getCostToBuy();
     }
 
-    int sizeMortProp = mortgagedProperties.size();
-    for (int i = 0; i < sizeMortProp; i++) {
-        result -= costToMortProp(mortgagedProperties[i]);
+    // minus the mortgaged properties prize
+    for (int i = 0; i < sizeOwnProp; i++) {
+        if (ownedProperties[i]->getMortStatus() == true) {}
+            result -= ownedProperties[i]->getCostToBuy();
     }
 
     return result;
