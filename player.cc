@@ -82,7 +82,7 @@ bool Player::removeProp(std::string squareName) {
 
 bool Player::mortageProp(std::string squareName) {
     // check if property is already in morgaged list
-    if (this->checkPropMortgage()) {
+    if (this->checkPropMortgage(squareName)) {
         std::cout << "(testing) this props is morgaged" << std::endl;
         return false;
     }
@@ -97,7 +97,7 @@ bool Player::mortageProp(std::string squareName) {
 
 bool Player::unmortageProp(std::string squareName) {
     // check if property is in morgaged list
-    if (!this->checkPropMortgage()) {
+    if (!this->checkPropMortgage(squareName)) {
         std::cout << "(testing) this props is not in morgaged list" << std::endl;
         return false;
     }
@@ -139,6 +139,10 @@ string Player::getName() const {
     return name;
 }
 
+std::string Player::getSquareAtCurrPos() {
+    return MAP_GAME[pos];
+}
+
 int Player::getCurrPos() const {
     return pos;
 }
@@ -160,8 +164,9 @@ int Player::getAssets() const {
     return result;
 }
 
+void Player::actionAtCurrPos();
 void Player::movePlayer(int roll);
-void Player::moveToTims();
+void Player::moveToDCTims();
 void Player::declareBankruptcy();
 void Player::auctionProperty(shared_ptr<Ownable> ptr);
 void Player::loadFromSave(shared_ptr<GameState> ptr);

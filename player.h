@@ -44,8 +44,9 @@ class Player {
     int getCurrPos() const;
     int getFunds() const;
     int getAssets() const;
+    void actionAtCurrPos();
     void movePlayer(int roll);
-    void moveToTims();
+    void moveToDCTims();
     void declareBankruptcy();
     void auctionProperty(std::string squareName);
     static bool loadFromSave(std::string saveFile); // return true if successfully load saved game

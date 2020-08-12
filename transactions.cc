@@ -1,6 +1,22 @@
 #include "transactions.h"
 
 void Transactions::tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int give, std::shared_ptr<Ownable> receive) {
+    // check if the player "from" has enough funds to offer
+    if (from->getFunds() < give) {
+        std::cout << "(testing) this player doesn't have enough money" << std::endl;
+        return;
+    }
+
+    // check if the player "to" has the property of offer
+    std::shared_ptr<Square> tempReceive = std::dynamic_pointer_cast<Square>(receive); // cast the Ownable pointer to Square
+
+    if (!to->ownThisProp(tempReceive->getName())) {
+        std::cout << "(testing) the player doesn't own this property to buy" << std::endl;
+        return;
+    }
+
+    // the transaction occur
+
     return;
 }
 
