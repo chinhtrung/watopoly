@@ -48,9 +48,18 @@ int main (int argc, char** argv) {
             char gamePiece;
             cout << "Enter a name for your player." << endl;
             cin >> name;
-            cout << "Select your game piece for the test from the set ";
-            showAllCharExcept(pieceCharTaken);
-            cin >> gamePiece;
+	    while (true) {
+            	cout << "Select your game piece for the test from the set ";
+            	showAllCharExcept(pieceCharTaken);
+            	cin >> gamePiece;
+		if (gamePiece == 'G' || gamePiece == 'B' || gamePiece == 'D'
+				|| gamePiece == 'P' || gamePiece == 'S'
+				|| gamePiece == '$' || gamePiece == 'L'
+				|| gamePiece == 'T') {
+			break;
+		}
+		cout << "Invalid Game Piece" << endl;
+	    }
             auto player = make_shared<Player>(name, gamePiece, 
 			    defaultMoneyToStart);
             while (true) {
