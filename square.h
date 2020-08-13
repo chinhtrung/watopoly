@@ -1,5 +1,6 @@
 #ifndef _SQUARE_H
 #define _SQUARE_H
+#include <string>
 
 class Square{
     int id;
@@ -9,7 +10,7 @@ class Square{
     int numPlayers;
 
   public:
-    Square();
+    Square( int id, std::string name, int x, int y );
     int getNumPlayers();
     void removePlayer();
     void addPlayer();

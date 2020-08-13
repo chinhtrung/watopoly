@@ -1,20 +1,20 @@
 #ifndef _BOARD_DISPLAY_
 #define _BOARD_DISPLAY_
 #include <vector>
+#include <iostream>
+
+const int B_COLS = 90;
+const int B_ROWS = 56;
 
 class BoardDisplay{
-    std::vector<std::vector<char>> display;
+    char display[B_ROWS][B_COLS];
 
   public:
     BoardDisplay();
-    void movePlayer( int oldX, int oldY, int newX, int newY, char player);
-    void addImpr( int x, int y );
-    void removeImpr( int x, int y );
-
-    friend std::ostream &operator<<(std::ostream &out, const BoardDisplay &td);
+    void addPlayer( int row, int col, char player);
+    void addImpr( int row, int col );
+    void reset();
+    void draw();
 };
-
-// Outputs the display
-std::ostream &operator<<(std::ostream &out, const BoardDisplay &td);
 
 #endif

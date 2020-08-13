@@ -1,31 +1,94 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
 #include <vector>
-// #include "./utility/constants.h"
-// #include "./utility/seeds.h"
-#include "board.h"
-#include "dice.h"
-
-class Board;
-class Dice;
+#include "./utility/commands.h"
+#include "./utility/positionMap.h"
+#include "./utility/seeds.h"
 
 using namespace std;
 
 // main drive
 int main (int argc, char** argv) {
-    Board b;
-    Dice d;
 
     cout << "WATOPOLY PROJECT" << endl;
 
     string command, name, give, receive, property, action, filename;
+    const int MAX_TIMS = 4;
+    const int NUM_OWNABLE = 28;
 
 
 
     /*
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
+	    std::ifstream saveFile{argv[2]};
+
+	    int numPlayers;
+	    saveFile >> numPlayers;
+	    char firstPlayer;
+	    int timsCupsActive;
+	    Board *b = new Board();
+	    std::map<char, std::shared_ptr<Player>> players;
+
+	    for (int i = 0; i < numPlayers; i++){
+	        string name;
+		char gamepiece;
+		int numTimsCups;
+		int funds;
+		int sqrPos;
+
+		cin >> name;
+		if (name == "BANK"){
+		    cout << "Invalid: Cannot have player named BANK." << endl;
+		}
+		cin >> gamepiece;
+		cin >> numTimsCups;
+		timsCupsActive += numTimsCups;
+		if (timsCupsActive > MAX_TIMS){
+		    cout << "Too many cups!" << endl;
+		}
+		cin >> funds;
+		cin >> sqrPos;
+		
+		if (int i = 0){
+                    firstPlayer = gamepiece;
+		} 
+
+		auto p = std::make_shared<Player>( name, gamepiece, numTimsCups, funds, sqrPos );
+		players[gamepiece] = p;
+		b.addPlayer(gamepiece);
+
+		if (sqrPos == 10){
+		    bool inLine;
+		    cin >> inLine;
+		    if (inLine){
+		        b.movePlayer(gamepiece, 10);
+			int turnsInLine;
+			cin >> turnsInLine;
+			// add to captured vector
+		    }
+		}
+	    }
+
+	    for (int i = 0; i < NUM_OWNABLE; i++){
+	        string name;
+	        string owner;
+		int imprLevel;
+		cin >> name;
+		cin >> owner;
+		cin >> imprLevel;
+		if ((isGym(name) || isRes(name)) && imprLevel > 0){
+		    cout << "Invalid input: Residences and gyms cannot be improved." << endl;
+		}
+
+		if (imprLevel == -1){
+		    //mortgage property
+		}
+
+
+	    }
             cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
             cout << "read in file with the name " << argv[2] << endl;
         }
@@ -46,7 +109,7 @@ int main (int argc, char** argv) {
 
         // load command
         if ( command == ROLL ) {
-	    d.rollDice();
+/*	    d.rollDice();
 	    int numDoubles = 0;
 	    if (d.isDoubles() && numDoubles < 3){
 		numDoubles++;
@@ -57,17 +120,17 @@ int main (int argc, char** argv) {
 		// send Player to DC Tims Line
 	    } else {
 	        int dieSum = d.dieSum();
-		int currSqr = player.getCurrSqr();
+	//	int currSqr = player.getCurrSqr();
 		if (currSqr + dieSum > 40){
 		    cout << "Collecting OSAP." << endl;
 		    //pass Go, give money
 		} 
 
 		int newSqr = (currSqr + dieSum) % 40;
-		b.movePlayer( player.getGamepiece(), newSqr );
+	//	b.movePlayer( player.getGamepiece(), newSqr );
 	    }
-	    continue; //save info of whose turn it is
-
+	    continue;
+*/
         } else if ( command == NEXT ) {
             
             // replace this code
