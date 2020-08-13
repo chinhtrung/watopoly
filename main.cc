@@ -232,11 +232,25 @@ int main (int argc, char** argv) {
             
             // replace this code
             cout << "+ calling " << command << endl;
+	    if (currActingPlayer->getCurrPos() != 4) {
+		    cout << "Your total assets are worth $";
+	    	    cout << currActingPlayer->getAssets() << endl;
+	    } else {
+		    cout << "You may not check your assets when ";
+		    cout << "paying tuition!" << endl;
+	    }
 
         } else if ( command == ALL ) {
             
             // replace this code
             cout << "+ calling " << command << endl;
+	    if (currActingPlayer->getCurrPos() != 4) {
+		    cout << "The list below shows each player, ";
+		    cout << "listed by total assets." << endl;
+	    } else {
+		    cout << "You may not check your assets when ";
+		    cout << "paying tuition!" << endl;
+	    }
 
         } else if ( command == SAVE ) {
             
