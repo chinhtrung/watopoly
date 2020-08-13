@@ -1,37 +1,37 @@
 #include "boardDisplay.h"
 #include <fstream>
 
-const int B_ROWS = 90;
-const int B_COLS = 56;
+const int B_COLS = 90;
+const int B_ROWS = 56;
 
 BoardDisplay::BoardDisplay(){
-    display.resize(B_ROWS, std::vector<char>(B_COLS, ' '));
+    display.resize(B_COLS, std::vector<char>(B_ROWS, ' '));
     std::ifstream disFile{ "display.txt" };
     char c;
 
-    for (int i = 0; i <= B_ROWS; i++){
-        for (int j = 0; j < B_COLS; j++){
-            disFile.get(c); 
-            display[i][j] = c; 
+    for (int i = 0; i < B_COLS; i++){
+        for (int j = 0; j < B_ROWS; j++){
+            disFile.get(c);
+            display[i][j] = c;
         }
-    }   
-    std::cout << std::endl; 
+    }
+    std::cout << std::endl;
+    disFile.close();
 }
 
 void BoardDisplay::reset(){
     std::ifstream disFile{ "display.txt" };
     char c;
 
-    for (int i = 0; i <= B_ROWS; i++){
-        for (int j = 0; j < B_COLS; j++){
+    for (int i = 0; i < B_COLS; i++){
+        for (int j = 0; j < B_ROWS; j++){
             disFile.get(c);
             display[i][j] = c;
         }
     }
-    std::cout << std::endl;
 }
 
-void BoardDisplay::addPlayer( int row, int col, char player ){
+void BoardDisplay::addPlayer( int row, int col, char player ){ 
     display[row][col] = player;
 }
 
@@ -41,10 +41,11 @@ void BoardDisplay::addImpr( int row, int col ){
 }
 
 void BoardDisplay::draw(){
-    for (size_t i = 0; i < B_ROWS; i++){
-        for (size_t j = 0; j < B_COLS; j++){
-	    std::cout << display[i][j];
+    for (int i = 0; i < B_COLS; i++){
+        for (int j = 0; j < B_ROWS; j++){
+            std::cout << display[i][j];
         }
-	std::cout << std::endl;
     }
+    std::cout << std::endl;
 }
+
