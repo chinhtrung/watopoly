@@ -4,6 +4,10 @@
 #include <vector>
 #include <map>
 
+int indexOfSquare(std::string nameSquare);
+int colOfSquare(int indexOfSquare);
+int rowOfSquare(int indexOfSquare);
+
 const std::map<int, std::vector<int>> MAP_COORD = {
     {0, {82,50}}, {1, {74,50}}, {2, {66,50}}, {3, {58,50}}, {4, {50,50}},
     {5, {42,50}}, {6, {34,50}}, {7, {26,50}}, {8, {18,50}}, {9, {10,50}},
@@ -12,9 +16,8 @@ const std::map<int, std::vector<int>> MAP_COORD = {
     {20, {1,0}}, {21, {9,0}}, {22, {17,0}}, {23, {25,0}}, {24, {35,0}},
     {25, {42,0}}, {26, {49,0}}, {27, {57,0}}, {28, {65,0}}, {29, {73,0}},
     {30, {81,0}}, {31, {81,5}}, {32, {81,10}}, {33, {81,15}}, {34, {81,20}},
+    {35, {81,25}}, {36, {81,30}}, {37, {81,35}}, {38, {81,40}}, {39, {81,45}}
 };
-
-int indexOfSquare(std::string nameSquare);
 
 // This is a global constant to keep track of position block in game map
 // where index is the position of block (string type)
@@ -41,16 +44,6 @@ int indexOfSquare(std::string nameSquare) {
     }
 
     return indexResult;
-}
-
-int colOfSquare(std::string nameSquare){
-    int index = indexOfSquare(nameSquare);
-    return MAP_COORD.at(index)[0]; 
-}
-
-int rowOfSquare(std::string nameSquare){
-    int index = indexOfSquare(nameSquare);
-    return MAP_COORD.at(index)[1]; 
 }
 
 int colOfSquare(int indexOfSquare){

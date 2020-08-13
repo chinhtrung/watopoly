@@ -21,8 +21,9 @@ Board::Board() {
 void Board::updateInfo(){
    for (auto &p: sqrImproves){
        if (p.second > 0){
-           int sqrC = colOfSquare(p.first);
-           int sqrR = rowOfSquare(p.first);
+	   int index = indexOfSquare(p.first);
+           int sqrC = colOfSquare(index);
+           int sqrR = rowOfSquare(index);
 	   int r = sqrR + 1;
 	   for (int i = 0; i < p.second; i++){
 	       int c = sqrC + i;
