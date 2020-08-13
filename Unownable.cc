@@ -2,5 +2,5 @@
 using namespace std;
 
 
-Unownable::Unownable(void) {
+Unownable::Unownable() {
 }

@@ -16,11 +16,11 @@ static const int NEEDLES_HALL = 36;
 static const int COOP_FEE = 38;
 
 
-MonetaryServices::MonetaryServices(void) {
+MonetaryServices::MonetaryServices() {
 }
 
 
-int MonetaryServices::needlesHall(void) {
+int MonetaryServices::needlesHall() {
 	srand(time(NULL));
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 	       + MIN_TIMS_ROLL;
@@ -49,12 +49,12 @@ int MonetaryServices::needlesHall(void) {
 }
 
 
-int MonetaryServices::collectOSAP(void) {
+int MonetaryServices::collectOSAP() {
 	return 200;
 }
 
 
-int MonetaryServices::payCoop(void) {
+int MonetaryServices::payCoop() {
 	return -150;
 }
 

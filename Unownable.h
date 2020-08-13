@@ -8,7 +8,7 @@
 
 class Unownable {
 	public:
-		Unownable(void);
+		Unownable();
 		virtual void actionAtIndex(std::shared_ptr<Player> p) = 0;
 };
 

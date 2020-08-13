@@ -8,7 +8,7 @@
 class TimsLine: public Unownable {
 	map<char, int> captured;
 	public:
-		TimsLine(void);
+		TimsLine();
 		virtual void actionAtIndex(std::shared_ptr<Player> p) override;
 		void addRoll(char player);
 		bool isCaptured(char player);
