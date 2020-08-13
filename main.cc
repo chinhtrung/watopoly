@@ -28,7 +28,6 @@ int main (int argc, char** argv) {
     string command, name, give, receive, property, action, filename;
 
     const int MAX_TIMS = 4;
-    const int NUM_OWNABLE = 28;
     const int MAX_PLAYERS = 7;
     const int MIN_PLAYERS = 2;
     const int DC_TIMS_POS = 10;
@@ -83,7 +82,7 @@ int main (int argc, char** argv) {
 		group.push_back(p);
 	    }
 
-	    for (int i = 0; i < NUM_OWNABLE; i++){
+	    for (int i = 0; i < OWNABLE_SIZE; i++){
 	        string name;
 	        string owner;
 		int imprLevel;
@@ -103,6 +102,7 @@ int main (int argc, char** argv) {
 		        // add mortgage property
 		    } else { 
 		        group[playerIndex]->addProp();
+
 		        // pass Ownable shared_ptr to addProp
 			// b->addImpr(name, imprLevel);
 		    }
@@ -317,14 +317,17 @@ int main (int argc, char** argv) {
 	    outf << group.size() << endl;
             
 	    for (int i = 0; i < group.size(); i++){
-                outf << group[i].getName() << " ";
-		outf << group[i].getGamePiece() << " ";
-		outf << group[i].getTimsCups() << " ";
-		outf << group[i].getCurrPos();
-		if (group[i].getCurrPos == DC_TIMS_POS){
+                outf << group[i]->getName() << " ";
+		outf << group[i]->getGamePiece() << " ";
+		outf << group[i]->getTimsCups() << " ";
+		outf << group[i]->getCurrPos();
+		if (group[i]->getCurrPos == DC_TIMS_POS){
+		    char gp = group[i]->getGamePiece();
 	            // check if player is in Line
+		    // ^ (at start of game, TimsLine square is created by main,
+		    // bool inLine = tl->isCaptured(gp);
 		    // if (inLine){
-		    //     int turnsInLine = ...;
+		    //     int turnsInLine = tl->turnsInLine(gp);
 		    //     outf << " " << 1 << " ";
 		    //     outf << turnsInLine << endl;
 		    // } else {
@@ -333,8 +336,14 @@ int main (int argc, char** argv) {
 		} else {
 		    outf << endl;
 		}
-	    } 
+	    }
 
+	    for (int i = 0; i < OWNABLE_SIZE; i++){
+	        outf << OWNABLE[i] << " ";
+
+	    }
+
+	    
 
         } else {
             cout << "Unrecognized command!" << endl;
