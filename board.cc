@@ -41,11 +41,11 @@ Board::Board() {
 void Board::updateInfo(){
    for (auto &p: sqrImproves){
        if (p.second > 0){
-           int sqrX = posXOfSquare(p.first);
-           int sqrY = posYOfSquare(p.first);
-           int x = sqrX + p.second - 1;
-           int y = sqrY + 2;
-           bd->addImpr( x, y );
+           int sqrC = colOfSquare(p.first);
+           int sqrR = rowOfSquare(p.first);
+           int c = sqrC + p.second - 1;
+           int r = sqrR + 2;
+           bd->addImpr( r, c );
        }	   
    } 
 
@@ -54,20 +54,20 @@ void Board::updateInfo(){
    // e.g. 0 : 1, 32: 5, 12: 2
    map<int, int> numPlayers;
    for (auto &p: playerPos){   
-       int sqrX = posXOfSquare(p.second);
-       int sqrY = posYOfSquare(p.second);
+       int sqrC = colOfSquare(p.second);
+       int sqrR = rowOfSquare(p.second);
        auto it = numPlayers.find(p.second);
 
-       int x = sqrX;
+       int c = sqrC;
        if (it != numPlayers.end()){
-	   x += it->second;
+	   c += it->second;
            numPlayers[p.second]++;
        } else {
            numPlayers[p.second] = 1;
        }
 
-       int y = sqrY + 4;
-       bd->addPlayer(x, y, p.first);
+       int r = sqrR + 4;
+       bd->addPlayer(r, c, p.first);
    }
 }
 

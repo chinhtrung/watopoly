@@ -31,13 +31,13 @@ void BoardDisplay::reset(){
     std::cout << std::endl;
 }
 
-void BoardDisplay::addPlayer( int x, int y, char player ){
-    display[x][y] = player;
+void BoardDisplay::addPlayer( int row, int col, char player ){
+    display[row][col] = player;
 }
 
 
-void BoardDisplay::addImpr( int x, int y ){
-    display[x][y] = 'I';
+void BoardDisplay::addImpr( int row, int col ){
+    display[row][col] = 'I';
 }
 
 void BoardDisplay::draw(){

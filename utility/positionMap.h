@@ -46,21 +46,21 @@ int indexOfSquare(std::string nameSquare) {
     return indexResult;
 }
 
-int posXOfSquare(std::string nameSquare){
+int colOfSquare(std::string nameSquare){
     int index = indexOfSquare(nameSquare);
     return MAP_COORD.at(index)[0]; 
 }
 
-int posYOfSquare(std::string nameSquare){
+int rowOfSquare(std::string nameSquare){
     int index = indexOfSquare(nameSquare);
     return MAP_COORD.at(index)[1]; 
 }
 
-int posXOfSquare(int indexOfSquare){
+int colOfSquare(int indexOfSquare){
     return MAP_COORD.at(indexOfSquare)[0]; 
 }
 
-int posYOfSquare(int indexOfSquare){
+int rowOfSquare(int indexOfSquare){
     return MAP_COORD.at(indexOfSquare)[1]; 
 }
 
