@@ -361,7 +361,6 @@ int main (int argc, char** argv) {
 		outf << b->getImpr(OWNABLE[i]) << endl;
 
 	    }
-
 	    
 
         } else {
