@@ -1,4 +1,4 @@
-#include "Dice.h"
+#include "dice.h"
   
 void Dice::rollDice(){
     srand (time(NULL));

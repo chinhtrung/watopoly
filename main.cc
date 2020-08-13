@@ -19,6 +19,9 @@ int main (int argc, char** argv) {
 
     string command, name, give, receive, property, action, filename;
 
+    const int MAX_TIMS = 4;
+    const int NUM_OWNABLE = 28;
+
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
 
