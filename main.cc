@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
 #include <vector>
@@ -21,14 +22,85 @@ int main (int argc, char** argv) {
 
     const int MAX_TIMS = 4;
     const int NUM_OWNABLE = 28;
+    const int MAX_PLAYERS = 7;
+    const int MIN_PLAYERS = 2;
+    const int DC_TIMS_POS = 10;
 
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
 
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
-            cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
-            cout << "read in file with the name " << argv[2] << endl;
+
+	    cout << "Loading in saved game from " << argv[2] << endl;
+	    
+	    std::ifstream inf{argv[2]};
+
+	    int numPlayers;
+	    inf >> numPlayers; 
+	    //auto board = std::make_unique<Board>;
+	    //create squares?
+
+	    for (int i = 0; i < numPlayers; i++){
+	        string name;
+		char gamepiece;
+		int numTimsCups;
+		int funds;
+		int sqrPos;
+
+	        inf >> name;	
+		inf >> gamepiece;
+		inf >> numTimsCups;
+		inf >> funds;
+		inf >> sqrPos;
+		
+		auto p = std::make_shared<Player>(name, gamepiece, funds);
+		p->setTimsCup(numTimsCups);
+		//b.addPlayer(gamepiece);
+
+		if (sqrPos == DC_TIMS_POS){
+		    bool inLine;
+		    inf >> inLine;
+		    if (inLine){
+		        //b.movePlayer(gamepiece, DC_TIMS_POS);
+			int turnsInLine;
+			inf >> turnsInLine;
+			p->moveToDCTims();
+		    } else {
+		        p->movePlayer(sqrPos); //but without collecting Go money
+		    }
+		} else {
+		    p->movePlayer(sqrPos); //but without collecting Go money
+		}
+
+		group.push_back(p);
+	    }
+
+	    for (int i = 0; i < NUM_OWNABLE; i++){
+	        string name;
+	        string owner;
+		int imprLevel;
+		inf >> name;
+		inf >> owner;
+		inf >> imprLevel;
+		
+		if (name != "BANK"){
+		    int playerIndex;
+		    for (int i = 0; i < group.size(); i++){
+                        if (group[i]->getName() == name){
+			    playerIndex = i;
+                        }
+                    }  
+
+		    if (imprLevel == -1){ 
+		        // add mortgage property
+		    } else { 
+		        group[playerIndex]->addProp();
+		        // pass Ownable shared_ptr to addProp
+			// b->addImpr(name, imprLevel);
+		    }
+		}
+	    }
         }
 
         if (argv[1] == TESTING) {
@@ -68,16 +140,16 @@ int main (int argc, char** argv) {
             cout << "---------------------------------" << endl;
 
 
-            auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
+            /*auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
             group.push_back(newPlayer);
 
             // reset game piece
-            piece = ' ';
+            piece = ' ';*/
         }
     }
 
     int currIndex = 0;
-    shared_ptr<Player> currActingPlayer = group[currIndex];
+    //shared_ptr<Player> currActingPlayer = group[currIndex];
 
     while (true) {
         if (cin.fail()) break;
@@ -155,11 +227,31 @@ int main (int argc, char** argv) {
             cout << "+ calling " << command << endl;
 
         } else if ( command == SAVE ) {
+	    string file;
+	    cin >> file;
+	    cout << "Saving game to " << file << endl;
+	    std::ofstream outf{file};
+	    outf << group.size() << endl;
             
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cin >> filename;
-            cout << "invoking function to save  " << filename << endl;
+	    for (int i = 0; i < group.size(); i++){
+                outf << group[i].getName() << " ";
+		outf << group[i].getGamePiece() << " ";
+		outf << group[i].getTimsCups() << " ";
+		outf << group[i].getCurrPos();
+		if (group[i].getCurrPos == DC_TIMS_POS){
+	            // check if player is in Line
+		    // if (inLine){
+		    //     int turnsInLine = ...;
+		    //     outf << " " << 1 << " ";
+		    //     outf << turnsInLine << endl;
+		    // } else {
+		    //     outf << " " << 0 << endl;
+		    // }	
+		} else {
+		    outf << endl;
+		}
+	    } 
+
 
         } else {
             cout << "Unrecognized command!" << endl;
