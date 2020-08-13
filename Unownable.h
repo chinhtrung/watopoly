@@ -6,7 +6,7 @@
 #include "player.h"
 
 
-class Unownable {
+class Unownable: public Square {
 	public:
 		Unownable();
 		virtual void actionAtIndex(std::shared_ptr<Player> p) = 0;

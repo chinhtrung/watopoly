@@ -5,7 +5,7 @@
 #include <memory>
 
 
-class SLC {
+class SLC: public Unownable {
 	public:
 		SLC(void);
 		virtual void actionAtIndex(std::shared_ptr<Player>) override;

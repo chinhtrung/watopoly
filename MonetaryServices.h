@@ -5,7 +5,7 @@
 #include <memory>
 
 
-class MonetaryServices {
+class MonetaryServices: public Unownable{
 	int needlesHall();
 	int collectOSAP();
 	int payCoop();

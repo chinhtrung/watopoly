@@ -4,7 +4,7 @@
 
 class Square;
 
-class Ownable : Square{
+class Ownable: public Square {
     char owner;
     int costToBuy;
     int imprLevel = 0;
