@@ -68,16 +68,16 @@ int main (int argc, char** argv) {
             cout << "---------------------------------" << endl;
 
 
-            auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
-            group.push_back(newPlayer);
+            // auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
+            // group.push_back(newPlayer);
 
             // reset game piece
             piece = ' ';
         }
     }
 
-    int currIndex = 0;
-    shared_ptr<Player> currActingPlayer = group[currIndex];
+    // int currIndex = 0;
+    // shared_ptr<Player> currActingPlayer = group[currIndex];
 
     while (true) {
         if (cin.fail()) break;
