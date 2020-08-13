@@ -134,7 +134,7 @@ int main (int argc, char** argv) {
 			    defaultMoneyToStart);
             while (true) {
                 cout << "Your current position is ";
-                cout << player->getCurr
+                cout << player->getCurrPos();
                 cout << "Enter q if you wish to quit ";
                 cout << "testing mode." << endl;
                 cout << "Enter any other character otherwise." << endl;
