@@ -5,12 +5,10 @@
 #include <string>
 
 // list of global methods
-void traverseOwnable();
-bool isOwnableBlock(std::string squareName);
+void traveseOwnable();
 std::string monoBlockOfProp(std::string squareName);
 int costToBuyProp(std::string squareName);
 int costToImprProp(std::string squareName);
-int costToSellImprProp(std::string squareName);
 int costToMortProp(std::string squareName);
 int costToUnmortProp(std::string squareName);
 int costToPayUnimprProp(std::string squareName);
@@ -80,5 +78,6 @@ const int GYM_SIZE = GYM.size();
 const std::vector<std::vector<std::string>> OWNABLE = {AL, ML, ECH, PAS, HH, RCH, DWE, CPH, LHI, BMH, OPT, EV1, EV2, EV3, PHYS, B1, B2, EIT, ESC, C2, MC, DC,
                                                        MKV, UWP, V1, RES, PAC, CIF};
 const int OWNABLE_SIZE = OWNABLE.size();
+
 
 #endif
