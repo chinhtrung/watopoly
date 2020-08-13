@@ -320,6 +320,7 @@ int main (int argc, char** argv) {
                 outf << group[i]->getName() << " ";
 		outf << group[i]->getGamePiece() << " ";
 		outf << group[i]->getTimsCups() << " ";
+		outf << group[i]->getFunds() << " ";
 		outf << group[i]->getCurrPos();
 		if (group[i]->getCurrPos == DC_TIMS_POS){
 		    char gp = group[i]->getGamePiece();
