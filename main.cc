@@ -27,12 +27,14 @@ int main (int argc, char** argv) {
 
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
-            cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
+            cout << "+ calling from arguments " << argv[1]; 
+	    cout << " to load a game state" << endl;
             cout << "read in file with the name " << argv[2] << endl;
         }
 
         if (argv[1] == TESTING) {
-            cout << "+ calling from arguments " << argv[1] << ": testing mode enable" << endl;
+            cout << "+ calling from arguments " << argv[1]; 
+	    cout << ": testing mode enable" << endl;
             cout << "read in file with the name " << argv[2] << endl;
         }
     } else {
@@ -43,7 +45,8 @@ int main (int argc, char** argv) {
         if (cin.fail()) cin.clear();
         while (num < 1 || num > 7 || cin.fail()) {
             if (cin.fail()) break;
-            cout << "The number of player should be less than 8, input number of player again" << endl;
+            cout << "The number of players should be between 2 and 8." << endl;
+	    cout << "input number of player again" << endl;
             cin >> num;
         };
         cout << "The number of player is " << num << endl;
@@ -57,13 +60,16 @@ int main (int argc, char** argv) {
             showAllCharExcept(pieceCharTaken);
             char piece;
             cin >> piece;
-            if (cin.fail()) break;
+            if (cin.fail()) {
+		    break;
+	    }
+	    //pieceCharTaken.push_back(piece);
             while (!isGamePiece(piece) && !cin.fail()) {
                 cout << "Your game piece should be one of the char here ";
                 showAllCharExcept(pieceCharTaken);
                 cin >> piece;
             }
-            pieceCharTaken.push_back(piece);
+	    pieceCharTaken.push_back(piece);
             cout << "Hi " << name << "! Your piece is " << piece << endl;
             cout << "---------------------------------" << endl;
 
@@ -77,7 +83,7 @@ int main (int argc, char** argv) {
     }
 
     int currIndex = 0;
-    shared_ptr<Player> currActingPlayer = group[currIndex];
+    //shared_ptr<Player> currActingPlayer = group[currIndex];
 
     while (true) {
         if (cin.fail()) break;
