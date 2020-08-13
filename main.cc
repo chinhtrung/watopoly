@@ -30,7 +30,6 @@ int main (int argc, char** argv) {
     const int MAX_TIMS = 4;
     const int MAX_PLAYERS = 7;
     const int MIN_PLAYERS = 2;
-    const int TUITION_POS = 4;
     const int DC_TIMS_POS = 10;
 
     vector<shared_ptr<Player>> group;
@@ -99,13 +98,12 @@ int main (int argc, char** argv) {
                         }
                     }  
 
-		    if (imprLevel == -1){ 
-		        // add mortgage property
+		    auto ls = std::make_unique<LoadSave>();
+		    if (imprLevel == -1){
+			ls->loadMortProperty(name, group[playerIndex]);
 		    } else { 
-		        group[playerIndex]->addProp();
-
-		        // pass Ownable shared_ptr to addProp
-			// b->addImpr(name, imprLevel);
+			ls->loadProperty(name, group[playerIndex]);
+		        	
 		    }
 		}
 	    }
@@ -136,7 +134,7 @@ int main (int argc, char** argv) {
 			    defaultMoneyToStart);
             while (true) {
                 cout << "Your current position is ";
-		cout << player->getSquareAtCurrPos() << endl;
+                cout << player->getCurr
                 cout << "Enter q if you wish to quit ";
                 cout << "testing mode." << endl;
                 cout << "Enter any other character otherwise." << endl;
@@ -145,6 +143,7 @@ int main (int argc, char** argv) {
                     cout << "You have quit testing mode." << endl;
                     break;
                 }
+                cout << player->getSquareAtCurrPos() << endl;
                 cout << "Enter roll <d1> <d2>, where d1 and d2 ";
                 cout << "are the rolls, which must be ";
                 cout << "non-negative integers." << endl;
@@ -303,30 +302,11 @@ int main (int argc, char** argv) {
             
             // replace this code
             cout << "+ calling " << command << endl;
-	    if (currActingPlayer->getCurrPos() != TUITION_POS) {
-		    cout << "Your total assets are worth $";
-	    	    cout << currActingPlayer->getAssets() << endl;
-	    } else {
-		    cout << "You may not check your assets when ";
-		    cout << "paying tuition!" << endl;
-	    }
 
         } else if ( command == ALL ) {
             
             // replace this code
             cout << "+ calling " << command << endl;
-	    if (currActingPlayer->getCurrPos() != TUITION_POS) {
-		    cout << "The list below shows each player, ";
-		    cout << "listed by total assets." << endl;
-		    for (unsigned int i = 0; i < group.size(); ++i) {
-			    cout << group[i]->getName() << " ";
-			    cout << group[i]->getGamePiece() << " ";
-			    cout << group[i]->getAssets() << endl;
-		    }
-	    } else {
-		    cout << "You may not check your assets when ";
-		    cout << "paying tuition!" << endl;
-	    }
 
         } else if ( command == SAVE ) {
 	    string file;
@@ -334,8 +314,9 @@ int main (int argc, char** argv) {
 	    cout << "Saving game to " << file << endl;
 	    std::ofstream outf{file};
 	    outf << group.size() << endl;
-            
-	    for (int i = 0; i < group.size(); i++){
+            int size = group.size();
+
+	    for (int i = 0; i < size; i++){
                 outf << group[i]->getName() << " ";
 		outf << group[i]->getGamePiece() << " ";
 		outf << group[i]->getTimsCups() << " ";
