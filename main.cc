@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
 #include <vector>
@@ -14,10 +15,77 @@ int main (int argc, char** argv) {
     cout << "WATOPOLY PROJECT" << endl;
 
     string command, name, give, receive, property, action, filename;
+    const int MAX_TIMS = 4;
+    const int NUM_OWNABLE = 28;
 
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
-            //Board *b = new Board(argv[2]);	    
+	    std::ifstream saveFile{argv[2]};
+
+	    int numPlayers;
+	    saveFile >> numPlayers;
+	    char firstPlayer;
+	    int timsCupsActive;
+	    Board *b = new Board();
+	    std::map<char, std::shared_ptr<Player>> players;
+
+	    for (int i = 0; i < numPlayers; i++){
+	        string name;
+		char gamepiece;
+		int numTimsCups;
+		int funds;
+		int sqrPos;
+
+		cin >> name;
+		if (name == "BANK"){
+		    cout << "Invalid: Cannot have player named BANK." << endl;
+		}
+		cin >> gamepiece;
+		cin >> numTimsCups;
+		timsCupsActive += numTimsCups;
+		if (timsCupsActive > MAX_TIMS){
+		    cout << "Too many cups!" << endl;
+		}
+		cin >> funds;
+		cin >> sqrPos;
+		
+		if (int i = 0){
+                    firstPlayer = gamepiece;
+		} 
+
+		auto p = std::make_shared<Player>( name, gamepiece, numTimsCups, funds, sqrPos );
+		players[gamepiece] = p;
+		b.addPlayer(gamepiece);
+
+		if (sqrPos == 10){
+		    bool inLine;
+		    cin >> inLine;
+		    if (inLine){
+		        b.movePlayer(gamepiece, 10);
+			int turnsInLine;
+			cin >> turnsInLine;
+			// add to captured vector
+		    }
+		}
+	    }
+
+	    for (int i = 0; i < NUM_OWNABLE; i++){
+	        string name;
+	        string owner;
+		int imprLevel;
+		cin >> name;
+		cin >> owner;
+		cin >> imprLevel;
+		if ((isGym(name) || isRes(name)) && imprLevel > 0){
+		    cout << "Invalid input: Residences and gyms cannot be improved." << endl;
+		}
+
+		if (imprLevel == -1){
+		    //mortgage property
+		}
+
+
+	    }
             cout << "+ calling from arguments " << argv[1] << " to load a game state" << endl;
             cout << "read in file with the name " << argv[2] << endl;
         }
@@ -27,8 +95,6 @@ int main (int argc, char** argv) {
             cout << "read in file with the name " << argv[2] << endl;
         }
     } else {
-	//Board b;
-	//Dice d;
         cout << "fail to call load or testing mode, initial a new game" << endl;
     }
 
