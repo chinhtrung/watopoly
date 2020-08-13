@@ -131,7 +131,7 @@ int main (int argc, char** argv) {
 			    defaultMoneyToStart);
             while (true) {
                 cout << "Your current position is ";
-                cout << player->getCurr
+                cout << player->getCurrPos();
                 cout << "Enter q if you wish to quit ";
                 cout << "testing mode." << endl;
                 cout << "Enter any other character otherwise." << endl;
@@ -318,6 +318,7 @@ int main (int argc, char** argv) {
                 outf << group[i]->getName() << " ";
 		outf << group[i]->getGamePiece() << " ";
 		outf << group[i]->getTimsCups() << " ";
+		outf << group[i]->getFunds() << " ";
 		outf << group[i]->getCurrPos();
 		if (group[i]->getCurrPos == DC_TIMS_POS){
 		    char gp = group[i]->getGamePiece();
