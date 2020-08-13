@@ -5,6 +5,8 @@
 #include "utility/commands.h"
 #include "utility/seeds.h"
 #include "utility/positionMap.h"
+#include "utility/gamePieces.h"
+#include "player.h"
 
 using namespace std;
 
@@ -13,7 +15,12 @@ int main (int argc, char** argv) {
 
     cout << "WATOPOLY PROJECT" << endl;
 
+    std::vector<char> pieceCharTaken;
+
     string command, name, give, receive, property, action, filename;
+
+    vector<shared_ptr<Player>> group;
+    int defaultMoneyToStart = 1500;
 
     if ( argc == 3) { // check the number of arguments
         if (argv[1] == LOAD) {
@@ -26,14 +33,54 @@ int main (int argc, char** argv) {
             cout << "read in file with the name " << argv[2] << endl;
         }
     } else {
-        cout << "fail to call load or testing mode, initial a new game" << endl;
+        cout << "Fail to call load or testing mode, initiate a new game" << endl;
+        cout << "Please input the number of player for this game" << endl;
+        int num = 0;
+        cin >> num;
+        if (cin.fail()) cin.clear();
+        while (num < 1 || num > 7 || cin.fail()) {
+            if (cin.fail()) break;
+            cout << "The number of player should be less than 8, input number of player again" << endl;
+            cin >> num;
+        };
+        cout << "The number of player is " << num << endl;
+        for(int i = 0; i < num; i++) {
+            cout << "Hey player " << i + 1 << "! Please input your name " << endl;
+            string name;
+            cin >> name;
+            if (cin.fail()) break;
+
+            cout << "Please choose one from the available piece char to represent yourself on board ";
+            showAllCharExcept(pieceCharTaken);
+            char piece;
+            cin >> piece;
+            if (cin.fail()) break;
+            while (!isGamePiece(piece) && !cin.fail()) {
+                cout << "Your game piece should be one of the char here ";
+                showAllCharExcept(pieceCharTaken);
+                cin >> piece;
+            }
+            pieceCharTaken.push_back(piece);
+            cout << "Hi " << name << "! Your piece is " << piece << endl;
+            cout << "---------------------------------" << endl;
+
+
+            auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
+            group.push_back(newPlayer);
+
+            // reset game piece
+            piece = ' ';
+        }
     }
 
-    cout << "type a command" << endl;
+    int currIndex = 0;
+    shared_ptr<Player> currActingPlayer = group[currIndex];
 
     while (true) {
-        cin >> command;
         if (cin.fail()) break;
+
+        cout << "type a command" << endl;
+        cin >> command;
 
         // load command
         if ( command == ROLL ) {
