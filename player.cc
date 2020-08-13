@@ -167,15 +167,6 @@ int Player::getAssets() const {
     return result;
 }
 
-void Player::actionAtCurrPos() {
-    std::string currSquare = this->getSquareAtCurrPos();
-    if (isOwnableBlock(currSquare)) {
-        // pay fee, call the transaction class here
-    } else {
-        // take other actions
-    }
-}
-
 void Player::movePlayer(int roll) {
     pos += roll;
     if (pos > (MAP_GAME_SIZE - 1)) {
