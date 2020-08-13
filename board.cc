@@ -81,3 +81,6 @@ int Board::getTimsCupsRem(){
     return timsCupsRem;
 }
 
+int Board::getImpr( string building ){
+    return sqrImproves[building];
+}

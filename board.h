@@ -20,7 +20,6 @@ class Board {
     map<char, int> playerPos;
     //vector<shared_ptr<Square>> squares;
     //vector<shared_ptr<Player>> players;
-    int timsCupsRem;
     std::unique_ptr<BoardDisplay> bd = nullptr;
 
     // called in drawBoard to update BoardDisplay
@@ -43,8 +42,7 @@ class Board {
 
     void removeImpr( string building ); 
 
-    // Returns the number of available Tims Cups (Max = 4)
-    int getTimsCupsRem();
+    int getImpr( string building );
 };
 
 #endif

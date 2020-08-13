@@ -30,6 +30,7 @@ int main (int argc, char** argv) {
     const int MAX_TIMS = 4;
     const int MAX_PLAYERS = 7;
     const int MIN_PLAYERS = 2;
+    const int TUITION_POS = 4;
     const int DC_TIMS_POS = 10;
 
     vector<shared_ptr<Player>> group;
@@ -45,7 +46,6 @@ int main (int argc, char** argv) {
 	    int numPlayers;
 	    inf >> numPlayers; 
 	    //auto board = std::make_unique<Board>;
-	    //create squares?
 
 	    for (int i = 0; i < numPlayers; i++){
 	        string name;
@@ -101,7 +101,6 @@ int main (int argc, char** argv) {
 
 		    auto ls = std::make_unique<LoadSave>();
 		    ls->loadProperty(name, group[playerIndex], imprLevel);
-		    }
 		}
 	    }
         }
@@ -296,14 +295,33 @@ int main (int argc, char** argv) {
             break;
 
         } else if ( command == ASSETS ) {
-            
+            if (currActingPlayer->getCurrPos() != TUITION_POS) {
+		    cout << "Your total assets are worth $";
+	    	    cout << currActingPlayer->getAssets() << endl;
+	    } else {
+		    cout << "You may not check your assets when ";
+		    cout << "paying tuition!" << endl;
+	    }
+
             // replace this code
             cout << "+ calling " << command << endl;
 
         } else if ( command == ALL ) {
-            
+           	
             // replace this code
             cout << "+ calling " << command << endl;
+	     if (currActingPlayer->getCurrPos() != TUITION_POS) {
+		    cout << "The list below shows each player, ";
+		    cout << "listed by total assets." << endl;
+		    for (unsigned int i = 0; i < group.size(); ++i) {
+			    cout << group[i]->getName() << " ";
+			    cout << group[i]->getGamePiece() << " ";
+			    cout << group[i]->getAssets() << endl;
+		    }
+	    } else {
+		    cout << "You may not check your assets when ";
+		    cout << "paying tuition!" << endl;
+	    }
 
         } else if ( command == SAVE ) {
 	    string file;
@@ -339,6 +357,8 @@ int main (int argc, char** argv) {
 
 	    for (int i = 0; i < OWNABLE_SIZE; i++){
 	        outf << OWNABLE[i] << " ";
+		// outf << owner << " ";
+		outf << b->getImpr(OWNABLE[i]) << endl;
 
 	    }
 
