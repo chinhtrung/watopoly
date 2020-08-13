@@ -92,18 +92,15 @@ int main (int argc, char** argv) {
 		
 		if (name != "BANK"){
 		    int playerIndex;
-		    for (int i = 0; i < group.size(); i++){
+		    int size = group.size();
+		    for (int i = 0; i < size; i++){
                         if (group[i]->getName() == name){
 			    playerIndex = i;
                         }
                     }  
 
 		    auto ls = std::make_unique<LoadSave>();
-		    if (imprLevel == -1){
-			ls->loadMortProperty(name, group[playerIndex]);
-		    } else { 
-			ls->loadProperty(name, group[playerIndex]);
-		        	
+		    ls->loadProperty(name, group[playerIndex], imprLevel);
 		    }
 		}
 	    }
@@ -313,8 +310,9 @@ int main (int argc, char** argv) {
 	    cin >> file;
 	    cout << "Saving game to " << file << endl;
 	    std::ofstream outf{file};
-	    outf << group.size() << endl;
-            int size = group.size();
+
+	    int size = group.size();
+	    outf << size << endl;
 
 	    for (int i = 0; i < size; i++){
                 outf << group[i]->getName() << " ";

@@ -5,8 +5,7 @@
 
 class LoadSave{
   public:
-    void loadProperty(std::string ownableName, std::shared_ptr<Player> buyer);
-    void loadMortProperty(std::string ownableName, std::shared_ptr<Player> own); 
+    void loadProperty(std::string ownableName, std::shared_ptr<Player> buyer, int imprLevel);
 }
 
 #endif
