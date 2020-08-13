@@ -8,28 +8,10 @@ const int MAX_PLAYERS = 8;
 
 Board::Board() {
     sqrImproves  = {
-        {"AL", 0},
-        {"ML", 0},
-        {"ECH", 0},
-        {"PAS", 0},
-        {"HH", 0},
-        {"RCH", 0},
-        {"DWE", 0},
-        {"CPH", 0},
-        {"LHI", 0},
-        {"BMH", 0},
-        {"OPT", 0},
-        {"EV1", 0},
-        {"EV2", 0},
-        {"EV3", 0},
-        {"PHYS", 0},
-        {"B1", 0},
-        {"B2", 0},
-        {"EIT", 0},
-        {"ESC", 0},
-        {"C2", 0},
-        {"MC", 0},
-        {"DC", 0}
+        {"AL", 0}, {"ML", 0}, {"ECH", 0}, {"PAS", 0}, {"HH", 0}, {"RCH", 0},
+        {"DWE", 0}, {"CPH", 0}, {"LHI", 0}, {"BMH", 0}, {"OPT", 0}, {"EV1", 0},
+        {"EV2", 0}, {"EV3", 0}, {"PHYS", 0}, {"B1", 0}, {"B2", 0}, {"EIT", 0},
+        {"ESC", 0}, {"C2", 0}, {"MC", 0}, {"DC", 0}
     };
 
     timsCupsRem = MAX_TIMS_CUPS;
