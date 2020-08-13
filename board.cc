@@ -1,7 +1,5 @@
 #include "board.h"
-#include "square.h"
-#include "player.h"
-#include "dice.h"
+#include "./utility/positionMap.h"
 #include "boardDisplay.h"
 
 const int MAX_TIMS_CUPS = 4;
@@ -43,9 +41,11 @@ void Board::updateInfo(){
        if (p.second > 0){
            int sqrC = colOfSquare(p.first);
            int sqrR = rowOfSquare(p.first);
-           int c = sqrC + p.second - 1;
-           int r = sqrR + 2;
-           bd->addImpr( r, c );
+	   int r = sqrR + 1;
+	   for (int i = 0; i < p.second; i++){
+	       int c = sqrC + i;
+	       bd->addImpr(r, c);
+	   }
        }	   
    } 
 
@@ -79,6 +79,10 @@ void Board::drawBoard(){
 
 void Board::addPlayer( char player ){
     playerPos[player] = 0;
+}
+
+void Board::removeImpr( string building ){
+    sqrImproves[building]--;
 }
 
 void Board::movePlayer( char gamepiece, int newSqr ){

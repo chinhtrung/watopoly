@@ -4,16 +4,11 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include <algorithm>
-#include "utility/seeds.h"
-#include "utility/positionMap.h"
 using std::shared_ptr;
 using std::string;
 using std::map;
 using std::vector;
 
-//class Square;
-//class Player;
 class BoardDisplay;
 
 class Board {
@@ -43,7 +38,9 @@ class Board {
     void movePlayer( char gamepiece, int newSqr );
 
     // udpates display with added improvement
-    void addImpr( string building ); 
+    void addImpr( string building );
+
+    void removeImpr( string building ); 
 
     // Returns the number of available Tims Cups (Max = 4)
     int getTimsCupsRem();
