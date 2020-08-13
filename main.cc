@@ -7,8 +7,12 @@
 #include "utility/positionMap.h"
 #include "utility/gamePieces.h"
 #include "player.h"
+#include "dice.h"
 
 using namespace std;
+
+class Player;
+class Dice;
 
 // main drive
 int main (int argc, char** argv) {
@@ -68,31 +72,58 @@ int main (int argc, char** argv) {
             cout << "---------------------------------" << endl;
 
 
-            // auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
-            // group.push_back(newPlayer);
+            auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
+            group.push_back(newPlayer);
 
             // reset game piece
             piece = ' ';
         }
     }
 
-    // int currIndex = 0;
-    // shared_ptr<Player> currActingPlayer = group[currIndex];
-
+    // setup game tracker
+    int currIndex = 0;
+    shared_ptr<Player> currActingPlayer = group[currIndex];
+    auto twoDices = std::make_shared<Dice>();
+    
     while (true) {
         if (cin.fail()) break;
 
         cout << "type a command" << endl;
+        
         cin >> command;
 
         // load command
         if ( command == ROLL ) {
+            int availableDoubleRoll = 3;
+            currActingPlayer = group[currIndex];
+            int rollValue;
+
+            while (availableDoubleRoll > 0) {
+                // roll two dices 
+                twoDices->rollDice();
+
+                if (!twoDices->isDouble()) {
+                    rollValue = twoDices->diceSum();
+                    //acting here
+                    break;
+                } else {
+                    rollValue = twoDices->diceSum();
+                    //acting here;
+                    availableDoubleRoll--;
+                }
+            }
+
+            if (availableDoubleRoll == 0) {
+                //send to jail
+            }
 
             // replace this code
             cout << "+ calling " << command << endl;
 
         } else if ( command == NEXT ) {
-            
+            currIndex += 1;
+            currIndex = currIndex % group.size();
+            currActingPlayer = group[currIndex];
             // replace this code
             cout << "+ calling " << command << endl;
 
