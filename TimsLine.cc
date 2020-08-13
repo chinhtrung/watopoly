@@ -1,0 +1,27 @@
+#include "TimsLine.h"
+using namespace std;
+
+
+TimsLine::TimsLine() {
+}
+
+
+void actionAtIndex(shared_ptr<Player> p) {
+	captured.insert(pair<char, int>(p->gamePiece, 0));
+	return;
+}
+
+
+void TimsLine::addRoll(char player) {
+	map<char, int>::iterator it = captured.find(player);
+	if (it != captured.end()) {
+		++(it->second);
+	}
+	return;
+}
+
+
+bool TimsLine::isCaptured(char player) {
+	map<char, int>::iterator it = captured.find(player);
+	return it != captured.end();
+}
