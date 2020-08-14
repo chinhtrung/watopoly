@@ -52,6 +52,7 @@ class Player {
     void addTimsCup();
     void setTimsCups(int cups);  // used when loading from a game
     int getTimsCups();
+    void setBankruptStatus(bool status);
 };
 
 #endif
