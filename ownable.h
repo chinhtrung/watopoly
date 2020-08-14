@@ -14,7 +14,7 @@ class Ownable : public Square {
   public:
     Ownable(int ID, std::string name, int costToBuy, char owner);
 
-    virtual int amountToPay() = 0;
+    virtual int amountToPay();
     void setOwner(char owner);
     void setMortStatus(bool status);
     void setImprLevel(int level);

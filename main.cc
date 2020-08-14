@@ -68,23 +68,23 @@ int main (int argc, char** argv) {
 		
 		auto p = std::make_shared<Player>(name, gamepiece, funds);
 		p->setTimsCups(numTimsCups);
-		b.addPlayer(gamepiece);
+		b->addPlayer(gamepiece);
 
 		if (sqrPos == DC_TIMS_POS){
 		    bool inLine;
 		    inf >> inLine;
 		    if (inLine){
-		        b.movePlayer(gamepiece, DC_TIMS_POS);
+		        b->movePlayer(gamepiece, DC_TIMS_POS);
 			int turnsInLine;
 			inf >> turnsInLine;
 			p->moveToDCTims();
 		    } else {
 		        p->movePlayer(sqrPos); //but without collecting Go money
-			b.movePlayer(gamepiece, sqrPos);
+			b->movePlayer(gamepiece, sqrPos);
 		    }
 		} else {
 		    p->movePlayer(sqrPos); //but without collecting Go money
-		    p->movePlayer(gamepiece, sqrPos);
+		    b->movePlayer(gamepiece, sqrPos);
 		}
 
 		group.push_back(p);

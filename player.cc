@@ -207,10 +207,6 @@ void Player::setTimsCups(int cups){
     timsCups = cups;
 }
 
-std::string Player::getName() const {
-    return name;
-}
-
 int Player::getTimsCups(){
     return timsCups;
 }

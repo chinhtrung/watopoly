@@ -2,8 +2,10 @@
 
 using namespace std;
 
-Auction::Auction(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> callAtPlayer, std::string ownableItem)
-: group{group}, ownableItem{ownableItem}, maxBidder{callAtPlayer} {
+Auction::Auction(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> callAtPlayer, std::string ownableItem) {
+	this->group = group;
+	this->ownableItem = ownableItem;
+	this->maxBidder = callAtPlayer;
 	numberOfBidders = group.size();
 	bidLog[callAtPlayer] = 0; // at initial bid
 }

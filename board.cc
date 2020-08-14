@@ -67,6 +67,11 @@ void Board::removePlayer( char player ){
     playerPos.erase(player);
 }
 
+void Board::movePlayer(char gamepiece, int newSqr) {
+    playerPos[gamepiece] = newSqr;
+    return;
+}
+
 void Board::removeImpr( string building ){
     sqrImproves[building]--;
 }
