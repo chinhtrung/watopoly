@@ -214,3 +214,7 @@ int Player::getTimsCups(){
 void Player::setBankruptStatus(bool status) {
     bankruptStatus = status;
 }
+
+bool Player::getBankruptStatus() {
+    return bankruptStatus;
+}
