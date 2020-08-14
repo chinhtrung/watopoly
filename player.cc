@@ -222,3 +222,24 @@ bool Player::getBankruptStatus() {
 std::vector<std::shared_ptr<Ownable>> Player::getOwnedPropList() {
     return ownedProperties;
 }
+
+void Player::updateMonopolyBlock() {
+    // every falcuty need 3 building to finish a block except for Math faculty (they only need 2)
+    int sizeOwnedProp = ownedProperties.size();
+    std::map<std::string, int> trackingBuilding; // {"Sci1": 2, "Sci2": 3}
+    std::string eachBlock;
+
+    for (int i = 0; i < sizeOwnedProp; i++) {
+        eachBlock = ownedProperties[i]->getMonoBlock();
+        trackingBuilding[eachBlock] += 1;
+    }
+
+    for (auto &block: trackingBuilding) {
+        if (block.second == 2 && block.first == "Math") {
+            monopolyBlocks.push_back(block.first);
+        } else if (block.second == 3) {
+            monopolyBlocks.push_back(block.first);
+        }
+    }
+
+}

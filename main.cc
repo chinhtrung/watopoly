@@ -276,13 +276,8 @@ int main (int argc, char** argv) {
             followUnmortgageCommand(currActingPlayer);
 
         } else if ( command == BANKRUPT ) {
-            //this is not available here
-
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cout << "(only available when a player must pay more money than they currently have)" << endl;
-            cout << "GAME OVER!!" << endl;
-            break;
+            cout << "The bankrupt command cannot be called here" << endl;
+            continue;
 
         } else if ( command == ASSETS ) {
             if (currActingPlayer->getCurrPos() != TUITION_POS) {

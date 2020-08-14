@@ -4,7 +4,9 @@ using namespace std;
 
 Ownable::Ownable(int ID, std::string name, int costToBuy, char owner) 
     : Square(ID, name), costToBuy{costToBuy}, owner{owner}
-{}
+{
+    monopolyBlock = monoBlockOfProp(name);
+}
 
 void Ownable::setOwner(char owner) {
     this->owner = owner;
@@ -40,4 +42,8 @@ int Ownable::getPayLevel() const {
 
 int Ownable::getCostToBuy() const {
     return costToBuy;
+}
+
+std::string Ownable::getMonoBlock() const {
+    return monopolyBlock;
 }
