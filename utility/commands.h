@@ -1,6 +1,28 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 #include <string>
+#include <iostream>
+#include <memory>
+#include "../player.h"
+#include "../ownable.h"
+#include "../Unownable.h"
+#include "../dice.h"
+#include "../transactions.h"
+
+class Player;
+class Ownable;
+class Unownable;
+class Dice;
+class Transactions;
+
+void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
+void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
+void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
+void followMortgageCommand(std::shared_ptr<Player> curPlayer);
+void followUnmortgageCommand(std::shared_ptr<Player> curPlayer);
+void followBankruptCommand(std::shared_ptr<Player> curPlayer);
+void followAssetsCommand(std::shared_ptr<Player> curPlayer);
+void followAllCommand(std::vector<std::shared_ptr<Player>> group);
 
 // basic command (such as roll, next,...) and action (such as buy, sell)
 const std::string ROLL = "roll";
