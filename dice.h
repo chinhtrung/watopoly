@@ -1,5 +1,5 @@
-#ifndef _DICE_H
-#define _DICE_H
+#ifndef DICE_H
+#define DICE_H
 #include <time.h>
 #include <cstdlib>
 
@@ -10,6 +10,8 @@ class Dice {
   public:
     // Sets die1 and die2 to randomly rolled values from 1 -6
     void rollDice();
+
+    void rollDiceTest();
 
     // Returns true if die1 == die2
     bool isDouble();
