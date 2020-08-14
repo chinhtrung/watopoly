@@ -14,7 +14,6 @@ Board::Board() {
         {"ESC", 0}, {"C2", 0}, {"MC", 0}, {"DC", 0}
     };
 
-    timsCupsRem = MAX_TIMS_CUPS;
     bd = std::make_unique<BoardDisplay> ();
 }
 
@@ -75,10 +74,6 @@ void Board::movePlayer( char gamepiece, int newSqr ){
 
 void Board::addImpr( string building ){
     sqrImproves[building]++; 
-}
-
-int Board::getTimsCupsRem(){
-    return timsCupsRem;
 }
 
 int Board::getImpr( string building ){
