@@ -21,6 +21,7 @@ class Player {
     int pos = 0;
     int timsCups = 0;
     bool bankruptStatus = false;
+    bool inJail = false;
     std::vector<std::shared_ptr<Ownable>> ownedProperties;
     std::vector<std::string> monopolyBlocks; // ie: {"Sci1", "Math", "Eng"}
     std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
