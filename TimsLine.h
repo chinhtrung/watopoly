@@ -14,7 +14,7 @@ class TimsLine: public Unownable {
 		virtual void actionAtIndex(std::shared_ptr<Player> p) override;
 		void addRoll(char player);
 		bool isCaptured(char player);
-		int turnsInLine(char player);
+		int turnInLine(char player);
 };
 
 

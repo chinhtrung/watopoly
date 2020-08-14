@@ -2,10 +2,10 @@
 using namespace std;
 
 
-TimsLine::TimsLine()
+TimsLine::TimsLine() {}
 
 
-void actionAtIndex(shared_ptr<Player> p) {
+void TimsLine::actionAtIndex(shared_ptr<Player> p) {
 	captured.insert(pair<char, int>(p->getGamePiece(), 0));
 	return;
 }
