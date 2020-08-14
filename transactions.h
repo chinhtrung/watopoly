@@ -10,7 +10,7 @@
 
 class Player;
 class Ownable;
-class Auntion;
+class Auction;
 
 class Transactions{
     static std::vector<std::shared_ptr<Ownable>> ownedList;
