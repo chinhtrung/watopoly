@@ -106,7 +106,7 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
 
     } else { // they're on an unownable block
         
-        
+
     }
 
 }
@@ -293,7 +293,7 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
         if ( action == RAISE ) {
             std::string amount;
             cin >> amount;
-            while (!isNumber(amount) || ) {
+            while (!isNumber(amount)) {
                 cout << "The bidding amount have to be a number" << endl;
                 cout << "Please enter the amount you want to raise " << curPlayerName << endl;
                 cin >> amount;
