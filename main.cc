@@ -67,7 +67,7 @@ int main (int argc, char** argv) {
 		inf >> sqrPos;
 		
 		auto p = std::make_shared<Player>(name, gamepiece, funds);
-		p->setTimsCup(numTimsCups);
+		p->setTimsCups(numTimsCups);
 		b.addPlayer(gamepiece);
 
 		if (sqrPos == DC_TIMS_POS){
