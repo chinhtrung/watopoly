@@ -2,7 +2,11 @@
 
 using namespace std;
 
-Auction::Auction(string ownableItem) : ownableItem{ownableItem} {}
+Auction::Auction(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> callAtPlayer, std::string ownableItem)
+: group{group}, ownableItem{ownableItem}, maxBidder{callAtPlayer} {
+	numberOfBidders = group.size();
+	bidLog[callAtPlayer] = 0; // at initial bid
+}
 
 bool Auction::placeBid(shared_ptr<Player> from, int amt) {
 	// only allow player bid when the amt higher than the maxBid
@@ -23,12 +27,14 @@ bool Auction::placeBid(shared_ptr<Player> from, int amt) {
 	return true;
 }
 
+// assume player(from) has not yet withdraw
 void Auction::withdrawBid(shared_ptr<Player> from) {
 	cout << "The player " << from->getName() << " withdraw from the bid" << endl;
 	bidLog.erase(from);
+	numberOfBidders -= 1;
 
 	// check if there is the last player in the bool to declare a bid winner
-	if (bidLog.size() == 1) {
+	if (bidLog.size() == 1 && numberOfBidders == 1) {
 		for (auto &bid: bidLog) {
 			cout << bid.first << " win the property " << ownableItem << " with the price " << bid.second << endl;
 			// process to buy this prop and finish
@@ -40,16 +46,18 @@ void Auction::withdrawBid(shared_ptr<Player> from) {
 	}
 
 	// reset the maxBidder and the maxBid
-	int newMax = 0;
+	int newLocalMaxBid = 0;
 	std::shared_ptr<Player> curMaxBidder;
 	for (auto &bid: bidLog) {
-		if (bid.second > newMax) {
-			newMax = bid.second;
+		if (bid.second > newLocalMaxBid) {
+			newLocalMaxBid = bid.second;
 			curMaxBidder = bid.first;
 		}
 	}
-	maxBid = newMax;
+	maxBid = newLocalMaxBid;
 	maxBidder = curMaxBidder;
+
+
 
 	cout << "The current highest bid is " << maxBid << " by " << maxBidder << endl;
 	return;

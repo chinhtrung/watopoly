@@ -57,10 +57,11 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
             if (input == BUY) {
                 while (!Transactions::buyProperty(steppingSquare, curPlayer)) {
                     cout << "You don't have enough money to buy this property. Make command TRADE or MORTGAGE to gain more funds" << endl;
-                    cout << "(type LEAVE to stop BUYING action - the bank will auction this property)" << endl;
+                    cout << "(type \"auction\" to stop BUYING action - the bank will auction this property)" << endl;
                     cin >> input;
-                    if (input == "LEAVE") {
-                        // run the auction
+                    if (input == AUCTION) {
+                        // run the auction command
+                        followAuctionCommand(group, curPlayer, steppingSquare);
                         break;
                     }
 
@@ -69,7 +70,7 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
 
             } else {
                 // run the auction
-
+                followAuctionCommand(group, curPlayer, steppingSquare);
             }
         }
 
@@ -221,5 +222,70 @@ void followUnmortgageCommand(shared_ptr<Player> curPlayer) {
 
     if (!Transactions::unmortgageProperty(pointerProperty, curPlayer)) {
         cout << "Abort unmortgage action!" << endl;
+    }
+}
+
+void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::string ownableItem) {
+    // make new auction
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "The BANK is now running auction on " << ownableItem << " property" << endl;
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "Each player is now asked for bidding decision" << endl;
+    
+    // setup before bidding
+    auto newAuction = make_shared<Auction>(group, curPlayer, ownableItem);
+    int curIndexPlayer = 0; // current bidder
+    int sizeGroup = group.size();
+    int numberOfBidder = sizeGroup;
+    vector<bool> trackingGiveUpBid;
+    for (int i = 0; i < sizeGroup; i++) {
+        trackingGiveUpBid[i] = false;
+        if (group[i] == curPlayer) {
+            curIndexPlayer = i;
+        }
+    }
+    // we want a person who is next to the one calling auction bid first
+    curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
+
+    string action; // can choose between RAISE/WITHDRAW
+    while (numberOfBidder == 1) {
+        if (trackingGiveUpBid[curIndexPlayer]) {
+            curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
+            continue;
+        }
+
+        string curPlayerName = group[curIndexPlayer]->getName();
+        cout << "The current bidding player is " << curPlayerName << endl;
+        cout << "Please choose your action \"raise <amount>\" or \"withdraw\" for the bid " << endl;
+        cin >> action;
+
+        if ( action == RAISE ) {
+            std::string amount;
+            cin >> amount;
+            while (!isNumber(amount) || ) {
+                cout << "The bidding amount have to be a number" << endl;
+                cout << "Please enter the amount you want to raise " << curPlayerName << endl;
+                cin >> amount;
+            }
+            while (!newAuction->placeBid(group[curIndexPlayer], amount)) {
+                cout << "Bid has not been placed, please try another amount or type \"withdraw\" to withdraw from auction " << endl;
+                cin >> amount;
+
+                if (amount == WITHDRAW) {
+                    newAuction->withdrawBid(group[curIndexPlayer]);
+                    trackingGiveUpBid[curIndexPlayer] = true;
+                    numberOfBidder--;
+                    break;
+                }
+            }
+            curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
+        } else if ( action == WITHDRAW) {
+            newAuction->withdrawBid(group[curIndexPlayer]);
+            trackingGiveUpBid[curIndexPlayer] = true;
+            curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
+            numberOfBidder--;
+        } else {
+            cout << "unregconized action for bidding, the BANK will be prompted to ask you again" << endl;
+        }
     }
 }

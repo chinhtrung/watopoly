@@ -8,13 +8,16 @@
 #include "../Unownable.h"
 #include "../dice.h"
 #include "../transactions.h"
+#include "../auction.h"
 
 class Player;
 class Ownable;
 class Unownable;
 class Dice;
 class Transactions;
+class Auction;
 
+bool isNumber(string a);
 void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
@@ -23,6 +26,7 @@ void followUnmortgageCommand(std::shared_ptr<Player> curPlayer);
 void followBankruptCommand(std::shared_ptr<Player> curPlayer);
 void followAssetsCommand(std::shared_ptr<Player> curPlayer);
 void followAllCommand(std::vector<std::shared_ptr<Player>> group);
+void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::string ownableItem);
 
 // basic command (such as roll, next,...) and action (such as buy, sell)
 const std::string ROLL = "roll";
@@ -39,5 +43,10 @@ const std::string ALL = "all";
 const std::string SAVE = "save";
 const std::string LOAD = "-load";
 const std::string TESTING = "-testing";
+
+// helper command
+const std::string AUCTION = "auction"; // to call auction command
+const std::string RAISE = "raise"; // place a bid in the auction command
+const std::string WITHDRAW = "withdraw"; // withdraw from a bid
 
 #endif
