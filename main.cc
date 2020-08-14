@@ -120,7 +120,7 @@ int main (int argc, char** argv) {
         int num = 0;
         cin >> num;
         if (cin.fail()) cin.clear();
-        while (num < 1 || num > 7 || cin.fail()) {
+        while (num < MIN_PLAYERS || num > MAX_PLAYERS || cin.fail()) {
             if (cin.fail()) break;
             cout << "The number of players should be between 2 and 7." << endl;
 	    cout << "input number of player again" << endl;
@@ -131,6 +131,11 @@ int main (int argc, char** argv) {
             cout << "Hey player " << i + 1 << "! Please input your name " << endl;
             string name;
             cin >> name;
+	    while (name == "BANK"){
+	        cout << "Sorry, you can't have the name BANK. Please input a different name." << endl;
+	        cin >> name;
+	    }
+
             if (cin.fail()) break;
 
             cout << "Please choose one from the available piece char to represent yourself on board ";
