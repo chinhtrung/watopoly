@@ -8,7 +8,7 @@ class Dice {
     int die2;
 
   public:
-    // Sets die1 and die2 to randomly rolled values from 1 -6
+    // Sets die1 and die2 to randomly rolled values
     void rollDice();
 
     void rollDiceTest();

@@ -2,7 +2,7 @@
 #define TESTING_H
 
 
-#include "player.h"
+#include "../player.h"
 
 
 void testing();
