@@ -1,5 +1,7 @@
 #ifndef OWNABLE_H
 #define OWNABLE_H
+#include <string>
+#include "utility/seeds.h"
 #include "square.h"
 
 class Square;
@@ -10,6 +12,7 @@ class Ownable : public Square {
     int imprLevel = 0;
     int payLevel = 0; //almost the same with imprLevel except for gym and resident, this one show how many gym (or res) all own together 
     bool mortgageStatus = false;
+    std::string monopolyBlock;
 
   public:
     Ownable(int ID, std::string name, int costToBuy, char owner);
