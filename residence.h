@@ -8,6 +8,7 @@
 class Residence: public Ownable {
 	public:
 		Residence();
+		virtual amountToPay() override;
 };
 
 

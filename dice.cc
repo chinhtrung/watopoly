@@ -27,3 +27,11 @@ bool Dice::isDouble(){
 int Dice::diceSum(){
     return die1 + die2;
 }
+
+int Dice::getDie1() {
+	return die1;
+}
+
+int Dice::getDie2() {
+	return die2;
+}

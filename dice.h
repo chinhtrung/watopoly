@@ -18,6 +18,10 @@ class Dice {
 
     // Returns the sum of die1 and die2
     int diceSum();
+
+    int getDie1();
+    
+    int getDie2();
 };
 
 #endif

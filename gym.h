@@ -2,13 +2,18 @@
 #define GYM_H
 
 
-#include "dice.h"
 #include "ownable.h"
 
 
 class Gym: public Ownable {
+	int rent;
 	public:
-		Gym();
+		Gym(int ID, std::string name, int costToBuy, char owner);
+		virtual int amountToPay() override;
+		void roll();
+		void rollTest();
+		void setRent();
+		void setRentTest();
 };
 
 
