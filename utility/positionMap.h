@@ -4,10 +4,6 @@
 #include <vector>
 #include <map>
 
-int indexOfSquare(std::string nameSquare);
-int colOfSquare(int indexOfSquare);
-int rowOfSquare(int indexOfSquare);
-
 const std::map<int, std::vector<int>> MAP_COORD = {
     {0, {82,50}}, {1, {74,50}}, {2, {66,50}}, {3, {58,50}}, {4, {50,50}},
     {5, {42,50}}, {6, {34,50}}, {7, {26,50}}, {8, {18,50}}, {9, {10,50}},
@@ -31,28 +27,10 @@ const std::vector<std::string> MAP_GAME =
 };
 const int MAP_GAME_SIZE = MAP_GAME.size();
 
-// return the first index of nameSquare in the MAP_GAME
-// nameSquare should be a valid name
-int indexOfSquare(std::string nameSquare) {
-    int indexResult = 0;
+int indexOfSquare(std::string nameSquare);
+int colOfSquare(int indexOfSquare);
+int rowOfSquare(int indexOfSquare);
 
-    for (int i = 0; i < MAP_GAME_SIZE; i++) {
-        if (nameSquare == MAP_GAME[i]) { //should number SLC, NEEDLES HALL as SLC1, SLC2,...
-            indexResult = i;
-            break;
-        }
-    }
-
-    return indexResult;
-}
-
-int colOfSquare(int indexOfSquare){
-    return MAP_COORD.at(indexOfSquare)[0]; 
-}
-
-int rowOfSquare(int indexOfSquare){
-    return MAP_COORD.at(indexOfSquare)[1]; 
-}
 
 #endif
 
