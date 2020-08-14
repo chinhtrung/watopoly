@@ -33,6 +33,9 @@ class Board {
     // main calls this to add a player to Board's playerPos vector
     void addPlayer( char player );
 
+    // removes player if they go bankrupt
+    void removePlayer( char gamepiece );
+
     // updates display with player's new position and modifies
     //    player's posX, posY fields acccordingly
     void movePlayer( char gamepiece, int newSqr );

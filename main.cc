@@ -33,7 +33,7 @@ int main (int argc, char** argv) {
 
     string command, name, give, receive, property, action, filename;
 
-    const int MAX_TIMS = 4;
+    int MAX_TIMS = 4;
     const int MAX_PLAYERS = 7;
     const int MIN_PLAYERS = 2;
     const int TUITION_POS = 4;

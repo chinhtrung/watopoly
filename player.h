@@ -45,6 +45,7 @@ class Player {
     int getAssets() const;
     void movePlayer(int roll);
     void moveToDCTims();
+    void setPos(int pos);
     void declareBankruptcy();
     void auctionProperty(std::string squareName);
     void addTimsCup();

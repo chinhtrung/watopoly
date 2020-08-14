@@ -3,6 +3,10 @@
 
 
 #include <memory>
+#include "Unownable.h"
+
+
+class Player;
 
 
 class MonetaryServices: public Unownable{
