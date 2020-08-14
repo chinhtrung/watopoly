@@ -8,11 +8,13 @@
 #include "utility/gamePieces.h"
 #include "player.h"
 #include "dice.h"
+#include "transactions.h"
 
 using namespace std;
 
 class Player;
 class Dice;
+class Transactions;
 // Used C++ Reference Pages cplusplus.com, en.cppreference.com, 
 // https://medium.com/prodopsio/
 //   solving-git-merge-conflicts-with-vim-c8a8617e3633
@@ -124,10 +126,23 @@ int main (int argc, char** argv) {
         }
     }
 
-    // setup game tracker
+    // setup game tracker and helper method
     int currIndex = 0;
     shared_ptr<Player> currActingPlayer = group[currIndex];
-    auto twoDices = std::make_shared<Dice>();
+    auto twoDices = make_shared<Dice>();
+    bool rollThisTurn = false;
+    auto pointerOfPlayer = [group] (char trackingPiece) {
+        int sizeGroup = group.size();
+        shared_ptr<Player> result;
+        for (int i = 0; i < sizeGroup; i++) {
+            if (group[i]->getGamePiece() == trackingPiece) {
+                return group[i];
+            }
+        }
+        cout << "why trackingPiece is not in this player group? hmmm..." << endl;
+        // this will return empty share_ptr of player
+        return result;
+    };
 
     while (true) {
         if (cin.fail()) break;
@@ -138,6 +153,11 @@ int main (int argc, char** argv) {
 
         // load command
         if ( command == ROLL ) {
+            if (rollThisTurn) {
+                cout << "You rolled this turn, please make other commands" << endl;
+                continue;
+            }
+
             int availableDoubleRoll = 3;
             currActingPlayer = group[currIndex];
             int rollValue;
@@ -145,71 +165,56 @@ int main (int argc, char** argv) {
             while (availableDoubleRoll > 0) {
                 // roll two dices 
                 twoDices->rollDice();
-
+                cout << "Rolling your dices ........" << endl;
+                cout << "and you get " << twoDices->diceSum() << endl;
+ 
                 if (!twoDices->isDouble()) {
                     rollValue = twoDices->diceSum();
-                    //acting here
+                    currActingPlayer->movePlayer(rollValue);
+                    followRollCommand(currActingPlayer);
                     break;
+
                 } else {
+                    if (availableDoubleRoll == 1) {
+                        cout << "Congrats! You have rolled double 3 time, go to Tims Line " << endl;
+                        //send to jail
+                        continue;
+                    }
                     rollValue = twoDices->diceSum();
                     //acting here;
+                    currActingPlayer->movePlayer(rollValue);
+                    followRollCommand(currActingPlayer);
+
                     availableDoubleRoll--;
                 }
             }
 
-            if (availableDoubleRoll == 0) {
-                //send to jail
-            }
+            rollThisTurn = true;
 
-            // replace this code
-            cout << "+ calling " << command << endl;
-
-        } else if ( command == NEXT ) {
+        } else if ( command == NEXT) {
             currIndex += 1;
             currIndex = currIndex % group.size();
             currActingPlayer = group[currIndex];
-            // replace this code
-            cout << "+ calling " << command << endl;
+            rollThisTurn = false;
+
+            cout << "Your turn " << currActingPlayer->getName();
+            cout << " - (" << currActingPlayer->getGamePiece() << ")" << endl;
 
         } else if ( command == TRADE ) {
 
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cout << "(checking if we pass in enough parameters in)" << endl;
-            cin >> name >> give >> receive;
-            cout << "name: " << name << endl;
-            cout << "give: " << give << endl;
-            cout << "receive: " << receive << endl;
+            followTradeCommand(group, currActingPlayer);
 
         } else if ( command == IMPROVE ) {
 
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cout << "(checking if we pass in enough parameters in)" << endl;
-            cin >> property >> action;
-            cout << "property: " << property << endl;
-
-            if ( action == BUY ) {
-                // calling buy action
-                cout << "call buy action" << endl;
-            } else if ( action == SELL ) {
-                // calling sell action
-                cout << "call sell action" << endl;
-            }
+            followImproveCommand(group, currActingPlayer);
 
         } else if ( command == MORTGAGE ) {
 
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cin >> property;
-            cout << "attempt to mortgage: " << property << endl;
+            followMortgageCommand(currActingPlayer);
 
         } else if ( command == UNMORTGAGE ) {
 
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cin >> property;
-            cout << "attempt to unmortgage: " << property << endl;
+            followUnmortgageCommand(currActingPlayer);
 
         } else if ( command == BANKRUPT ) {
             
