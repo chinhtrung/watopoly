@@ -6,12 +6,12 @@
 
 class Ownable;
 
-class Academic : Ownable {
+class Academic : public Ownable {
     std::string monopolyBlock;
     int tuition;
   public:
     Academic(int ID, std::string name, int costToBuy, int imprLevel, char owner, std::string monopolyBlock);
-    int amountToPay() override;
+    virtual int amountToPay() override;
     void updateTuition();
 };
 
