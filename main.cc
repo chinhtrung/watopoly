@@ -223,24 +223,23 @@ int main (int argc, char** argv) {
 
         } else if ( command == IMPROVE ) {
 
-            //b->addImpr(squareName);
 	    // replace this code
             cout << "+ calling " << command << endl;
             cout << "(checking if we pass in enough parameters in)" << endl;
             cin >> property >> action;
             cout << "property: " << property << endl;
 
-	    // b->drawBoard();
-
             if ( action == BUY ) {
+		//b->addImpr(squareName);
                 // calling buy action
                 cout << "call buy action" << endl;
             } else if ( action == SELL ) {
-		// if selling improvement: b->removeImpr(squareName),
-		//    then b->drawBoard();
+		// b->removeImpr(squareName),
                 // calling sell action
                 cout << "call sell action" << endl;
             }
+
+	    b->drawBoard();
 
         } else if ( command == MORTGAGE ) {
 
