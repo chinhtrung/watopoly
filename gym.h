@@ -2,6 +2,7 @@
 #define GYM_H
 
 
+#include <string>
 #include "ownable.h"
 
 
