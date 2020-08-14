@@ -25,3 +25,7 @@ bool TimsLine::isCaptured(char player) {
 	map<char, int>::iterator it = captured.find(player);
 	return it != captured.end();
 }
+
+int TimsLine:turnInLine(char player){
+        return captured[player];
+}

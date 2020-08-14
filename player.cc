@@ -194,3 +194,19 @@ bool Player::loadFromSave(std::string saveFile) {
 bool saveGame(std::string saveFile) {
     return false;
 }
+
+void Player::addTimsCup(){
+    timsCups++;
+}
+
+void Player::setTimsCups(int cups){
+    timsCups = cups;
+}
+
+std::string Player::getName(){
+    return name;
+}
+
+int Player::getTimsCups(){
+    return timsCups;
+}

@@ -1,5 +1,5 @@
 #include "board.h"
-#include "./utility/positionMap.h"
+#include "utility/positionMap.h"
 #include "boardDisplay.h"
 
 const int MAX_TIMS_CUPS = 4;
@@ -14,7 +14,6 @@ Board::Board() {
         {"ESC", 0}, {"C2", 0}, {"MC", 0}, {"DC", 0}
     };
 
-    timsCupsRem = MAX_TIMS_CUPS;
     bd = std::make_unique<BoardDisplay> ();
 }
 
@@ -77,7 +76,6 @@ void Board::addImpr( string building ){
     sqrImproves[building]++; 
 }
 
-int Board::getTimsCupsRem(){
-    return timsCupsRem;
+int Board::getImpr( string building ){
+    return sqrImproves[building];
 }
-

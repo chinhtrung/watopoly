@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
 #include <vector>
@@ -6,12 +7,16 @@
 #include "utility/seeds.h"
 #include "utility/positionMap.h"
 #include "utility/gamePieces.h"
+#include "utility/testing.h"
 #include "player.h"
 #include "dice.h"
 #include "transactions.h"
+#include "board.h"
+#include "boardDisplay.h"
 
 using namespace std;
 
+class Board;
 class Player;
 class Dice;
 class Transactions;
@@ -29,65 +34,95 @@ int main (int argc, char** argv) {
     string command, name, give, receive, property, action, filename;
 
     const int MAX_TIMS = 4;
-    const int NUM_OWNABLE = 28;
+    const int MAX_PLAYERS = 7;
+    const int MIN_PLAYERS = 2;
+    const int TUITION_POS = 4;
+    const int DC_TIMS_POS = 10;
 
+    auto b = std::make_unique<Board>();
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
 
     if ( argc > 1) { // check the number of arguments
         if (argv[1] == LOAD) {
-            cout << "+ calling from arguments " << argv[1]; 
-	    cout << " to load a game state" << endl;
-            cout << "read in file with the name " << argv[2] << endl;
+
+	    cout << "Loading in saved game from " << argv[2] << endl;
+	    
+	    std::ifstream inf{argv[2]};
+
+	    int numPlayers;
+	    inf >> numPlayers; 
+
+	    for (int i = 0; i < numPlayers; i++){
+	        string name;
+		char gamepiece;
+		int numTimsCups;
+		int funds;
+		int sqrPos;
+
+	        inf >> name;	
+		inf >> gamepiece;
+		inf >> numTimsCups;
+		inf >> funds;
+		inf >> sqrPos;
+		
+		auto p = std::make_shared<Player>(name, gamepiece, funds);
+		p->setTimsCup(numTimsCups);
+		b.addPlayer(gamepiece);
+
+		if (sqrPos == DC_TIMS_POS){
+		    bool inLine;
+		    inf >> inLine;
+		    if (inLine){
+		        b.movePlayer(gamepiece, DC_TIMS_POS);
+			int turnsInLine;
+			inf >> turnsInLine;
+			p->moveToDCTims();
+		    } else {
+		        p->movePlayer(sqrPos); //but without collecting Go money
+			b.movePlayer(gamepiece, sqrPos);
+		    }
+		} else {
+		    p->movePlayer(sqrPos); //but without collecting Go money
+		    p->movePlayer(gamepiece, sqrPos);
+		}
+
+		group.push_back(p);
+	    }
+
+	    for (int i = 0; i < OWNABLE_SIZE; i++){
+	        string name;
+	        string owner;
+		int imprLevel;
+		inf >> name;
+		inf >> owner;
+		inf >> imprLevel;
+		
+		if (name != "BANK"){
+		    int playerIndex;
+		    int size = group.size();
+		    for (int i = 0; i < size; i++){
+                        if (group[i]->getName() == name){
+			    playerIndex = i;
+                        }
+                    }  
+
+		    auto ls = std::make_unique<LoadSave>();
+		    ls->loadProperty(name, group[playerIndex], imprLevel);
+		}
+	    }
         }
 
         if (argv[1] == TESTING) {
-            cout << "+ calling from arguments " << argv[1]; 
-            cout << ": testing mode enable" << endl;
-            cout << "Welcome to WATOPOLY testing mode!" << endl;
-            char cmd;
-            string name;
-            char gamePiece;
-            cout << "Enter a name for your player." << endl;
-            cin >> name;
-            cout << "Select your game piece for the test from the set ";
-            showAllCharExcept(pieceCharTaken);
-            cin >> gamePiece;
-            auto player = make_shared<Player>(name, gamePiece, 
-			    defaultMoneyToStart);
-            while (true) {
-                cout << "Your current position is ";
-                cout << player->getCurr
-                cout << "Enter q if you wish to quit ";
-                cout << "testing mode." << endl;
-                cout << "Enter any other character otherwise." << endl;
-                cin >> cmd;
-                if (cmd == 'q') {
-                    cout << "You have quit testing mode." << endl;
-                    break;
-                }
-                cout << player->getSquareAtCurrPos() << endl;
-                cout << "Enter roll <d1> <d2>, where d1 and d2 ";
-                cout << "are the rolls, which must be ";
-                cout << "non-negative integers." << endl;
-                string roll;
-                int d1;
-                int d2;
-                cin >> roll >> d1 >> d2;
-                if (roll != "roll" || d1 < 0 || d2 < 0) {
-                    cout << "Invalid Roll" << endl;
-                } else {
-                    int roll = d1 + d2;
-                    movePlayer(roll);
-                }
-            }
+            testing();
+	}
     } else {
         cout << "Fail to call load or testing mode, initiate a new game" << endl;
         cout << "Please input the number of player for this game" << endl;
         int num = 0;
         cin >> num;
         if (cin.fail()) cin.clear();
-        while (num < 1 || num > 7 || cin.fail()) {
+        while (num < MIN_PLAYERS || num > MAX_PLAYERS || cin.fail()) {
             if (cin.fail()) break;
             cout << "The number of players should be between 2 and 7." << endl;
 	    cout << "input number of player again" << endl;
@@ -98,6 +133,11 @@ int main (int argc, char** argv) {
             cout << "Hey player " << i + 1 << "! Please input your name " << endl;
             string name;
             cin >> name;
+	    while (name == "BANK"){
+	        cout << "Sorry, you can't have the name BANK. Please input a different name." << endl;
+	        cin >> name;
+	    }
+
             if (cin.fail()) break;
 
             cout << "Please choose one from the available piece char to represent yourself on board ";
@@ -118,11 +158,11 @@ int main (int argc, char** argv) {
             cout << "---------------------------------" << endl;
 
 
-            auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
+            /*auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
             group.push_back(newPlayer);
 
             // reset game piece
-            piece = ' ';
+            piece = ' ';*/
         }
     }
 
@@ -171,6 +211,7 @@ int main (int argc, char** argv) {
                 if (!twoDices->isDouble()) {
                     rollValue = twoDices->diceSum();
                     currActingPlayer->movePlayer(rollValue);
+                    b->drawBoard();
                     followRollCommand(currActingPlayer);
                     break;
 
@@ -183,6 +224,7 @@ int main (int argc, char** argv) {
                     rollValue = twoDices->diceSum();
                     //acting here;
                     currActingPlayer->movePlayer(rollValue);
+                    b->drawBoard();
                     followRollCommand(currActingPlayer);
 
                     availableDoubleRoll--;
@@ -225,21 +267,84 @@ int main (int argc, char** argv) {
             break;
 
         } else if ( command == ASSETS ) {
-            
+            if (currActingPlayer->getCurrPos() != TUITION_POS) {
+		    cout << "Your total assets are worth $";
+	    	    cout << currActingPlayer->getAssets() << endl;
+	    } else {
+		    cout << "You may not check your assets when ";
+		    cout << "paying tuition!" << endl;
+	    }
+
             // replace this code
             cout << "+ calling " << command << endl;
 
         } else if ( command == ALL ) {
-            
+           	
             // replace this code
             cout << "+ calling " << command << endl;
+	     if (currActingPlayer->getCurrPos() != TUITION_POS) {
+		    cout << "The list below shows each player, ";
+		    cout << "listed by total assets." << endl;
+		    for (unsigned int i = 0; i < group.size(); ++i) {
+			    cout << group[i]->getName() << " ";
+			    cout << group[i]->getGamePiece() << " ";
+			    cout << group[i]->getAssets() << endl;
+		    }
+	    } else {
+		    cout << "You may not check your assets when ";
+		    cout << "paying tuition!" << endl;
+	    }
 
         } else if ( command == SAVE ) {
-            
-            // replace this code
-            cout << "+ calling " << command << endl;
-            cin >> filename;
-            cout << "invoking function to save  " << filename << endl;
+	    string file;
+	    cin >> file;
+	    cout << "Saving game to " << file << endl;
+	    std::ofstream outf{file};
+
+	    int size = group.size();
+	    outf << size << endl;
+
+	    for (int i = 0; i < size; i++){
+                outf << group[i]->getName() << " ";
+		outf << group[i]->getGamePiece() << " ";
+		outf << group[i]->getTimsCups() << " ";
+		outf << group[i]->getFunds() << " ";
+		outf << group[i]->getCurrPos();
+		if (group[i]->getCurrPos == DC_TIMS_POS){
+		    char gp = group[i]->getGamePiece();
+	            // check if player is in Line
+		    // ^ (at start of game, TimsLine square is created by main,
+		    // bool inLine = tl->isCaptured(gp);
+		    // if (inLine){
+		    //     int turnsInLine = tl->turnsInLine(gp);
+		    //     outf << " " << 1 << " ";
+		    //     outf << turnsInLine << endl;
+		    // } else {
+		    //     outf << " " << 0 << endl;
+		    // }	
+		} else {
+		    outf << endl;
+		}
+	    }
+
+	    for (int i = 0; i < OWNABLE_SIZE; i++){
+	        outf << OWNABLE[i] << " ";
+		int size = group.size();
+		bool owned = false;
+		for (int j = 0; j < size; j++){
+		    if (group[j]->ownThisProp(OWNABLE[i])){
+		        outf << group[j]->getName() << " ";
+			owned = true;
+			break;
+		    }
+		}
+		 
+		if (!owned){
+		    outf << "BANK" << " ";
+		}
+		outf << b->getImpr(OWNABLE[i]) << endl;
+	    }
+	    
 
         } else {
             cout << "Unrecognized command!" << endl;
