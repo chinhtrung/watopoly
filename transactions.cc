@@ -113,6 +113,7 @@ bool Transactions::buyProperty(std::string ownableName, std::shared_ptr<Player> 
     // charge money to buy
     buyer->payFund(propCostToBuy);
     buyer->addProp(production);
+    buyer->updateMonopolyBlock();
     ownedList.push_back(production);
     std::cout << "Successfully buy " << ownableName << "!" << std::endl;
     return true;
