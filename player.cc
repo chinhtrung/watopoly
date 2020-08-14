@@ -207,6 +207,22 @@ void Player::setTimsCups(int cups){
     timsCups = cups;
 }
 
+std::string Player::getName() const {
+    return name;
+}
+
 int Player::getTimsCups(){
     return timsCups;
+}
+
+void Player::setBankruptStatus(bool status) {
+    bankruptStatus = status;
+}
+
+bool Player::getBankruptStatus() {
+    return bankruptStatus;
+}
+
+std::vector<std::shared_ptr<Ownable>> Player::getOwnedPropList() {
+    return ownedProperties;
 }

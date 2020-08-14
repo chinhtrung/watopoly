@@ -48,11 +48,15 @@ class Player {
     void setPos(int pos);
     void declareBankruptcy();
     void auctionProperty(std::string squareName);
-    static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
-    static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
     void addTimsCup();
     void setTimsCups(int cups);  // used when loading from a game
     int getTimsCups();
+    void setBankruptStatus(bool status);
+    bool getBankruptStatus();
+    std::vector<std::shared_ptr<Ownable>> getOwnedPropList();
+
+    static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
+    static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
 };
 
 #endif

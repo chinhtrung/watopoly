@@ -23,7 +23,8 @@ void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_
 void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followMortgageCommand(std::shared_ptr<Player> curPlayer);
 void followUnmortgageCommand(std::shared_ptr<Player> curPlayer);
-void followBankruptCommand(std::shared_ptr<Player> curPlayer);
+void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, std::shared_ptr<Player> toPlayer);
+void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer);
 void followAssetsCommand(std::shared_ptr<Player> curPlayer);
 void followAllCommand(std::vector<std::shared_ptr<Player>> group);
 void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::string ownableItem);

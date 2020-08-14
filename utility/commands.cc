@@ -4,6 +4,8 @@ using namespace std;
 
 // methods
 void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer) {
+    bool bankruptStatus = false;
+
     // inner helper function
     auto pointerOfPlayer = [group] (char trackingPiece) {
         int sizeGroup = group.size();
@@ -31,26 +33,44 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
 
             if (propOwner != curPlayer) { // check if the property belongs to the current player
                 cout << propOwner->getName() << ", let's pay fee" << endl;
-                // pay rent action
 
+                // pay rent action
                 while (!Transactions::payPlayer(curPlayer, propOwner, propPointer->amountToPay())) { //if not success paying
-                    cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds" << endl;
+                    cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
+                    cout << "Available commands [\"bankrupt\",\"mortage\",\"improve\"] with their according procedure"<< endl;
                     string action;
                     cin >> action;
+
                     // call other command here
+                    if (action == BANKRUPT) {
+                        followBankruptCommandWithPlayer(curPlayer, propOwner);
+                        bankruptStatus = true;
+                        break;
+                    }
+
+                    if (action == TRADE) {
+                        followTradeCommand(group, curPlayer);
+                    }
+
+                    if (action == MORTGAGE) {
+                        followMortgageCommand(curPlayer);
+                    }
+
+                    if (action == IMPROVE) {
+                        followImproveCommand(group, curPlayer);
+                    }
 
                 }
 
-                cout << "fee pay successfully" << endl;
+                if (!bankruptStatus) cout << "fee pay successfully" << endl;
 
             } else {
                 cout << "you! You're good to go" << endl;
             }
 
-
         } else { // buy or auction
             cout << "You are stepping on " << steppingSquare << ", you can buy this property!" << endl;
-            cout << "type \"buy\" to buy or type otherwise to let the bank auction this property." << endl;
+            cout << "type \"buy\" to buy or type anything to let the bank auction this property." << endl;
             string input;
             cin >> input;
 
@@ -59,15 +79,25 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
                     cout << "You don't have enough money to buy this property. Make command TRADE or MORTGAGE to gain more funds" << endl;
                     cout << "(type \"auction\" to stop BUYING action - the bank will auction this property)" << endl;
                     cin >> input;
+
                     if (input == AUCTION) {
                         // run the auction command
                         followAuctionCommand(group, curPlayer, steppingSquare);
                         break;
                     }
 
+                    if (input == TRADE) {
+                        followTradeCommand(group, curPlayer);
+                    }
 
+                    if (input == MORTGAGE) {
+                        followMortgageCommand(curPlayer);
+                    }
+
+                    if (input == IMPROVE) {
+                        followImproveCommand(group, curPlayer);
+                    }
                 }
-
             } else {
                 // run the auction
                 followAuctionCommand(group, curPlayer, steppingSquare);
@@ -75,7 +105,8 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
         }
 
     } else { // they're on an unownable block
-
+        
+        
     }
 
 }
@@ -267,7 +298,7 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
                 cout << "Please enter the amount you want to raise " << curPlayerName << endl;
                 cin >> amount;
             }
-            while (!newAuction->placeBid(group[curIndexPlayer], amount)) {
+            while (!newAuction->placeBid(group[curIndexPlayer], stoi(amount))) {
                 cout << "Bid has not been placed, please try another amount or type \"withdraw\" to withdraw from auction " << endl;
                 cin >> amount;
 
@@ -288,4 +319,23 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
             cout << "unregconized action for bidding, the BANK will be prompted to ask you again" << endl;
         }
     }
+}
+
+void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, std::shared_ptr<Player> toPlayer) {
+    curPlayer->setBankruptStatus(true);
+
+    // take all their funds
+    toPlayer->addFund(curPlayer->getFunds());
+    
+    // take all their property and re-set the owner
+    vector<shared_ptr<Ownable>> propListToTransfer = curPlayer->getOwnedPropList();
+    int sizeList = propListToTransfer.size();
+    for (int i = 0; i < sizeList; i++) {
+        toPlayer->addProp(propListToTransfer[i]);
+        propListToTransfer[i]->setOwner(toPlayer->getGamePiece());
+    }
+}
+
+void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer) {
+    
 }
