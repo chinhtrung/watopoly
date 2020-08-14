@@ -6,25 +6,30 @@
 #include "utility/seeds.h"
 #include "player.h"
 #include "ownable.h"
+#include "auction.h"
 
 class Player;
 class Ownable;
+class Auntion;
 
 class Transactions{
+    static std::vector<std::shared_ptr<Ownable>> ownedList;
+
   public:
     Transactions();
     
-    static void tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int give, std::shared_ptr<Ownable> receive);
-    static void tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, std::shared_ptr<Ownable> give, std::shared_ptr<Ownable> receive);
-    static void tradePforM(std::shared_ptr<Player> from, std::shared_ptr<Player> to, std::shared_ptr<Ownable> give, int receive);
-    static void payPlayer(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int rent);
-    static void payBank(std::shared_ptr<Player> from, int amt);
-    static void buyProperty(std::string ownableName, std::shared_ptr<Player> buyer);
-    static void improveProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own);
-    static void sellImprove(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own);
-    static void mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own);
-    static void unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own);
-    static void actingAtCurrentPosition(std::shared_ptr<Player> own);
+    static bool isInOwnedList(std::string nameSquare); // return true if nameSquare is already in the ownedList, false otherwise
+    static bool tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int give, std::shared_ptr<Ownable> receive); // return true if successfully trading, false otherwise
+    static bool tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, std::shared_ptr<Ownable> give, std::shared_ptr<Ownable> receive); // return true if successfully trading, false otherwise
+    static bool tradePforM(std::shared_ptr<Player> from, std::shared_ptr<Player> to, std::shared_ptr<Ownable> give, int receive); // return true if successfully trading, false otherwise
+    static bool payPlayer(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int rent); // return true if player successfully pay another player, false otherwise
+    static bool payBank(std::shared_ptr<Player> from, int amt); // return true if player successfully pay the bank, false otherwise
+    static bool buyProperty(std::string ownableName, std::shared_ptr<Player> buyer); // return true if player successfully buy property, false otherwise
+    static bool improveProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own); // return true if player successfully improve their property, false otherwise
+    static bool sellImprove(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own); // return true if player successfully sell improve their property, false otherwise
+    static bool mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own); // return true if player successfully mortgage their property, false otherwise
+    static bool unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own); // return true if player successfully unmortgage their property, false otherwise
+    static std::shared_ptr<Ownable> pointerOfProp(std::string ownableName);
 };
 
 #endif
