@@ -6,21 +6,6 @@
 
 const int ROWS = 56;
 const int COLS = 90;
-const int DIM = 11;
-
-for (int i = 1; i <= 4; i++){
-    if (i == 1){
-	for (int j = 0; j < DIM; j++){
-            int c = COLS - 7i - i;
-	    int r = ROWS - 5i - 1;
-	    MAP_COORD[j] = {c, r};
-	}
-    } else if (i == 2){
-        for (int j = 1; j < DIM; j++){
-	    
-	}
-    }
-}
 
 const std::map<int, std::vector<int>> MAP_COORD = {
     {0, {82,50}}, {1, {74,50}}, {2, {66,50}}, {3, {58,50}}, {4, {50,50}},
