@@ -105,7 +105,7 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
         }
 
     } else { // they're on an unownable block
-        
+      if (steppingSquare ==    
 
     }
 
