@@ -4,6 +4,7 @@
 
 #include <string>
 #include "ownable.h"
+#include "./utility/seeds.h"
 
 
 class Residence: public Ownable {

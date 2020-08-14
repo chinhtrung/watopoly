@@ -13,6 +13,7 @@
 #include "transactions.h"
 #include "board.h"
 #include "boardDisplay.h"
+#include "loadSave.h"
 
 using namespace std;
 
@@ -67,24 +68,24 @@ int main (int argc, char** argv) {
 		inf >> sqrPos;
 		
 		auto p = std::make_shared<Player>(name, gamepiece, funds);
-		p->setTimsCup(numTimsCups);
-		b.addPlayer(gamepiece);
+		p->setTimsCups(numTimsCups);
+		b->addPlayer(gamepiece);
 
 		if (sqrPos == DC_TIMS_POS){
 		    bool inLine;
 		    inf >> inLine;
 		    if (inLine){
-		        b.movePlayer(gamepiece, DC_TIMS_POS);
+		        b->movePlayer(gamepiece, DC_TIMS_POS);
 			int turnsInLine;
 			inf >> turnsInLine;
 			p->moveToDCTims();
 		    } else {
 		        p->movePlayer(sqrPos); //but without collecting Go money
-			b.movePlayer(gamepiece, sqrPos);
+			b->movePlayer(gamepiece, sqrPos);
 		    }
 		} else {
 		    p->movePlayer(sqrPos); //but without collecting Go money
-		    p->movePlayer(gamepiece, sqrPos);
+		    b->movePlayer(gamepiece, sqrPos);
 		}
 
 		group.push_back(p);
@@ -322,7 +323,7 @@ int main (int argc, char** argv) {
 		outf << group[i]->getTimsCups() << " ";
 		outf << group[i]->getFunds() << " ";
 		outf << group[i]->getCurrPos();
-		if (group[i]->getCurrPos == DC_TIMS_POS){
+		if (group[i]->getCurrPos() == DC_TIMS_POS){
 		    char gp = group[i]->getGamePiece();
 	            // check if player is in Line
 		    // ^ (at start of game, TimsLine square is created by main,
@@ -340,11 +341,11 @@ int main (int argc, char** argv) {
 	    }
 
 	    for (int i = 0; i < OWNABLE_SIZE; i++){
-	        outf << OWNABLE[i] << " ";
+	        outf << OWNABLE[i][0] << " ";
 		int size = group.size();
 		bool owned = false;
 		for (int j = 0; j < size; j++){
-		    if (group[j]->ownThisProp(OWNABLE[i])){
+		    if (group[j]->ownThisProp(OWNABLE[i][0])){
 		        outf << group[j]->getName() << " ";
 			owned = true;
 			break;
@@ -354,7 +355,7 @@ int main (int argc, char** argv) {
 		if (!owned){
 		    outf << "BANK" << " ";
 		}
-		outf << b->getImpr(OWNABLE[i]) << endl;
+		outf << b->getImpr(OWNABLE[i][0]) << endl;
 	    }
 	    
 

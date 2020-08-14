@@ -17,7 +17,7 @@ class Dice;
 class Transactions;
 class Auction;
 
-bool isNumber(string a);
+bool isNumber(std::string a);
 void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);

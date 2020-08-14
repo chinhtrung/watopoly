@@ -9,5 +9,5 @@ int Academic::amountToPay() {
 }
 
 void Academic::updateTuition() {
-    tuition = costToPayImprProp(this->getName, this->getPayLevel)
+    tuition = costToPayImprProp(this->getName(), this->getPayLevel())
 }
