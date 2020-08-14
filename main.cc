@@ -170,6 +170,7 @@ int main (int argc, char** argv) {
     int currIndex = 0;
     shared_ptr<Player> currActingPlayer = group[currIndex];
     auto twoDices = make_shared<Dice>();
+    int numberOfPlayer = group.size();
     bool rollThisTurn = false;
     auto pointerOfPlayer = [group] (char trackingPiece) {
         int sizeGroup = group.size();
@@ -187,7 +188,23 @@ int main (int argc, char** argv) {
     while (true) {
         if (cin.fail()) break;
 
-        cout << "type a command" << endl;
+        currActingPlayer = group[currIndex];
+
+        if (currActingPlayer->getBankruptStatus()) {
+            currIndex = currIndex % group.size();
+            continue;
+        }
+
+        if (numberOfPlayer == 1) {
+            cout << "Congratulation! The winner is " << currActingPlayer->getName();
+            cout << " with the total assest of " << currActingPlayer->getAssets() << endl;
+            break;
+        }
+
+        cout << "Your turn " << currActingPlayer->getName();
+        cout << " - your piece: " << currActingPlayer->getGamePiece() << endl;
+        cout << "available commands - [\"roll\",\"next\",\"trade\",\"improve\",\"mortgage\",\"unmortgage\",\"assets\",\"all\",\"save\"]" << endl;
+        cout << "Please type a command with the procedure accordingly" << endl;
         
         cin >> command;
 
@@ -199,7 +216,6 @@ int main (int argc, char** argv) {
             }
 
             int availableDoubleRoll = 3;
-            currActingPlayer = group[currIndex];
             int rollValue;
 
             while (availableDoubleRoll > 0) {
@@ -212,9 +228,8 @@ int main (int argc, char** argv) {
                     rollValue = twoDices->diceSum();
                     currActingPlayer->movePlayer(rollValue);
                     b->drawBoard();
-                    followRollCommand(currActingPlayer);
+                    followRollCommand(group, currActingPlayer);
                     break;
-
                 } else {
                     if (availableDoubleRoll == 1) {
                         cout << "Congrats! You have rolled double 3 time, go to Tims Line " << endl;
@@ -225,7 +240,7 @@ int main (int argc, char** argv) {
                     //acting here;
                     currActingPlayer->movePlayer(rollValue);
                     b->drawBoard();
-                    followRollCommand(currActingPlayer);
+                    followRollCommand(group, currActingPlayer);
 
                     availableDoubleRoll--;
                 }
@@ -234,13 +249,14 @@ int main (int argc, char** argv) {
             rollThisTurn = true;
 
         } else if ( command == NEXT) {
+            if (!rollThisTurn) {
+                cout << "Please roll before finishing your turn" << endl;
+                continue;
+            }
+
             currIndex += 1;
             currIndex = currIndex % group.size();
-            currActingPlayer = group[currIndex];
             rollThisTurn = false;
-
-            cout << "Your turn " << currActingPlayer->getName();
-            cout << " - (" << currActingPlayer->getGamePiece() << ")" << endl;
 
         } else if ( command == TRADE ) {
 
@@ -259,7 +275,8 @@ int main (int argc, char** argv) {
             followUnmortgageCommand(currActingPlayer);
 
         } else if ( command == BANKRUPT ) {
-            
+            //this is not available here
+
             // replace this code
             cout << "+ calling " << command << endl;
             cout << "(only available when a player must pay more money than they currently have)" << endl;
