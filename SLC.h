@@ -7,7 +7,7 @@
 
 class SLC: public Unownable {
 	public:
-		SLC(void);
+		SLC();
 		virtual void actionAtIndex(std::shared_ptr<Player>) override;
 		void testAction(std::shared_ptr<Player>);
 };

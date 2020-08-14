@@ -13,7 +13,7 @@ static const int MAX = 24;
 static const int BOARD_SIZE = 40;
 static const int OSAP = 200;
 
-SLC::SLC(void) {
+SLC::SLC() {
 }
 
 bool passOSAP(int pos, int changeInPos){
