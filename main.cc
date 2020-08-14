@@ -37,6 +37,7 @@ int main (int argc, char** argv) {
     const int TUITION_POS = 4;
     const int DC_TIMS_POS = 10;
 
+    auto b = std::make_unique<Board>();
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
 
@@ -49,7 +50,6 @@ int main (int argc, char** argv) {
 
 	    int numPlayers;
 	    inf >> numPlayers; 
-	    //auto b = std::make_unique<Board>();
 
 	    for (int i = 0; i < numPlayers; i++){
 	        string name;
@@ -66,19 +66,19 @@ int main (int argc, char** argv) {
 		
 		auto p = std::make_shared<Player>(name, gamepiece, funds);
 		p->setTimsCup(numTimsCups);
-		//b.addPlayer(gamepiece);
+		b.addPlayer(gamepiece);
 
 		if (sqrPos == DC_TIMS_POS){
 		    bool inLine;
 		    inf >> inLine;
 		    if (inLine){
-		        //b.movePlayer(gamepiece, DC_TIMS_POS);
+		        b.movePlayer(gamepiece, DC_TIMS_POS);
 			int turnsInLine;
 			inf >> turnsInLine;
 			p->moveToDCTims();
 		    } else {
 		        p->movePlayer(sqrPos); //but without collecting Go money
-			// b.movePlayer(gamepiece, sqrPos);
+			b.movePlayer(gamepiece, sqrPos);
 		    }
 		} else {
 		    p->movePlayer(sqrPos); //but without collecting Go money
@@ -173,7 +173,8 @@ int main (int argc, char** argv) {
 
         // load command
         if ( command == ROLL ) {
-	    // b->drawBoard();
+	    b->drawBoard();
+
             int availableDoubleRoll = 3;
             currActingPlayer = group[currIndex];
             int rollValue;
@@ -198,7 +199,8 @@ int main (int argc, char** argv) {
             }
 
 	    // after roll
-	    // b->movePlayer(gamePiece, newPos);
+	    //b->movePlayer(gamePiece, newPos);
+
             // replace this code
             cout << "+ calling " << command << endl;
 
@@ -234,11 +236,10 @@ int main (int argc, char** argv) {
                 // calling buy action
                 cout << "call buy action" << endl;
             } else if ( action == SELL ) {
-		// if selling improvement: b->removeImpr(squareName)
+		// if selling improvement: b->removeImpr(squareName),
+		//    then b->drawBoard();
                 // calling sell action
                 cout << "call sell action" << endl;
-
-		// b->drawBoard();
             }
 
         } else if ( command == MORTGAGE ) {
@@ -326,9 +327,20 @@ int main (int argc, char** argv) {
 
 	    for (int i = 0; i < OWNABLE_SIZE; i++){
 	        outf << OWNABLE[i] << " ";
-		// outf << owner << " ";
+		int size = group.size();
+		bool owned = false;
+		for (int j = 0; j < size; j++){
+		    if (group[j]->ownThisProp(OWNABLE[i])){
+		        outf << group[j]->getName() << " ";
+			owned = true;
+			break;
+		    }
+		}
+		 
+		if (!owned){
+		    outf << "BANK" << " ";
+		}
 		outf << b->getImpr(OWNABLE[i]) << endl;
-
 	    }
 	    
 
