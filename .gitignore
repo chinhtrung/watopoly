@@ -1,2 +1,4 @@
 generateFile.txt
 a.out
+*.o
+*.d
