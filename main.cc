@@ -9,9 +9,12 @@
 #include "utility/gamePieces.h"
 #include "player.h"
 #include "dice.h"
+#include "board.h"
+#include "boardDisplay.h"
 
 using namespace std;
 
+class Board;
 class Player;
 class Dice;
 // Used C++ Reference Pages cplusplus.com, en.cppreference.com, 
@@ -45,7 +48,7 @@ int main (int argc, char** argv) {
 
 	    int numPlayers;
 	    inf >> numPlayers; 
-	    //auto board = std::make_unique<Board>;
+	    //auto b = std::make_unique<Board>();
 
 	    for (int i = 0; i < numPlayers; i++){
 	        string name;
@@ -74,9 +77,11 @@ int main (int argc, char** argv) {
 			p->moveToDCTims();
 		    } else {
 		        p->movePlayer(sqrPos); //but without collecting Go money
+			// b.movePlayer(gamepiece, sqrPos);
 		    }
 		} else {
 		    p->movePlayer(sqrPos); //but without collecting Go money
+		    p->movePlayer(gamepiece, sqrPos);
 		}
 
 		group.push_back(p);
@@ -213,6 +218,7 @@ int main (int argc, char** argv) {
 
         // load command
         if ( command == ROLL ) {
+	    // b->drawBoard();
             int availableDoubleRoll = 3;
             currActingPlayer = group[currIndex];
             int rollValue;
@@ -236,6 +242,8 @@ int main (int argc, char** argv) {
                 //send to jail
             }
 
+	    // after roll
+	    // b->movePlayer(gamePiece, newPos);
             // replace this code
             cout << "+ calling " << command << endl;
 
@@ -258,18 +266,24 @@ int main (int argc, char** argv) {
 
         } else if ( command == IMPROVE ) {
 
-            // replace this code
+            //b->addImpr(squareName);
+	    // replace this code
             cout << "+ calling " << command << endl;
             cout << "(checking if we pass in enough parameters in)" << endl;
             cin >> property >> action;
             cout << "property: " << property << endl;
 
+	    // b->drawBoard();
+
             if ( action == BUY ) {
                 // calling buy action
                 cout << "call buy action" << endl;
             } else if ( action == SELL ) {
+		// if selling improvement: b->removeImpr(squareName)
                 // calling sell action
                 cout << "call sell action" << endl;
+
+		// b->drawBoard();
             }
 
         } else if ( command == MORTGAGE ) {
