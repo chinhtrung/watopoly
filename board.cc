@@ -76,10 +76,6 @@ void Board::addImpr( string building ){
     sqrImproves[building]++; 
 }
 
-void Board::removeImpr( string building ){
-    sqrImproves[building]--;
-}
-
 int Board::getImpr( string building ){
     return sqrImproves[building];
 }

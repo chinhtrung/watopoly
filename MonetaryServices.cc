@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <ctime>
-#include <stdexcept>
 #include "MonetaryServices.h"
 using namespace std;
 
@@ -43,7 +42,6 @@ int MonetaryServices::needlesHall() {
 	} else if (spin == 18) {
 		return 200;
 	} else {
-		throw (out_of_range);
 	}
 	return 0;
 }
@@ -73,7 +71,7 @@ int MonetaryServices::needlesHallTest() {
 	} else if (spin == 18) {
 		return 200;
 	} else {
-		throw (out_of_range);
+
 	}
 	return 0;
 }
@@ -101,13 +99,14 @@ int MonetaryServices::payTuition(shared_ptr<Player> p) {
 		if (option == 'A') {
 			return -300;
 		} else if (option == 'B') {
-			if (p % 10 < 5) {
+			if (p->getAssets() % 10 < 5) {
 				return p->getAssets() / 10 * -1;
 			} else {
 				return p->getAssets() / 10 * -1 - 1;
 			}
 		}
 	}
+	return 0;
 }
 
 
@@ -116,12 +115,12 @@ void MonetaryServices::actionAtIndex(shared_ptr<Player> p) {
 	if (p->getCurrPos() == OSAP) {
 		amt = collectOSAP();
 	} else if (p->getCurrPos() == TUITION) {
-		amt = payTuition();
+		amt = payTuition(p);
 	} else if (p->getCurrPos() == NEEDLES_HALL) {
 		amt = needlesHall();
 	} else if (p->getCurrPos() == COOP_FEE) {
 		amt = payCoop();
 	}
-	p->funds += amt;
+	p->addFund(amt);
 	return;
 }

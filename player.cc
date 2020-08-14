@@ -74,7 +74,7 @@ bool Player::removeProp(std::shared_ptr<Ownable> prop) {
         return false;
     }
 
-    for (int i = 0; i < ownedProperties.size(); i++) {
+    for (unsigned int i = 0; i < ownedProperties.size(); i++) {
         if (prop == ownedProperties[i]) {
             ownedProperties.erase(ownedProperties.begin() + i);
             break;
@@ -132,7 +132,7 @@ string Player::getName() const {
     return name;
 }
 
-std::string Player::getSquareAtCurrPos() {
+string Player::getSquareAtCurrPos() {
     return MAP_GAME[pos];
 }
 
@@ -179,6 +179,10 @@ void Player::moveToDCTims() {
     // action on DC Tims Line (need to change later)
 }
 
+void Player::setPos(int pos) {
+	this->pos = pos;
+}
+
 void Player::declareBankruptcy() {
     // check if qualify to declare bankruptcy
 }
@@ -201,10 +205,6 @@ void Player::addTimsCup(){
 
 void Player::setTimsCups(int cups){
     timsCups = cups;
-}
-
-std::string Player::getName(){
-    return name;
 }
 
 int Player::getTimsCups(){

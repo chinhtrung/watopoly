@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <ctime>
-#include <stdexcept>
 #include "SLC.h"
 using namespace std;
 
@@ -28,12 +27,12 @@ void SLC::actionAtIndex(shared_ptr<Player> p) {
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 		+ MIN_TIMS_ROLL;
 	// Need access to board
-	if (timsRoll == secretNum && timsCupsRemaining < MAX_TIM_CUPS) {
-		++(p->timsCups);
+	if (timsRoll == SECRET_NUM) {
+		p->addTimsCup();
 		return;
 	}
 	int spin = rand() % (MAX - MIN + 1) + MIN;
-	int changeInPos;
+	int changeInPos = 0;
 	if (spin >= 1 && spin <= 3) {	
 		// Move back 3
 		changeInPos = -3;
@@ -55,22 +54,21 @@ void SLC::actionAtIndex(shared_ptr<Player> p) {
 	} else if (spin == 23) {
 		// Go to DC Tims Line
 		cout << "Go stand in the DC Tims Line." << endl;
-		p->pos = 10;
+		p->moveToDCTims();
 	} else if (spin == 24) {
 		// Advance to Collect OSAP
-		p->pos = 0;
+		p->setPos(0);
 		cout << "You passed Collect OSAP! Enjoy your $200" << endl;
-		p->funds += OSAP;
+		p->addFund(OSAP);
 	} else {
-		throw (out_of_range);
 	}
 
 	if (spin != 24 && spin != 10){
-	    if (passOSAP(p->pos, changeInPos)){
-	        p->funds += OSAP;
+	    if (passOSAP(p->getCurrPos(), changeInPos)){
+	        p->addFund(OSAP);
 	    }
 	    cout << "You passed Collect OSAP! Enjoy your $200" << endl;
-	    p->pos = (p->pos + changeInPos) % BOARD_SIZE;
+	    p->setPos((p->getCurrPos() + changeInPos) % BOARD_SIZE); 
 	}
 	return;
 }
@@ -82,38 +80,48 @@ void SLC::testAction(shared_ptr<Player> p) {
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 		+ MIN_TIMS_ROLL;
 	// Need access to board
-	if (timsRoll == secretNum && timsCupsRemaining < MAX_TIM_CUPS) {
-		++(p->timsCups);
+	if (timsRoll == SECRET_NUM) {
+		p->addTimsCup();
 		return;
 	}
 	int spin = rand() % (MAX - MIN + 1) + MIN;
-	if (spin >= 1 && spin <= 3) {
+	int changeInPos = 0;
+	if (spin >= 1 && spin <= 3) {	
 		// Move back 3
-		p->pos -= 3;
-	} else if (spin >= 4 && spin <= 7) {
+		changeInPos = -3;
+	} else if (spin >= 4 && spin <= 7) {	
 		// Move back 2
-		p->pos -= 2;
+		changeInPos = -2;
 	} else if (spin >= 8 && spin <= 11) {
 		// Move back 1
-		--(p->pos);
+		changeInPos = -1;
 	} else if (spin >= 12 && spin <= 14) {
 		// Move forward 1
-		++(p->pos);
+		changeInPos = 1;
 	} else if (spin >= 15 && spin <= 18) {
 		// Move forward 2
-		p->pos += 2;
+		changeInPos = 2;
 	} else if (spin >= 19 && spin <= 22) {
 		// Move forward 3
-		p->pos += 3;
+		changeInPos = 3;
 	} else if (spin == 23) {
 		// Go to DC Tims Line
-		p->pos = 10;
+		cout << "Go stand in the DC Tims Line." << endl;
+		p->moveToDCTims();
 	} else if (spin == 24) {
 		// Advance to Collect OSAP
-		p->pos = 0;
-		p->funds += 200;
+		p->setPos(0);
+		cout << "You passed Collect OSAP! Enjoy your $200" << endl;
+		p->addFund(OSAP);
 	} else {
-		throw (out_of_range);
+	}
+
+	if (spin != 24 && spin != 10){
+	    if (passOSAP(p->getCurrPos(), changeInPos)){
+	        p->addFund(OSAP);
+	    }
+	    cout << "You passed Collect OSAP! Enjoy your $200" << endl;
+	    p->setPos((p->getCurrPos() + changeInPos) % BOARD_SIZE); 
 	}
 	return;
 }       

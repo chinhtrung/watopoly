@@ -3,6 +3,10 @@
 
 
 #include <memory>
+#include "Unownable.h"
+
+
+class Player;
 
 
 class SLC: public Unownable {
