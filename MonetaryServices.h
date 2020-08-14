@@ -7,6 +7,7 @@
 
 class MonetaryServices: public Unownable{
 	int needlesHall();
+	int needlesHallTest();
 	int collectOSAP();
 	int payCoop();
 	int payTuition(std::shared_ptr<Player> p);
