@@ -218,3 +218,7 @@ void Player::setBankruptStatus(bool status) {
 bool Player::getBankruptStatus() {
     return bankruptStatus;
 }
+
+std::vector<std::shared_ptr<Ownable>> Player::getOwnedPropList() {
+    return ownedProperties;
+}

@@ -52,6 +52,7 @@ class Player {
     int getTimsCups();
     void setBankruptStatus(bool status);
     bool getBankruptStatus();
+    std::vector<std::shared_ptr<Ownable>> getOwnedPropList();
 
     static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
     static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
