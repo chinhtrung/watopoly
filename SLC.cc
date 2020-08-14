@@ -70,7 +70,7 @@ void SLC::actionAtIndex(shared_ptr<Player> p) {
 	        p->funds += OSAP;
 	    }
 	    cout << "You passed Collect OSAP! Enjoy your $200" << endl;
-	    p->pos += changeInPos;
+	    p->pos = (p->pos + changeInPos) % BOARD_SIZE;
 	}
 	return;
 }
