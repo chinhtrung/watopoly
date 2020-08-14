@@ -8,7 +8,6 @@ class Square{
   public:
     Square(int ID, std::string name);
 
-    void drawSqr();
     int getID();
     std::string getName();
 };

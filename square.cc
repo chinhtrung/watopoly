@@ -9,5 +9,5 @@ std::string Square::getName () {
 
 
 int Square::getID() {
-	return ID;
+    return ID;
 }
