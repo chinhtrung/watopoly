@@ -15,3 +15,12 @@ int indexOfSquare(std::string nameSquare) {
 
     return indexResult;
 }
+
+int colOfSquare(int indexOfSquare){
+    return MAP_COORD.at(indexOfSquare)[0];
+}
+
+int rowOfSquare(int indexOfSquare){
+    return MAP_COORD.at(indexOfSquare)[1];
+}
+
