@@ -107,7 +107,11 @@ bool Transactions::buyProperty(std::string ownableName, std::shared_ptr<Player> 
     // check if the buyer has enough money to buy
     if (!checkFundIsEnoughToUse(buyer, propCostToBuy)) return false;
 
+    // initiate new product
     auto production = std::make_shared<Ownable>(propID, ownableName, propCostToBuy, propOwner);
+
+    // charge money to buy
+    buyer->payFund(propCostToBuy);
     buyer->addProp(production);
     ownedList.push_back(production);
     std::cout << "Successfully buy " << ownableName << "!" << std::endl;
@@ -200,4 +204,21 @@ std::shared_ptr<Ownable> Transactions::pointerOfProp(std::string ownableName) {
     }
 
     return result;
+}
+
+// assume the ownableName is passed in correctly
+void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Player> buyer, int price) {
+    // create a new property for player to buy
+    int propID = indexOfSquare(ownableName); // the id is the unique index of square on the map
+    int propCostToBuy = costToBuyProp(ownableName);
+    char propOwner = buyer->getGamePiece();
+
+    // initiate new product
+    auto production = std::make_shared<Ownable>(propID, ownableName, propCostToBuy, propOwner);
+
+    // charge money to buy
+    buyer->payFund(price);
+    buyer->addProp(production);
+    ownedList.push_back(production);
+    std::cout << "Buy " << ownableName << " successfully" << std::endl;
 }
