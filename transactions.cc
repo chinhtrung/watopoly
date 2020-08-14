@@ -220,6 +220,7 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
     // charge money to buy
     buyer->payFund(price);
     buyer->addProp(production);
+    buyer->updateMonopolyBlock();
     ownedList.push_back(production);
     std::cout << "Buy " << ownableName << " successfully" << std::endl;
 }
