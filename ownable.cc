@@ -7,7 +7,7 @@ Ownable::Ownable(int ID, std::string name, int costToBuy, char owner)
 {}
 
 void Ownable::setOwner(char owner) {
-    owner = owner;
+    this->owner = owner;
 }
 
 void Ownable::setMortStatus(bool status) {
