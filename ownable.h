@@ -27,6 +27,7 @@ class Ownable : public Square {
     int getImprLevel() const;
     int getPayLevel() const;
     int getCostToBuy() const;
+    std::string getMonoBlock() const;
 };
 
 #endif

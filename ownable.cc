@@ -43,3 +43,7 @@ int Ownable::getPayLevel() const {
 int Ownable::getCostToBuy() const {
     return costToBuy;
 }
+
+std::string Ownable::getMonoBlock() const {
+    return monopolyBlock;
+}
