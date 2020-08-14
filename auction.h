@@ -18,7 +18,7 @@ class Auction{
     std::string ownableItem;
 
   public:
-    Auction(std::string ownableItem);
+    Auction(std::string ownableItem, std::shared_ptr<Player> callAtPlayer);
 
     bool placeBid(std::shared_ptr<Player> from, int amt);
     void withdrawBid(std::shared_ptr<Player> from);

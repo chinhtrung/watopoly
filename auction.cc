@@ -2,7 +2,9 @@
 
 using namespace std;
 
-Auction::Auction(string ownableItem) : ownableItem{ownableItem} {}
+Auction::Auction(string ownableItem, std::shared_ptr<Player> callAtPlayer) : ownableItem{ownableItem}, maxBidder{callAtPlayer} {
+	bidLog[callAtPlayer] = 0;
+}
 
 bool Auction::placeBid(shared_ptr<Player> from, int amt) {
 	// only allow player bid when the amt higher than the maxBid
