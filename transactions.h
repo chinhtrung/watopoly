@@ -30,6 +30,7 @@ class Transactions{
     static bool mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own); // return true if player successfully mortgage their property, false otherwise
     static bool unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared_ptr<Player> own); // return true if player successfully unmortgage their property, false otherwise
     static std::shared_ptr<Ownable> pointerOfProp(std::string ownableName);
+    static void addPropByAuction(std::string ownableName, std::shared_ptr<Player> buyer, int price);
 };
 
 #endif
