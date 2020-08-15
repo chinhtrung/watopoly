@@ -5,7 +5,7 @@
 
 class Ownable;
 
-class Gym : Ownable {
+class Gym : public Ownable {
 	int rent;
   public:
 	Gym(int ID, std::string name, int costToBuy, char owner);
