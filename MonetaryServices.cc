@@ -1,8 +1,6 @@
-#include <cstdlib>
-#include <ctime>
 #include "MonetaryServices.h"
-using namespace std;
 
+using namespace std;
 
 static const int MIN_TIMS_ROLL = 1;
 static const int MAX_TIMS_ROLL = 100;
@@ -14,11 +12,9 @@ static const int TUITION = 4;
 static const int NEEDLES_HALL = 36;
 static const int COOP_FEE = 38;
 
-
 MonetaryServices::MonetaryServices(int ID, string name) 
 	: Unownable(ID, name)
 {}
-
 
 int MonetaryServices::needlesHall() {
 	srand(time(NULL));
@@ -46,7 +42,6 @@ int MonetaryServices::needlesHall() {
 	}
 	return 0;
 }
-
 
 int MonetaryServices::needlesHallTest() {
 
@@ -77,16 +72,13 @@ int MonetaryServices::needlesHallTest() {
 	return 0;
 }
 
-
 int MonetaryServices::collectOSAP() {
 	return 200;
 }
 
-
 int MonetaryServices::payCoop() {
 	return -150;
 }
-
 
 int MonetaryServices::payTuition(shared_ptr<Player> p) {
 	char option = '\0';
@@ -110,7 +102,6 @@ int MonetaryServices::payTuition(shared_ptr<Player> p) {
 	}
 	return 0;
 }
-
 
 void MonetaryServices::actionAtIndex(shared_ptr<Player> p) {
 	int amt = 0;

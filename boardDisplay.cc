@@ -1,5 +1,4 @@
 #include "boardDisplay.h"
-#include <fstream>
 
 BoardDisplay::BoardDisplay(){
     std::ifstream disFile{ "display.txt" };

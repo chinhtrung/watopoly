@@ -2,6 +2,8 @@
 #define MONETARY_SERVICES_H
 #include <memory>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 #include "Unownable.h"
 
 class Player;

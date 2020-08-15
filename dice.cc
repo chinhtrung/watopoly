@@ -1,4 +1,3 @@
-#include <cassert>
 #include "dice.h"
 
 static const int DIE_MIN = 1;

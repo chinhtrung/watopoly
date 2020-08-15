@@ -2,6 +2,8 @@
 #define _LOADSAVE_H
 #include <string>
 #include <memory>
+#include "player.h"
+#include "ownable.h"
 
 class Player;
 class Ownable;

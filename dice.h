@@ -2,6 +2,7 @@
 #define DICE_H
 #include <time.h>
 #include <cstdlib>
+#include <cassert>
 
 class Dice {
     int die1;

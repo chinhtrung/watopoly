@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include "boardDisplay.h"
+#include "positionMap.h"
 using std::shared_ptr;
 using std::string;
 using std::map;

@@ -1,17 +1,14 @@
-#include <iostream>
 #include "residence.h"
-using namespace std;
 
+using namespace std;
 
 Residence::Residence(int ID, string name, int costToBuy, char owner)
 	: Ownable(ID, name, costToBuy, owner)
 {}
 
-
 int Residence::amountToPay() {
     return costToPayImprProp(this->getName(), this->getPayLevel());
 }
-
 
 void Residence::setRent() {
 	rent = costToPayImprProp(this->getName(), this->getPayLevel()); 

@@ -1,6 +1,4 @@
 #include "loadSave.h"
-#include "player.h"
-#include "ownable.h"
 
 // assume the ownableName is passed in correctly
 void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buyer,

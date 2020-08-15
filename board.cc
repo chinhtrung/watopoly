@@ -1,6 +1,4 @@
 #include "board.h"
-#include "positionMap.h"
-#include "boardDisplay.h"
 
 const int MAX_TIMS_CUPS = 4;
 const int NUM_SQUARES = 40;

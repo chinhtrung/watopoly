@@ -1,7 +1,5 @@
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
 #include "gym.h"
+
 using namespace std;
 
 const int MIN_ROLL = 1;

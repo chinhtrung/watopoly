@@ -2,6 +2,7 @@
 #define _BOARD_DISPLAY_
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 const int B_COLS = 90;
 const int B_ROWS = 56;
