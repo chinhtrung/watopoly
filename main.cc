@@ -96,7 +96,7 @@ int main (int argc, char** argv) {
                 inf >> imprLevel;
             
                 if (name != "BANK"){
-                    int playerIndex;
+                    int playerIndex = 0;
                     int size = group.size();
                     for (int i = 0; i < size; i++){
                         if (group[i]->getName() == name){
@@ -240,7 +240,7 @@ int main (int argc, char** argv) {
 		    }
                     currActingPlayer->movePlayer(rollValue);
                     b->drawBoard();
-                    followRollCommand(group, currActingPlayer);
+                    followRollCommand(group, currActingPlayer, testMode, b);
                     break;
                 } else {
                     if (availableDoubleRoll == 1) {
@@ -254,7 +254,7 @@ int main (int argc, char** argv) {
                     //acting here;
                     currActingPlayer->movePlayer(rollValue);
                     b->drawBoard();
-                    followRollCommand(group, currActingPlayer);
+                    followRollCommand(group, currActingPlayer, testMode, b);
 
                     availableDoubleRoll--;
                 }
@@ -322,6 +322,7 @@ int main (int argc, char** argv) {
 	    }
 
         } else if ( command == SAVE ) {
+		/*
 	    string file;
 	    cin >> file;
 	    cout << "Saving game to " << file << endl;
@@ -368,8 +369,8 @@ int main (int argc, char** argv) {
 		if (!owned){
 		    outf << "BANK" << " ";
 		}
-		outf << b->getImpr(OWNABLE[i][0]) << endl;
-	    }
+		outf << b->getImpr(OWNABLE[i][0]) << endl;*/
+	    //}
 	    
 
         } else {

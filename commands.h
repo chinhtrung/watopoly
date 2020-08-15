@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include "board.h"
 #include "player.h"
 #include "ownable.h"
 #include "Unownable.h"
@@ -13,6 +14,7 @@
 #include "SLC.h"
 #include "positionMap.h"
 
+class Board;
 class Player;
 class Ownable;
 class Unownable;
@@ -23,7 +25,7 @@ class SLC;
 class MonetaryServices;
 
 bool isNumber(std::string a);
-void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
+void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, bool testMode, std::shared_ptr<Board> b);
 void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followMortgageCommand(std::shared_ptr<Player> curPlayer);
