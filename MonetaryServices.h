@@ -12,8 +12,8 @@ class MonetaryServices: public Unownable{
 	public:
 		MonetaryServices(int ID, std::string name);
 		virtual void actionAtIndex(std::shared_ptr<Player> p) override;
-		static int needlesHall();
-		static int needlesHallTest();
+		static int needlesHall(std::shared_ptr<Player> p);
+		static int needlesHallTest(std::shared_ptr<Player> p);
 		static int collectOSAP();
 		static int payCoop();
 		static int payTuition(std::shared_ptr<Player> p);
