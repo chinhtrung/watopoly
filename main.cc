@@ -14,6 +14,7 @@
 #include "board.h"
 #include "boardDisplay.h"
 #include "loadSave.h"
+#include "TimsLine.h"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ class Board;
 class Player;
 class Dice;
 class Transactions;
+class Unownable;
+class TimsLine;
 
 // main drive
 int main (int argc, char** argv) {
@@ -43,6 +46,7 @@ int main (int argc, char** argv) {
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
     bool testMode = false;
+    auto tl = std::make_shared<TimsLine>(10, "DC Tims Line");
 
     if ( argc > 1 && argv[1] == LOAD) {
 
@@ -79,11 +83,11 @@ int main (int argc, char** argv) {
                 inf >> turnsInLine;
                 p->moveToDCTims();
                 } else {
-                    p->movePlayer(sqrPos); //but without collecting Go money
+                    p->movePlayer(sqrPos); 
                     b->movePlayer(gamepiece, sqrPos);
                 }
             } else {
-                p->movePlayer(sqrPos); //but without collecting Go money
+                p->movePlayer(sqrPos); 
                 b->movePlayer(gamepiece, sqrPos);
             }
 
@@ -106,11 +110,14 @@ int main (int argc, char** argv) {
                         playerIndex = i;
                     }
                 }  
-
-                auto ls = std::make_unique<LoadSave>();
-                ls->loadProperty(name, group[playerIndex], imprLevel);
+	        LoadSave::loadProperty(name, group[playerIndex], imprLevel);
             }
         }
+
+	for (int i = 0; i < numPlayers; i++){
+	   group[i]->updateMonopolyBlock();
+	   group[i]->loadUpdateAmountToPay();  
+	}
     } else {
 
         if (argc > 1 && (argv[1] == TESTING || argv[3] == TESTING)) {
