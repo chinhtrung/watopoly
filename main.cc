@@ -156,14 +156,24 @@ int main (int argc, char** argv) {
             showAllCharExcept(pieceCharTaken);
             char piece;
             cin >> piece;
+            int sizePiecesTaken = pieceCharTaken.size();
+            bool takenStatus = false;
 
-            if (cin.fail()) break;
-            //pieceCharTaken.push_back(piece);
-            while (!isGamePiece(piece)) {
+            while (true) {
+                if (cin.fail()) break;
+                for (int i = 0; i < sizePiecesTaken; i++) {
+                    if (pieceCharTaken[i] == piece) {
+                        cout << piece << " has been taken, please choose another one" << endl;
+                        takenStatus = true;
+                        break;
+                    }
+                }
+                if (!takenStatus && isGamePiece(piece)) break;
+                takenStatus = false;
+
                 cout << "Your game piece should be one of the char here ";
                 showAllCharExcept(pieceCharTaken);
                 cin >> piece;
-                if (cin.fail()) break;
             }
             pieceCharTaken.push_back(piece);
             cout << "Hi " << name << "! Your piece is " << piece << endl;
@@ -195,6 +205,9 @@ int main (int argc, char** argv) {
         // this will return empty share_ptr of player
         return result;
     };
+
+    cout << "+++ GAME START +++" << endl;
+    cout << "---------------------------------" << endl;
 
     while (true) {
         if (cin.fail()) break;
@@ -336,7 +349,6 @@ int main (int argc, char** argv) {
 	    }
 
         } else if ( command == SAVE ) {
-		/*
 	    string file;
 	    cin >> file;
 	    cout << "Saving game to " << file << endl;
@@ -355,14 +367,14 @@ int main (int argc, char** argv) {
 		    char gp = group[i]->getGamePiece();
 	            // check if player is in Line
 		    // ^ (at start of game, TimsLine square is created by main,
-		     bool inLine = tl->isCaptured(gp);
+		    /* bool inLine = tl->isCaptured(gp);
 		     if (inLine){
 		         int turnsInLine = tl->turnsInLine(gp);
 		         outf << " " << 1 << " ";
 		         outf << turnsInLine << endl;
 		     } else {
 		         outf << " " << 0 << endl;
-		     }	
+		     }*/	
 		} else {
 		    outf << endl;
 		}
@@ -385,7 +397,6 @@ int main (int argc, char** argv) {
 		}
 		outf << b->getImpr(OWNABLE[i][0]) << endl;
 	    }
-	    */
 
         } else {
             cout << "Unrecognized command!" << endl;
