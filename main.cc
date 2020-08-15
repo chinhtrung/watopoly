@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     if (argc > 1 && argv[1] == LOAD)
     {
 
-        cout << "Loading in saved game from " << argv[2] << endl;
+        cout << "Loading in saved game from " << argv[2] << "\n" << endl;
 
         std::ifstream inf{argv[2]};
 
@@ -104,25 +104,24 @@ int main(int argc, char **argv)
 
         for (int i = 0; i < OWNABLE_SIZE; i++)
         {
-            string name;
+            string propName;
             string owner;
             int imprLevel;
-            inf >> name;
+            inf >> propName;
             inf >> owner;
             inf >> imprLevel;
 
-            if (name != "BANK")
+            if (owner != "BANK")
             {
                 int playerIndex = 0;
-                int size = group.size();
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < numPlayers; i++)
                 {
-                    if (group[i]->getName() == name)
+                    if (group[i]->getName() == owner)
                     {
                         playerIndex = i;
                     }
                 }
-                LoadSave::loadProperty(name, group[playerIndex], imprLevel);
+	        LoadSave::loadProperty(propName, group[playerIndex], imprLevel);
             }
         }
 
@@ -131,6 +130,14 @@ int main(int argc, char **argv)
             group[i]->updateMonopolyBlock();
             group[i]->loadUpdateAmountToPay();
         }
+
+	cout << "Here are the current assets of all players, and the state of the board.\n " << endl;
+	for (int i = 0; i < numPlayers; i++){
+	    group[i]->displayAssets();
+	    cout << "\n" << endl;
+	}
+
+	b->drawBoard();
     }
     else
     {
@@ -296,26 +303,28 @@ int main(int argc, char **argv)
                 continue;
             }
             int availableDoubleRoll = 3;
-            int rollValue;
+            int rollValue = 0;
 
             while (availableDoubleRoll > 0)
             {
                 // roll two dices
-                bool rollOverload = false;
-                string rollStr1 = "";
-                string rollStr2 = "";
-                if (testMode)
-                {
-                    cin >> rollStr1 >> rollStr2;
-                    if (!cin.fail() && isNumber(rollStr1) &&
-                        isNumber(rollStr2))
+                
+		bool rollOverload = false;
+                    if (testMode)
                     {
-                        int roll1 = stoi(rollStr1);
-                        int roll2 = stoi(rollStr2);
-                        rollValue = roll1 + roll2;
-                        rollOverload = true;
+                        std::string die1;
+                        std::string die2;
+                        cin >> die1;
+                        if (!cin.fail() && isNumber(die1))
+                        {
+                            cin >> die2;
+                            if (!cin.fail() && isNumber(die2))
+                            {
+                                rollValue = std::stoi(die1) + std::stoi(die2);
+                                rollOverload = true;
+                            } 
+                        }
                     }
-                }
                 if (!rollOverload)
                 {
                     twoDices->rollDice();

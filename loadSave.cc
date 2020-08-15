@@ -9,9 +9,7 @@
 #include "transactions.h"
 
 // assume the ownableName is passed in correctly
-void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buyer,
-                            int imprLevel)
-{
+void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buyer, int imprLevel) {
     // create a new property for player
     int propID = indexOfSquare(ownableName); // the id is the unique index of square on the map
     int propCostToBuy = costToBuyProp(ownableName);
@@ -37,15 +35,9 @@ void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buy
 
     buyer->addProp(ownable);
 
-    if (imprLevel == -1)
-    {
+    if (imprLevel == -1) {
         ownable->setMortStatus(true);
-    }
-    else
-    {
-        ownable->setImprLevel(imprLevel + 1);
-
-        // fix setPayLevel()
-        //prod->setPayLevel(imprLevel + 1);
+    } else {
+        ownable->setImprLevel(imprLevel + 1); 
     }
 }
