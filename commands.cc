@@ -175,6 +175,31 @@ void followRollCommand(vector<shared_ptr<Player>> group,
 	     int fundChange = MonetaryServices::payCoop();
 	     bool changeFund = curPlayer->addFund(fundChange);
          }
+         if (!changeFund) {
+	 }		 
+	 cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
+                    cout << "Available commands [\"bankrupt\",\"mortage\",\"improve\"] with their according procedure"<< endl;
+                    string action;
+                    cin >> action;
+
+                    // call other command here
+                    if (action == BANKRUPT) {
+                        followBankruptCommandWithPlayer(curPlayer, propOwner);
+                        bankruptStatus = true;
+                        break;
+                    }
+
+                    if (action == TRADE) {
+                        followTradeCommand(group, curPlayer);
+                    }
+
+                    if (action == MORTGAGE) {
+                        followMortgageCommand(curPlayer);
+                    }
+
+                    if (action == IMPROVE) {
+                        followImproveCommand(group, curPlayer, b);
+                    }
 
     }
 
@@ -413,5 +438,6 @@ void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, std::sha
 }
 
 void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer) {
-    
+   curPlayer->setBankruptStatus(true);
+   
 }
