@@ -108,28 +108,28 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
         }
 
     } else { // they're on an unownable block
-        // if (steppingSquare == "SLC") {
-        //     cout << "You have arrived at the SLC!" << endl;
-        //     SLC::actionAtIndex(curPlayer);
-        // } else if (steppingSquare == "TUITION") {
-        //     curPlayer->addFund(MonetaryServices::payTuition(curPlayer));
-        // } else if (steppingSquare == "NEEDLES HALL") {
-        //     cout << "You have arrived at Needles Hall." << endl;
-        //     curPlayer->addFund(MonetaryServices::NeedlesHall());
-        // } else if (steppingSquare == "DC Tims Line") {
-        //     cout << "You have arrived at DC Tims Line." << endl;
-        //     cout << "You get your coffee immediately." << endl;
-        // } else if (steppingSquare == "Goose Nesting") {
-        //     cout << "You are attacked by a flock of geese, but nothing ";
-        //     cout << "else happens." << endl;
-        // } else if (steppingSquare == "GO TO TIMS") {
-        //     cout << "After pulling an all-nighter, you need coffee." << endl;
-        //     cout << "Unfortunately, the line is a mile long." << endl;
-        //     curPlayer->moveToDCTims();
-        // } else if (steppingSquare == "COOP FEE") {
-        //     cout << "You are assessed a $150 co-op fee." << endl;
-        //     curPlayer->addFund(MonetaryServices::payCoop());
-        // }
+         if (steppingSquare == "SLC") {
+             cout << "You have arrived at the SLC!" << endl;
+             SLC::determinePlayerPos(curPlayer);
+         } else if (steppingSquare == "TUITION") {
+             curPlayer->addFund(MonetaryServices::payTuition(curPlayer));
+         } else if (steppingSquare == "NEEDLES HALL") {
+             cout << "You have arrived at Needles Hall." << endl;
+             curPlayer->addFund(MonetaryServices::needlesHall());
+         } else if (steppingSquare == "DC Tims Line") {
+             cout << "You have arrived at DC Tims Line." << endl;
+             cout << "You get your coffee immediately." << endl;
+         } else if (steppingSquare == "Goose Nesting") {
+             cout << "You are attacked by a flock of geese, but nothing ";
+             cout << "else happens." << endl;
+         } else if (steppingSquare == "GO TO TIMS") {
+             cout << "After pulling an all-nighter, you need coffee." << endl;
+             cout << "Unfortunately, the line is a mile long." << endl;
+             curPlayer->moveToDCTims();
+         } else if (steppingSquare == "COOP FEE") {
+             cout << "You are assessed a $150 co-op fee." << endl;
+             curPlayer->addFund(MonetaryServices::payCoop());
+         }
 
     }
 
