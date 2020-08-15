@@ -447,8 +447,7 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
         string curPlayerName = group[curIndexPlayer]->getName();
 
         if (numberOfBidder == 1) {
-            cout << "Congratulation! You are the winner " << curPlayerName << endl;
-            // process to buy stuff
+            cout << "Congratulation! You won this bidding section " << curPlayerName << endl;
             break;
         }
 

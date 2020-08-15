@@ -51,7 +51,8 @@ int main(int argc, char **argv)
     if (argc > 1 && argv[1] == LOAD)
     {
 
-        cout << "Loading in saved game from " << argv[2] << "\n" << endl;
+        cout << "Loading in saved game from " << argv[2] << "\n"
+             << endl;
 
         std::ifstream inf{argv[2]};
 
@@ -121,7 +122,7 @@ int main(int argc, char **argv)
                         playerIndex = i;
                     }
                 }
-	        LoadSave::loadProperty(propName, group[playerIndex], imprLevel);
+                LoadSave::loadProperty(propName, group[playerIndex], imprLevel);
             }
         }
 
@@ -131,13 +132,15 @@ int main(int argc, char **argv)
             group[i]->loadUpdateAmountToPay();
         }
 
-	cout << "Here are the current assets of all players, and the state of the board.\n " << endl;
-	for (int i = 0; i < numPlayers; i++){
-	    group[i]->displayAssets();
-	    cout << "\n" << endl;
-	}
+        cout << "Here are the current assets of all players, and the state of the board.\n " << endl;
+        for (int i = 0; i < numPlayers; i++)
+        {
+            group[i]->displayAssets();
+            cout << "\n"
+                 << endl;
+        }
 
-	b->drawBoard();
+        b->drawBoard();
     }
     else
     {
@@ -289,7 +292,7 @@ int main(int argc, char **argv)
 
         cout << endl;
         cout << "Available commands - [\"roll\",\"next\",\"trade\",\"improve\",\"mortgage\",\"unmortgage\",\"assets\",\"all\",\"save\"]" << endl;
-        cout << "Please type a command with the procedure accordingly" << currActingPlayer->getName() << endl;
+        cout << "Please type a command with the procedure accordingly " << currActingPlayer->getName() << endl;
         cout << "-------------" << endl;
 
         cin >> command;
@@ -308,23 +311,23 @@ int main(int argc, char **argv)
             while (availableDoubleRoll > 0)
             {
                 // roll two dices
-                
-		bool rollOverload = false;
-                    if (testMode)
+
+                bool rollOverload = false;
+                if (testMode)
+                {
+                    std::string die1;
+                    std::string die2;
+                    cin >> die1;
+                    if (!cin.fail() && isNumber(die1))
                     {
-                        std::string die1;
-                        std::string die2;
-                        cin >> die1;
-                        if (!cin.fail() && isNumber(die1))
+                        cin >> die2;
+                        if (!cin.fail() && isNumber(die2))
                         {
-                            cin >> die2;
-                            if (!cin.fail() && isNumber(die2))
-                            {
-                                rollValue = std::stoi(die1) + std::stoi(die2);
-                                rollOverload = true;
-                            } 
+                            rollValue = std::stoi(die1) + std::stoi(die2);
+                            rollOverload = true;
                         }
                     }
+                }
                 if (!rollOverload)
                 {
                     twoDices->rollDice();
@@ -351,7 +354,7 @@ int main(int argc, char **argv)
                 {
                     if (availableDoubleRoll == 1)
                     {
-                        cout << "Congrats! You have rolled double ";
+                        cout << "Congrats! You have rolled a double ";
                         cout << "3 times in a row, go to Tims Line!" << endl;
                         //send to jail
                         currActingPlayer->moveToDCTims();
@@ -362,10 +365,17 @@ int main(int argc, char **argv)
                         rollValue = twoDices->diceSum();
                     }
                     //acting here;
+
                     currActingPlayer->movePlayer(rollValue);
                     b->movePlayer(currActingPlayer->getGamePiece(),
                                   currActingPlayer->getCurrPos());
                     b->drawBoard();
+
+                    cout << "--> Congratulation, You have rolled a double <--" << endl;
+                    cout << "--> Type anything to start rolling <--" << endl;
+                    
+                    string dummy;
+                    cin >> dummy;
                     followRollCommand(group, currActingPlayer, testMode, b);
 
                     availableDoubleRoll--;
@@ -431,11 +441,14 @@ int main(int argc, char **argv)
         {
 
             if (currActingPlayer->getCurrPos() != TUITION_POS)
-            {
-                cout << "Displaying assets of all players." << endl;
+            {   
+                cout << endl;
+                cout << "--> Displaying assets of all players." << endl;
+                cout << ".................." << endl;
                 for (unsigned int i = 0; i < group.size(); ++i)
                 {
                     group[i]->displayAssets();
+                    cout << ".................." << endl;
                 }
             }
             else

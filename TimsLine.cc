@@ -7,7 +7,7 @@ TimsLine::TimsLine(int ID, string name)
 {}
 
 
-void TimsLine::pushPlayer(shared_ptr<Player> p) {
+void TimsLine::actionAtIndex(shared_ptr<Player> p) {
 	captured.insert(pair<char, int>(p->getGamePiece(), 0));
 	return;
 }
