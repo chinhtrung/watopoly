@@ -7,6 +7,10 @@
 
 class Player;
 class Ownable;
+class Academic;
+class Residence;
+class Gym;
+class Square;
 
 class LoadSave{
   public:

@@ -1,4 +1,11 @@
 #include "loadSave.h"
+#include "player.h"
+#include "ownable.h"
+#include "square.h"
+#include "residence.h"
+#include "academic.h"
+#include "gym.h"
+#include "seeds.h"
 
 // assume the ownableName is passed in correctly
 void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buyer,
@@ -8,14 +15,30 @@ void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buy
     int propCostToBuy = costToBuyProp(ownableName);
     char propOwner = buyer->getGamePiece();
 
-    auto prod = std::make_shared<Ownable>(propID, ownableName, propCostToBuy, propOwner);
-    buyer->addProp(prod);
+    std::shared_ptr<Ownable> ownable;
+
+    if (isGym(ownableName)){
+        auto production = std::make_shared<Gym>(propID, ownableName, propCostToBuy, propOwner);
+        ownable = std::dynamic_pointer_cast<Ownable>(production);
+    }
+    else if (isResidence(ownableName)){
+        auto production = std::make_shared<Residence>(propID, ownableName, propCostToBuy, propOwner);
+        ownable = std::dynamic_pointer_cast<Ownable>(production);
+    }
+    else if (isAcademic(ownableName)){
+        auto production = std::make_shared<Academic>(propID, ownableName, propCostToBuy, propOwner);
+        ownable = std::dynamic_pointer_cast<Ownable>(production);
+    }
+
+    buyer->addProp(ownable);
 
     if (imprLevel == -1){
-        prod->setMortStatus(true);
+        ownable->setMortStatus(true);
     } else {
-        prod->setImprLevel(imprLevel + 1);
-	prod->setPayLevel(imprLevel + 1);
+        ownable->setImprLevel(imprLevel + 1);
+
+	// fix setPayLevel()
+	//prod->setPayLevel(imprLevel + 1);
     }
 }
 
