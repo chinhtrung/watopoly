@@ -256,3 +256,11 @@ int Player::getNumGymOwned(){
 int Player::getNumResOwned(){
     return numResOwned;
 }
+
+void Player::printOwnedProp(){
+    int sizeOwnedProp = ownedProperties.size();
+    cout << "Printing all properites owned by " << name << endl;
+    for (int i = 0; i < sizeOwnedProp; i++) {
+        cout << ownedProperties[i]->getName() << endl;
+    }
+}

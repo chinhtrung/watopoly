@@ -84,7 +84,7 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                     }
 
                     if (action == IMPROVE) {
-                        followImproveCommand(group, curPlayer);
+                        followImproveCommand(group, curPlayer, b);
                     }
 
                 }
@@ -122,9 +122,10 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                     }
 
                     if (input == IMPROVE) {
-                        followImproveCommand(group, curPlayer);
+                        followImproveCommand(group, curPlayer, b);
                     }
                 }
+		curPlayer->printOwnedProp();
             } else {
                 // run the auction
                 followAuctionCommand(group, curPlayer, steppingSquare);
@@ -135,6 +136,7 @@ void followRollCommand(vector<shared_ptr<Player>> group,
          if (steppingSquare == "SLC") {
              cout << "You have arrived at the SLC!" << endl;
              SLC::determinePlayerPos(curPlayer);
+	     // update and draw board
          } else if (steppingSquare == "TUITION") {
              curPlayer->addFund(MonetaryServices::payTuition(curPlayer));
          } else if (steppingSquare == "NEEDLES HALL") {
@@ -238,7 +240,8 @@ void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> cur
 
 }
 
-void followImproveCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer) {
+void followImproveCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer,
+		             std::shared_ptr<Board> b) {
     string property, action;
     cin >> property >> action;
 
@@ -255,11 +258,17 @@ void followImproveCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> c
     if (action == BUY) {
         if (!Transactions::improveProperty(pointerProperty, curPlayer)) {
             cout << "Abort buying/selling improvement!" << endl;
-        }
+        } else {
+	    b->addImpr(pointerProperty->getName());
+	    b->drawBoard();
+	}
     } else if (action == SELL) {
         if (!Transactions::sellImprove(pointerProperty, curPlayer)) {
             cout << "Abort buying/selling improvement!" << endl;
-        }
+        } else {
+	    b->removeImpr(pointerProperty->getName());
+	    b->drawBoard();
+	}
     } else {
         cout << "Unregconized action command" << endl;
         cout << "Abort buying/selling improvement!" << endl;

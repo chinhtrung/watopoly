@@ -27,7 +27,7 @@ class MonetaryServices;
 bool isNumber(std::string a);
 void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, bool testMode, std::shared_ptr<Board> b);
 void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
-void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
+void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::shared_ptr<Board> b);
 void followMortgageCommand(std::shared_ptr<Player> curPlayer);
 void followUnmortgageCommand(std::shared_ptr<Player> curPlayer);
 void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, std::shared_ptr<Player> toPlayer);
