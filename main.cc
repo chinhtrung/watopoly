@@ -240,6 +240,8 @@ int main (int argc, char** argv) {
 			    rollValue = twoDices->diceSum();
 		    }
                     currActingPlayer->movePlayer(rollValue);
+		    b->movePlayer(currActingPlayer->getGamePiece(),
+				    currActingPlayer->getCurrPos());
                     b->drawBoard();
                     followRollCommand(group, currActingPlayer, testMode, b);
                     break;
@@ -254,6 +256,8 @@ int main (int argc, char** argv) {
 		    }
                     //acting here;
                     currActingPlayer->movePlayer(rollValue);
+		    b->movePlayer(currActingPlayer->getGamePiece(),
+				    currActingPlayer->getCurrPos());
                     b->drawBoard();
                     followRollCommand(group, currActingPlayer, testMode, b);
 
@@ -279,7 +283,7 @@ int main (int argc, char** argv) {
 
         } else if ( command == IMPROVE ) {
 
-            followImproveCommand(group, currActingPlayer);
+            followImproveCommand(group, currActingPlayer, b);
 
         } else if ( command == MORTGAGE ) {
 
