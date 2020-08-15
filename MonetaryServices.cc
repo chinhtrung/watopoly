@@ -161,17 +161,17 @@ int MonetaryServices::payTuition(shared_ptr<Player> p) {
 	return 0;
 }
 
-void MonetaryServices::actionAtIndex(shared_ptr<Player> p) {
-	int amt = 0;
-	if (p->getCurrPos() == OSAP) {
-		amt = collectOSAP();
-	} else if (p->getCurrPos() == TUITION) {
-		amt = payTuition(p);
-	} else if (p->getCurrPos() == NEEDLES_HALL) {
-		amt = needlesHall(p);
-	} else if (p->getCurrPos() == COOP_FEE) {
-		amt = payCoop();
-	}
-	p->addFund(amt);
-	return;
-}
+// void MonetaryServices::actionAtIndex(shared_ptr<Player> p) {
+// 	int amt = 0;
+// 	if (p->getCurrPos() == OSAP) {
+// 		amt = collectOSAP();
+// 	} else if (p->getCurrPos() == TUITION) {
+// 		amt = payTuition(p);
+// 	} else if (p->getCurrPos() == NEEDLES_HALL) {
+// 		amt = needlesHall(p);
+// 	} else if (p->getCurrPos() == COOP_FEE) {
+// 		amt = payCoop();
+// 	}
+// 	p->addFund(amt);
+// 	return;
+// }
