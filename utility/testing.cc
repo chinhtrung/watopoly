@@ -25,6 +25,7 @@ void testing() {
 		}
 		cout << "Invalid Game Piece" << endl;
 	}
+<<<<<<< HEAD
     auto player = make_shared<Player>(name, gamePiece, defaultMoneyToStart);
     while (true) {
         cout << "Your current position is ";
@@ -52,5 +53,35 @@ void testing() {
             player->movePlayer(roll);
         }
     }
+=======
+        auto player = make_shared<Player>(name, gamePiece, 
+			    defaultMoneyToStart);
+        while (true) {
+		cout << "Your current position is ";
+                cout << player->getCurrPos();
+                cout << "Enter q if you wish to quit ";
+                cout << "testing mode." << endl;
+                cout << "Enter any other character otherwise." << endl;
+                cin >> cmd;
+                if (cmd == 'q') {
+                    cout << "You have quit testing mode." << endl;
+                    break;
+                }
+                cout << player->getSquareAtCurrPos() << endl;
+                cout << "Enter roll <d1> <d2>, where d1 and d2 ";
+                cout << "are the rolls, which must be ";
+                cout << "non-negative integers." << endl;
+                string roll;
+                int d1;
+                int d2;
+                cin >> roll >> d1 >> d2;
+                if (roll != "roll" || d1 < 0 || d2 < 0) {
+                    cout << "Invalid Roll" << endl;
+                } else {
+                    int roll = d1 + d2;
+                    player->movePlayer(roll);
+                }
+            }
+>>>>>>> 9d181b0637c796f66e32e1c8e8bb0cd5c2900c64
 	return;
 }

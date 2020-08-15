@@ -1,4 +1,6 @@
 #include "loadSave.h"
+#include "player.h"
+#include "ownable.h"
 
 // assume the ownableName is passed in correctly
 void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buyer,
@@ -12,7 +14,7 @@ void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buy
     buyer->addProp(prod);
 
     if (imprLevel == -1){
-        prod->setMortStatus(true)
+        prod->setMortStatus(true);
     } else {
         prod->setImprLevel(imprLevel + 1);
 	prod->setPayLevel(imprLevel + 1);

@@ -23,10 +23,10 @@ const std::map<int, std::vector<int>> MAP_COORD = {
 
 const std::vector<std::string> MAP_GAME = 
 {
-    "COLLECT OSAP", "AL", "SLC", "ML", "TUITION", "MKV", "ECH", "NEEDLES HALL", "PAS", "HH", 
-    "DC Tims Line", "RCH", "PAC", "DWE", "CPH", "UWP", "LHI", "SLC", "BMH", "OPT",
-    "Goose Nesting", "EV1", "NEEDLES HALL", "EV2", "EV3", "V1", "PHYS", "B1", "CIF", "B2",
-    "GO TO TIMS", "EIT", "ESC", "SLC", "C2", "REV", "NEEDLES HALL", "MC", "COOP FEE", "DC",
+    "COLLECT OSAP", "AL", "SLC 1", "ML", "TUITION", "MKV", "ECH", "NEEDLES HALL 1", "PAS", "HH", 
+    "DC Tims Line", "RCH", "PAC", "DWE", "CPH", "UWP", "LHI", "SLC 2", "BMH", "OPT",
+    "Goose Nesting", "EV1", "NEEDLES HALL 2", "EV2", "EV3", "V1", "PHYS", "B1", "CIF", "B2",
+    "GO TO TIMS", "EIT", "ESC", "SLC 3", "C2", "REV", "NEEDLES HALL 3", "MC", "COOP FEE", "DC",
 };
 const int MAP_GAME_SIZE = MAP_GAME.size();
 

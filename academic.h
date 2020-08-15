@@ -10,7 +10,7 @@ class Academic : public Ownable {
     std::string monopolyBlock;
     int tuition;
   public:
-    Academic(int ID, std::string name, int costToBuy, int imprLevel, char owner, std::string monopolyBlock);
+    Academic(int ID, std::string name, int costToBuy, char owner, std::string monopolyBlock);
     virtual int amountToPay() override;
     void updateTuition();
 };

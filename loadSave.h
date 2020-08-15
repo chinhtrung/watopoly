@@ -3,6 +3,9 @@
 #include <string>
 #include <memory>
 
+class Player;
+class Ownable;
+
 class LoadSave{
   public:
     void loadProperty(std::string ownableName, std::shared_ptr<Player> buyer, int imprLevel);
