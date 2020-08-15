@@ -2,6 +2,7 @@
 #define SLC_H
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 #include <memory>
 #include <string>
 #include "Unownable.h"
