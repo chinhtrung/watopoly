@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include "boardDisplay.h"
 using std::shared_ptr;
 using std::string;
 using std::map;

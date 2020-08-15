@@ -6,8 +6,9 @@
 using namespace std;
 
 // methods
-void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer,
-		bool testMode, shared_ptr<Board> b) {
+void followRollCommand(vector<shared_ptr<Player>> group, 
+		shared_ptr<Player> curPlayer, bool testMode, 
+		shared_ptr<Board> b) {
     bool bankruptStatus = false;
 
     // inner helper function
