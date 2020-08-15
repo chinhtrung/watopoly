@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <memory>
 #include "commands.h"
 #include "seeds.h"
 #include "positionMap.h"
@@ -147,7 +148,7 @@ int main (int argc, char** argv) {
                 showAllCharExcept(pieceCharTaken);
                 cin >> piece;
             }
-	    pieceCharTaken.push_back(piece);
+            pieceCharTaken.push_back(piece);
             cout << "Hi " << name << "! Your piece is " << piece << endl;
             cout << "---------------------------------" << endl;
 
