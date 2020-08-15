@@ -123,7 +123,9 @@ int main(int argc, char **argv)
                         playerIndex = i;
                     }
                 }
-                LoadSave::loadProperty(name, group[playerIndex], imprLevel);
+		cout << "property name is: " << name << endl;
+		cout << "property owner is: " << owner << endl;
+	        LoadSave::loadProperty(name, group[playerIndex], imprLevel);
             }
         }
 
