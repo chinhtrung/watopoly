@@ -13,7 +13,6 @@ class Academic : public Ownable {
   public:
     Academic(int ID, std::string name, int costToBuy, char owner);
     virtual int amountToPay() override;
-    void updateTuition();
     void setBlockOwned(bool status);
     bool getBlockOwned();
     std::string getMonoBlock() const;

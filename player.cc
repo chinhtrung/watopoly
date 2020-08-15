@@ -23,10 +23,7 @@ bool Player::ownThisProp(std::string name) {
     int size = ownedProperties.size();
 
     for (int i = 0; i < size; i++) {
-        // perform upcasting from Ownable to Square
-        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
-
-        if (tmpSquare->getName() == name) {
+        if (ownedProperties[i]->getName() == name) {
             return true;
         }
     }
@@ -56,15 +53,14 @@ bool Player::payFund(int amt) {
 
 bool Player::addProp(std::shared_ptr<Ownable> prop) {
     // check if property is already owned
-    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
-    if (this->ownThisProp(tmpSquare->getName())) {
+    if (this->ownThisProp(prop->getName())) {
         std::cout << "(testing) this props is owned" << std::endl;
         return false;
     }
 
-    if (isGym(tmpSquare->getName())){
+    if (isGym(prop->getName())){
         numGymOwned++;
-    } else if (isResidence(tmpSquare->getName())){
+    } else if (isResidence(prop->getName())){
         numResOwned++;
     }
     ownedProperties.push_back(prop);
@@ -73,8 +69,7 @@ bool Player::addProp(std::shared_ptr<Ownable> prop) {
 
 bool Player::removeProp(std::shared_ptr<Ownable> prop) {
     // check if property is owned
-    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
-    if (!this->ownThisProp(tmpSquare->getName())) {
+    if (!this->ownThisProp(prop->getName())) {
         std::cout << "(testing) this props is not owned" << std::endl;
         return false;
     }
@@ -91,8 +86,7 @@ bool Player::removeProp(std::shared_ptr<Ownable> prop) {
 
 bool Player::mortageProp(std::shared_ptr<Ownable> prop) {
     // mortgage the prop and add fund accordingly
-    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
-    int fundFromMortgage = costToMortProp(tmpSquare->getName());
+    int fundFromMortgage = costToMortProp(prop->getName());
     funds += fundFromMortgage;
 
     int sizeOwnProp = ownedProperties.size();
@@ -108,8 +102,7 @@ bool Player::mortageProp(std::shared_ptr<Ownable> prop) {
 
 bool Player::unmortageProp(std::shared_ptr<Ownable> prop) {
     // pay the fund and unmortgage props
-    std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(prop);
-    int fundToPay = costToUnmortProp(tmpSquare->getName());
+    int fundToPay = costToUnmortProp(prop->getName());
     
     if (fundToPay > funds) {
         std::cout << "(testing) you don't have enough money to unmortgage" << std::endl;
@@ -151,23 +144,28 @@ int Player::getFunds() const {
 
 int Player::getAssets() const {
     int result = funds;
-    
+   
+    // assets = funds + printed prices of all prop (both mort and unmort) +
+    //              costs of all improvements 
     int sizeOwnProp = ownedProperties.size();
-    for (int i = 0; i < sizeOwnProp; i++) {
-        // perform upcasting from Ownable to Square
-        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
 
-        result += costToMortProp(tmpSquare->getName());
+    for (int i = 0; i < sizeOwnProp; i++){
+	std::string propName = ownedProperties[i]->getName();
+        result += costToBuyProp(propName);
+	int imprLevel = ownedProperties[i]->getImprLevel();
+	if (imprLevel > 0){
+	    result += imprLevel * costToImprProp(propName);
+	}
+    }
+    /*for (int i = 0; i < sizeOwnProp; i++) {
+        result += costToMortProp(ownedProperties[i]->getName());
     }
 
     // minus the mortgaged properties prize
     for (int i = 0; i < sizeOwnProp; i++) {
-        // perform upcasting from Ownable to Square
-        std::shared_ptr<Square> tmpSquare = std::dynamic_pointer_cast<Square>(ownedProperties[i]);
-
         if (ownedProperties[i]->getMortStatus() == true) {}
-            result -= costToMortProp(tmpSquare->getName());
-    }
+            result -= costToMortProp(ownedProperties[i]->getName());
+    }*/
 
     return result;
 }
@@ -255,4 +253,30 @@ int Player::getNumGymOwned(){
 
 int Player::getNumResOwned(){
     return numResOwned;
+}
+
+void Player::printOwnedProp(){
+    int sizeOwnedProp = ownedProperties.size();
+    cout << "Displaying all properites owned by " << name << endl;
+    for (int i = 0; i < sizeOwnedProp; i++) {
+	std::string propName = ownedProperties[i]->getName();
+        cout << propName << "\t";
+	cout << "Cost: $" << costToBuyProp(propName) << "\t";
+	cout << "Mortgaged: " ;
+	if (ownedProperties[i]->getMortStatus()){
+	    cout << "Yes" << endl;
+	} else {
+	    cout << "No\t";
+	    cout << "Improvements: " << ownedProperties[i]->getImprLevel() << "\t";
+	    cout << "Improvement Cost: " << costToImprProp(propName) << endl;
+	} 
+    }
+}
+
+void Player::displayAssets(){
+    cout << "Displaying assets of " << name << endl;
+    cout << "Funds: " << funds << endl;
+    printOwnedProp();
+    cout << "Tims Cups: " << timsCups << endl;
+    cout << "Total worth: " << getAssets() << endl;
 }

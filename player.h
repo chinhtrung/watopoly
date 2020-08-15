@@ -59,6 +59,8 @@ class Player {
     void addRes();  // increases numResOwned by 1
     int getNumGymOwned();
     int getNumResOwned();
+    void printOwnedProp();
+    void displayAssets();
 
     static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
     static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
