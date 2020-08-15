@@ -252,8 +252,10 @@ int main (int argc, char** argv) {
                     break;
                 } else {
                     if (availableDoubleRoll == 1) {
-                        cout << "Congrats! You have rolled double 3 time, go to Tims Line " << endl;
+                        cout << "Congrats! You have rolled double ";
+			cout << "3 times in a row, go to Tims Line!" << endl;
                         //send to jail
+			currActingPlayer->moveToDCTims();
                         continue;
                     }
 		    if (!rollOverload) {
@@ -388,3 +390,4 @@ int main (int argc, char** argv) {
 // https://medium.com/prodopsio/solving-git-merge-conflicts-with-vim
 //   -c8a8617e3633
 // C Programming, A Modern Approach, 2nd Ed., by KN King
+// CS 136 Course Slides
