@@ -7,10 +7,14 @@
 #include "player.h"
 #include "ownable.h"
 #include "auction.h"
+#include "academic.h"
+#include "gym.h"
 
 class Player;
 class Ownable;
 class Auction;
+class Academic;
+class Gym;
 
 class Transactions{
     static std::vector<std::shared_ptr<Ownable>> ownedList;

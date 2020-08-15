@@ -9,8 +9,9 @@
 #include "dice.h"
 #include "transactions.h"
 #include "auction.h"
-#include "SLC.h"
 #include "MonetaryServices.h"
+#include "SLC.h"
+#include "positionMap.h"
 
 class Player;
 class Ownable;
@@ -18,6 +19,7 @@ class Unownable;
 class Dice;
 class Transactions;
 class Auction;
+class SLC;
 class MonetaryServices;
 
 bool isNumber(std::string a);
