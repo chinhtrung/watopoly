@@ -1,5 +1,5 @@
 #include "board.h"
-#include "utility/positionMap.h"
+#include "positionMap.h"
 #include "boardDisplay.h"
 
 const int MAX_TIMS_CUPS = 4;

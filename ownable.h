@@ -1,7 +1,7 @@
 #ifndef OWNABLE_H
 #define OWNABLE_H
 #include <string>
-#include "utility/seeds.h"
+#include "seeds.h"
 #include "square.h"
 
 class Square;

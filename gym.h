@@ -1,10 +1,7 @@
 #ifndef GYM_H
 #define GYM_H
-
-
 #include <string>
 #include "ownable.h"
-
 
 class Gym: public Ownable {
 	int rent;
@@ -16,6 +13,5 @@ class Gym: public Ownable {
 		void setRent();
 		void setRentTest();
 };
-
 
 #endif

@@ -2,7 +2,7 @@
 #define ACADEMIC_H
 #include <string>
 #include "ownable.h"
-#include "utility/seeds.h"
+#include "seeds.h"
 
 class Ownable;
 

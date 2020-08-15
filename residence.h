@@ -1,11 +1,9 @@
 #ifndef RESIDENCE_H
 #define RESIDENCE_H
 
-
 #include <string>
 #include "ownable.h"
 #include "./utility/seeds.h"
-
 
 class Residence: public Ownable {
 	int rent;
@@ -14,6 +12,5 @@ class Residence: public Ownable {
 		virtual int amountToPay() override;
 		void setRent();
 };
-
 
 #endif

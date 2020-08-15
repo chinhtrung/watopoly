@@ -97,7 +97,6 @@ bool Transactions::payBank(std::shared_ptr<Player> from, int amt) {
     return true;
 }
 
-
 // assume the ownableName is passed in correctly
 bool Transactions::buyProperty(std::string ownableName, std::shared_ptr<Player> buyer) {
     // create a new property for player to buy
@@ -158,10 +157,8 @@ bool Transactions::improveProperty(std::shared_ptr<Ownable> prop, std::shared_pt
 
     // the transaction occur if all check pass
     own->payFund(cost);
-    
-    std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
-    acad->setImprLevel(acad->getImprLevel() + 1);
-    acad->updateTuition(); 
+    prop->setImprLevel(prop->getImprLevel() + 1);
+    prop->setPayLevel(prop->getPayLevel() + 1);
     return true;
 }
 
@@ -178,10 +175,8 @@ bool Transactions::sellImprove(std::shared_ptr<Ownable> prop, std::shared_ptr<Pl
     // the transaction occur if all check pass
     std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(prop);
     own->addFund(costToSellImprProp(tmp->getName()));
-
-    std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
-    acad->setImprLevel(acad->getImprLevel() - 1);
-    acad->updateTuition();
+    prop->setImprLevel(prop->getImprLevel() - 1);
+    prop->setPayLevel(prop->getPayLevel() - 1);
     return true;
 }
 
@@ -273,9 +268,6 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
     int propCostToBuy = costToBuyProp(ownableName);
     char propOwner = buyer->getGamePiece();
 
-    // initiate new product
-    //auto production = std::make_shared<Ownable>(propID, ownableName, propCostToBuy, propOwner);
-
     std::make_shared<Ownable> ownable = nullptr;
 
     if (isGym(ownableName)){
@@ -311,5 +303,10 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
         }
     }
 
+    // charge money to buy
+    buyer->payFund(price);
+    buyer->addProp(production);
+    buyer->updateMonopolyBlock();
+    ownedList.push_back(production);
     std::cout << "Buy " << ownableName << " successfully" << std::endl;
 }

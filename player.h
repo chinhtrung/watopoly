@@ -6,9 +6,8 @@
 #include <memory>
 #include "square.h"
 #include "ownable.h"
-#include "gameState.h"
-#include "utility/seeds.h"
-#include "utility/positionMap.h"
+#include "seeds.h"
+#include "positionMap.h"
 
 class Square;
 class Ownable;
@@ -26,7 +25,6 @@ class Player {
     int numGymOwned = 0;
     std::vector<std::shared_ptr<Ownable>> ownedProperties;
     std::vector<std::string> monopolyBlocks; // ie: {"Sci1", "Math", "Eng"}
-    std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
 
   public:
     Player(std::string name, char gamePiece, int funds);
@@ -48,8 +46,6 @@ class Player {
     void movePlayer(int roll);
     void moveToDCTims();
     void setPos(int pos);
-    void declareBankruptcy();
-    void auctionProperty(std::string squareName);
     void addTimsCup();
     void setTimsCups(int cups);  // used when loading from a game
     int getTimsCups();

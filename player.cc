@@ -174,9 +174,7 @@ int Player::getAssets() const {
 
 void Player::movePlayer(int roll) {
     pos += roll;
-    if (pos > (MAP_GAME_SIZE - 1)) {
-        pos -= MAP_GAME_SIZE;
-    }
+    pos = pos % MAP_GAME_SIZE;
 }
 
 void Player::moveToDCTims() {
@@ -186,22 +184,6 @@ void Player::moveToDCTims() {
 
 void Player::setPos(int pos) {
 	this->pos = pos;
-}
-
-void Player::declareBankruptcy() {
-    // check if qualify to declare bankruptcy
-}
-
-void Player::auctionProperty(std::string squareName) {
-    // call the auction class
-}
-
-bool Player::loadFromSave(std::string saveFile) {
-    return false;
-}
-
-bool saveGame(std::string saveFile) {
-    return false;
 }
 
 void Player::addTimsCup(){
