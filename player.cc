@@ -241,10 +241,18 @@ void Player::removeRes(){
     numResOwned--;
 }
 
-void Player::addGym(int gyms){
+void Player::addGym(){
     numGymOwned++;
 }
 
-void Player::addRes(int res){
+void Player::addRes(){
     numResOwned++;
+}
+
+int Player::getNumGymOwned(){
+    return numGymOwned;
+}
+
+int Player::getNumResOwned(){
+    return numResOwned;
 }
