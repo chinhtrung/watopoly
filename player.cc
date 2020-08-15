@@ -216,9 +216,7 @@ void Player::updateMonopolyBlock() {
 
     for (int i = 0; i < sizeOwnedProp; i++) {
         eachBlock = ownedProperties[i]->getMonoBlock();
-	if (!ownedProperties[i]->getMortStatus()){
-	    trackingBuilding[eachBlock] += 1;
-	}
+	trackingBuilding[eachBlock] += 1;
     }
 
     for (auto &block: trackingBuilding) {
@@ -229,6 +227,16 @@ void Player::updateMonopolyBlock() {
         }
     }
 
+    numGymOwned = 0;
+    numResOwned = 0;
+    for (int i = 0; i < sizeOwnedProp; i++){
+	std::string propName = ownedProperties[i]->getName();
+        if (isGym(propName) && !ownedProperties[i]->getMortStatus()){
+	    numGymOwned++;
+	} else if (isResidence(propName) && !ownedProperties[i]->getMortStatus()){
+	    numResOwned++;
+	}
+    }
 }
 
 void Player::removeGym(){
