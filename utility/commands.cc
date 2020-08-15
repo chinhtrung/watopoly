@@ -1,4 +1,5 @@
 #include "commands.h"
+#include "positionMap.h"
 
 using namespace std;
 
@@ -105,7 +106,18 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
         }
 
     } else { // they're on an unownable block
-      if (steppingSquare ==    
+      if (steppingSquare == indexOfSquare("SLC 1") ||
+		      steppingSquare == indexOfSquare("SLC 2") || 
+		      steppingSquare == indexOfSquare("SLC 3")) {
+      } else if (steppingSquare == indexOfSquare("TUITION")) {
+      } else if (steppingSquare == indexOfSquare("NEEDLES HALL 1") || 
+		      steppingSquare == indexOfSquare("NEEDLES HALL 2") || 
+		      steppingSquare == indexOfSquare("NEEDLES HALL 3")) {
+      } else if (steppingSquare == indexOfSquare("DC Tims Line")) {
+      } else if (steppingSquare == indexOfSquare("Goose Nesting")) {
+      } else if (steppingSquare == indexOfSquare("GO TO TIMS")) {
+      } else if (steppingSquare == indexOfSquare("COOP FEE")) {
+      }
 
     }
 
