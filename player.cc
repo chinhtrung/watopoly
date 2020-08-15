@@ -144,9 +144,20 @@ int Player::getFunds() const {
 
 int Player::getAssets() const {
     int result = funds;
-    
+   
+    // assets = funds + printed prices of all prop (both mort and unmort) +
+    //              costs of all improvements 
     int sizeOwnProp = ownedProperties.size();
-    for (int i = 0; i < sizeOwnProp; i++) {
+
+    for (int i = 0; i < sizeOwnProp; i++){
+	std::string propName = ownedProperties[i]->getName();
+        result += costToBuyProp(propName);
+	int imprLevel = ownedProperties[i]->getImprLevel();
+	if (imprLevel > 0){
+	    result += imprLevel * costToImprProp(propName);
+	}
+    }
+    /*for (int i = 0; i < sizeOwnProp; i++) {
         result += costToMortProp(ownedProperties[i]->getName());
     }
 
@@ -154,7 +165,7 @@ int Player::getAssets() const {
     for (int i = 0; i < sizeOwnProp; i++) {
         if (ownedProperties[i]->getMortStatus() == true) {}
             result -= costToMortProp(ownedProperties[i]->getName());
-    }
+    }*/
 
     return result;
 }
