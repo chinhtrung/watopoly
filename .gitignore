@@ -1,4 +1,4 @@
 generateFile.txt
-a.out
+*.out
 *.o
 *.d

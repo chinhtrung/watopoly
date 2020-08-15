@@ -3,7 +3,7 @@
 #include <memory>
 #include <iostream>
 #include <vector>
-#include "utility/seeds.h"
+#include "seeds.h"
 #include "player.h"
 #include "ownable.h"
 #include "auction.h"
