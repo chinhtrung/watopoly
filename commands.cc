@@ -175,7 +175,6 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                 followAuctionCommand(group, curPlayer, steppingSquare);
             }
         }
-<<<<<<< HEAD
 
     } else { // they're on an unownable block
          if (steppingSquare == "SLC") {
@@ -231,8 +230,6 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                         followImproveCommand(group, curPlayer, b);
                     }
 
-=======
->>>>>>> 8282581e972547d94ede5fc1c4fdbd0538345dea
     }
     else
     { // they're on an unownable block
@@ -567,12 +564,7 @@ void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, std::sha
     }
 }
 
-<<<<<<< HEAD
 void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer) {
    curPlayer->setBankruptStatus(true);
    
-=======
-void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer)
-{
->>>>>>> 8282581e972547d94ede5fc1c4fdbd0538345dea
 }
