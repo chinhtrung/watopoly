@@ -271,19 +271,21 @@ int main (int argc, char** argv) {
                 // roll two dices
 		bool testMode = false;
 		bool rollOverload = false;
-		if (argv > 1 && (argv[1] == TESTING || argv[3] == TESTING)) {
+		if (argc > 1 && (argv[1] == TESTING || argv[3] == TESTING)) {
 			testMode = true;
 		}
-		string roll1 = "";
-		string roll2 = "";
+		string rollStr1 = "";
+		string rollStr2 = "";
 		if (testMode) {
-			cin >> roll1 >> roll2;
-			if (isNumber(roll1) && isNumber(roll2)) {
+			cin >> rollStr1 >> rollStr2;
+			if (isNumber(rollStr1) && isNumber(rollStr2)) {
+				int roll1 = stoi(rollStr1);
+				int roll2 = stoi(rollStr2);
 				rollValue = roll1 + roll2;
 				rollOverload = true;
 			}
 		}
-		if (!isNumber(roll1) || !isNumber(roll2)) {
+		if (!rollOverload) {
 			twoDices->rollDice();
 			cout << "Rolling your dice ........" << endl;
                 	cout << "and you get " << twoDices->diceSum() << endl;
@@ -427,5 +429,5 @@ int main (int argc, char** argv) {
         } else {
             cout << "Unrecognized command!" << endl;
         }
-
+    }
 }
