@@ -39,7 +39,7 @@ int main (int argc, char** argv) {
     auto b = std::make_shared<Board>();
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
-    bool testMode;
+    bool testMode = false;
 
     if ( argc > 1 && argv[1] == LOAD) {
 
@@ -114,6 +114,7 @@ int main (int argc, char** argv) {
             testMode = true;
 	    cout << "Currently in test mode" << endl;
         } else {
+	    testMode = false;
             cout << "Fail to call load or test mode, initiate a new game" << endl;
 	}
     
@@ -223,7 +224,8 @@ int main (int argc, char** argv) {
 		string rollStr2 = "";
 		if (testMode) {
 			cin >> rollStr1 >> rollStr2;
-			if (isNumber(rollStr1) && isNumber(rollStr2)) {
+			if (!cin.fail() && isNumber(rollStr1) && 
+					isNumber(rollStr2)) {
 				int roll1 = stoi(rollStr1);
 				int roll2 = stoi(rollStr2);
 				rollValue = roll1 + roll2;
