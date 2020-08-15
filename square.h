@@ -3,6 +3,7 @@
 #include <string>
 
 class Square{
+  protected:
     int ID;
     std::string name;
   public:

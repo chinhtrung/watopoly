@@ -57,6 +57,8 @@ class Player {
     void removeRes(); // decreases numResOwned by 1
     void addGym();  // increases numGymOwned by 1
     void addRes();  // increases numResOwned by 1
+    int getNumGymOwned();
+    int getNumResOwned();
 
     static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
     static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save

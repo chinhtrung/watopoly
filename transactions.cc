@@ -47,11 +47,40 @@ bool Transactions::tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Play
     // check if the property of offer is save to trade (selling all the improvement)
     if (!checkIfPropSaveToTrade(receive)) return false;
 
+    std::string receiveName = receive->getName();
+
+    // if block of receive was owned by to, set blockOwned of receive to false
+    if (isAcademic(receiveName)){
+        if (to->checkIfInMonopolyBlock(receiveName)){
+            receive->setBlockOwned(false);
+        }
+    }
+
     // the transaction occur if all checking pass
     std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(receive);
-    from->addProp(receive);
+    from->payFund(give);
     to->removeProp(receive);
-    to->addFund(give);
+    from->addProp(receive);
+
+    // update Monopoly blocks of both players
+    from->updateMonopolyBlock();
+    to->updateMonopolyBlock();
+
+    // set correct paylevel and tuition
+    if (isGym(receiveName)){
+        from->removeGym();
+	to->addGym();
+	receive->setPayLevel(to->getNumGymOwned() - 1);
+    } else if (isResidence(receiveName)){
+        from->removeRes();
+	to->addRes();
+	receive->setPayLevel(to->getNumResOwned() - 1);
+    } else if (isAcademic(receiveName)){
+        if (from->checkIfInMonopolyBlock(receiveName)){
+	    receive->setBlockOwned(true);	    
+	}
+    }
+
     std::cout << "The transaction is completed!" << std::endl;
     return true;
 }
@@ -67,17 +96,69 @@ bool Transactions::tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Play
     if (!checkIfPlayerOwnProp(to, receive)) return false;
     if (!checkIfPropSaveToTrade(receive)) return false;
 
+    std::string giveName = give->getName();
+    std::string receiveName = receive->getName();
+
+    // if block of give was owned by from, set blockOwned of give to false
+    if (isAcademic(giveName)){
+        if (from->checkIfInMonopolyBlock(giveName)){
+            give->setBlockOwned(false);
+        } 
+    }
+
+    // if block of receive was owned by to, set blockOwned of receiveName to false
+    if (isAcademic(receiveName)){
+        if (from->checkIfInMonopolyBlock(receiveName)){
+            receive->setBlockOwned(false);
+        }
+    }
+
     // the transaction occur if all check pass
     from->removeProp(give);
     from->addProp(receive);
     to->removeProp(receive);
     to->addProp(give);
+
+    // update Monopoly blocks
+    from->updateMonopolyBlock();
+    to->updateMonopolyBlock();
+
+    // set correct paylevel and tuition
+    if (isGym(receiveName)){
+        from->removeGym();
+        to->addGym();
+        receive->setPayLevel(to->getNumGymOwned() - 1);
+    } else if (isResidence(receiveName)){
+        from->removeRes();
+        to->addRes();
+        receive->setPayLevel(to->getNumResOwned() - 1);
+    } else if (isAcademic(receiveName)){
+        if (from->checkIfInMonopolyBlock(receiveName)){
+            receive->setBlockOwned(true);
+        }
+    }
+
+    // set correct paylevel and tuition
+    if (isGym(giveName)){
+        to->removeGym();
+        from->addGym();
+        give->setPayLevel(from->getNumGymOwned() - 1);
+    } else if (isResidence(giveName)){
+        to->removeRes();
+        from->addRes();
+        give->setPayLevel(from->getNumResOwned() - 1);
+    } else if (isAcademic(giveName)){
+        if (from->checkIfInMonopolyBlock(giveName)){
+            give->setBlockOwned(true);
+        }
+    }
+
     std::cout << "The transaction is completed!" << std::endl;
     return true;
 }
 
 bool Transactions::tradePforM(std::shared_ptr<Player> from, std::shared_ptr<Player> to, std::shared_ptr<Ownable> give, int receive) {
-    return Transactions::tradeMforP(to, from, receive, give);
+    return Transactions::tradeMforP(to, from, receive, give); 
 }
 
 bool Transactions::payPlayer(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int amt) {

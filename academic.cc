@@ -9,7 +9,12 @@ Academic::Academic(int ID, std::string name, int costToBuy,
 }
 
 int Academic::amountToPay() {
-    return tuition;
+    if (blockOwned){
+        return costToPayUnimprPropBlock(name);
+    } else if (this->getImprLevel() == 0){
+        return costToPayUnimprProp(name);
+    }
+    return costToPayImprProp(name, this->getImprLevel);
 }
 
 void Academic::updateTuition() {
