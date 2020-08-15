@@ -5,16 +5,20 @@
 #include <vector>
 #include "seeds.h"
 #include "player.h"
+#include "square.h"
 #include "ownable.h"
 #include "auction.h"
 #include "academic.h"
 #include "gym.h"
+#include "residence.h"
 
+class Square;
 class Player;
 class Ownable;
 class Auction;
 class Academic;
 class Gym;
+class Residence;
 
 class Transactions{
     static std::vector<std::shared_ptr<Ownable>> ownedList;
