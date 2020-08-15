@@ -35,15 +35,9 @@ void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buy
 
     buyer->addProp(ownable);
 
-    if (imprLevel == -1)
-    {
+    if (imprLevel == -1) {
         ownable->setMortStatus(true);
-    }
-    else
-    {
-        ownable->setImprLevel(imprLevel + 1);
-
-        // fix setPayLevel()
-        //prod->setPayLevel(imprLevel + 1);
+    } else {
+        ownable->setImprLevel(imprLevel + 1); 
     }
 }

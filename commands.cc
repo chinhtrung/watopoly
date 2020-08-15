@@ -153,6 +153,19 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                         break;
                     }
 
+                    if (input == TRADE) {
+                        followTradeCommand(group, curPlayer);
+                    }
+
+                    if (input == MORTGAGE) {
+                        followMortgageCommand(curPlayer);
+                    }
+
+                    if (input == IMPROVE) {
+                        followImproveCommand(group, curPlayer, b);
+                    }
+                }
+            } else {
                     if (input == TRADE)
                     {
                         followTradeCommand(group, curPlayer);
@@ -229,7 +242,6 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                     if (action == BANKRUPT) {
                         followBankruptCommandWithBank(curPlayer);
                         bankruptStatus = true;
-
                     }
 
                     if (action == TRADE) {
@@ -455,6 +467,7 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
     int sizeGroup = group.size();
     int numberOfBidder = sizeGroup;
     vector<bool> trackingGiveUpBid;
+
     for (int i = 0; i < sizeGroup; i++)
     {
         trackingGiveUpBid.push_back(false);
