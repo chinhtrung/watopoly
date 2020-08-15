@@ -10,9 +10,7 @@ bool checkFundIsEnoughToUse(std::shared_ptr<Player> player, int amt) {
 }
 
 bool checkIfPlayerOwnProp(std::shared_ptr<Player> player, std::shared_ptr<Ownable> prop) {
-    std::shared_ptr<Square> tempProp = std::dynamic_pointer_cast<Square>(prop); // cast the Ownable pointer to Square
-
-    if (player->ownThisProp(tempProp->getName())) return true;
+    if (player->ownThisProp(prop->getName())) return true;
     std::cout << "The player " << player->getName() << " doesn't own this property" << std::endl;
     return false;
 }
@@ -28,8 +26,7 @@ bool checkIfPropSaveToTrade(std::shared_ptr<Ownable> prop) {
 bool Transactions::isInOwnedList(std::string nameSquare) {
     int sizeOwnedList = ownedList.size();
     for (int i = 0; i < sizeOwnedList; i++) {
-        std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(ownedList[i]);
-        if (tmp->getName() == nameSquare) {
+        if (ownedList[i]->getName() == nameSquare) {
             return true;
         }
     }
@@ -58,7 +55,6 @@ bool Transactions::tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Play
     }
 
     // the transaction occur if all checking pass
-    std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(receive);
     from->payFund(give);
     to->removeProp(receive);
     from->addProp(receive);
@@ -237,8 +233,7 @@ bool Transactions::improveProperty(std::shared_ptr<Ownable> prop, std::shared_pt
     if(!checkIfPlayerOwnProp(own, prop)) return false;
 
     // check if the player has enough money to improve the property
-    std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(prop);
-    int cost = costToImprProp(tmp->getName());
+    int cost = costToImprProp(prop->getName());
     if (!checkFundIsEnoughToUse(own, cost)) return false;
 
     // the transaction occur if all check pass
@@ -259,8 +254,7 @@ bool Transactions::sellImprove(std::shared_ptr<Ownable> prop, std::shared_ptr<Pl
     }
 
     // the transaction occur if all check pass
-    std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(prop);
-    own->addFund(costToSellImprProp(tmp->getName()));
+    own->addFund(costToSellImprProp(prop->getName()));
     prop->setImprLevel(prop->getImprLevel() - 1);
     prop->setPayLevel(prop->getPayLevel() - 1);
     return true;
@@ -277,8 +271,7 @@ bool Transactions::mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_p
     }
 
     // the transaction occur if all check pass
-    std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(prop);
-    int price = costToMortProp(tmp->getName());
+    int price = costToMortProp(prop->getName());
     own->addFund(price);
     prop->setMortStatus(true);
 
@@ -307,8 +300,7 @@ bool Transactions::unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared
     }
 
     // check if the player has enough money to unmortgage
-    std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(prop);
-    int cost = costToUnmortProp(tmp->getName());
+    int cost = costToUnmortProp(prop->getName());
     if (!checkFundIsEnoughToUse(own, cost)) return false;
 
     // the transaction occur if all check pass
@@ -319,7 +311,7 @@ bool Transactions::unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared
         own->addGym();
     } else if (isResidence(prop->getName())){
         own->addRes();
-    } else if (isAcademic(tmp->getName())){
+    } else if (isAcademic(prop->getName())){
 	std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
         own->updateMonopolyBlock();
         if (own->checkIfInMonopolyBlock(acad->getMonoBlock())){
@@ -336,8 +328,7 @@ std::shared_ptr<Ownable> Transactions::pointerOfProp(std::string ownableName) {
     int sizeOwnedList = ownedList.size();
 
     for (int i = 0; i < sizeOwnedList; i++) {
-        std::shared_ptr<Square> tmp = std::dynamic_pointer_cast<Square>(ownedList[i]);
-        if (tmp->getName() == ownableName) {
+        if (ownedList[i]->getName() == ownableName) {
             return ownedList[i];
         }
     }
