@@ -128,7 +128,7 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
             curPlayer->moveToDCTims();
         } else if (steppingSquare == "COOP FEE") {
             cout << "You are assessed a $150 co-op fee." << endl;
-            curPlayer->payCoop();
+            curPlayer->addFund(MonetaryServices::payCoop());
         }
 
     }
