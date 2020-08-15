@@ -122,12 +122,12 @@ int main (int argc, char** argv) {
         int num = 0;
         cin >> num;
         if (cin.fail()) cin.clear();
-        while (num < MIN_PLAYERS || num > MAX_PLAYERS || cin.fail()) {
+        while (cin.fail() || num < MIN_PLAYERS || num > MAX_PLAYERS) {
             if (cin.fail()) break;
             cout << "The number of players should be between 2 and 7." << endl;
 	    cout << "input number of player again" << endl;
             cin >> num;
-        };
+        }
         cout << "The number of player is " << num << endl;
         for(int i = 0; i < num; i++) {
             cout << "Hey player " << i + 1 << "! Please input your name " << endl;
