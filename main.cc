@@ -39,9 +39,9 @@ int main (int argc, char** argv) {
     auto b = std::make_shared<Board>();
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
+    bool testMode;
 
-    if ( argc > 1) { // check the number of arguments
-        if (argv[1] == LOAD) {
+    if ( argc > 1 && argv[1] == LOAD) {
 
             cout << "Loading in saved game from " << argv[2] << endl;
             
@@ -108,10 +108,14 @@ int main (int argc, char** argv) {
                     ls->loadProperty(name, group[playerIndex], imprLevel);
                 }
             }
-        }
-    }
-    else {
-        cout << "Fail to call load or testing mode, initiate a new game" << endl;
+        } else {
+
+	if (argc > 1 && (argv[1] == TESTING || argv[3] == TESTING)) {
+            testMode = true;
+	    cout << "Currently in test mode" << endl;
+        } else {
+            cout << "Fail to call load or test mode, initiate a new game" << endl;
+	}
     
         cout << "Please input the number of player for this game" << endl;
         int num = 0;
@@ -214,11 +218,7 @@ int main (int argc, char** argv) {
 
             while (availableDoubleRoll > 0) {
                 // roll two dices
-		bool testMode = false;
-		bool rollOverload = false;
-		if (argc > 1 && (argv[1] == TESTING || argv[3] == TESTING)) {
-			testMode = true;
-		}
+		bool rollOverload = false;	
 		string rollStr1 = "";
 		string rollStr2 = "";
 		if (testMode) {
