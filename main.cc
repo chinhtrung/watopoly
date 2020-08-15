@@ -233,7 +233,10 @@ int main (int argc, char** argv) {
 		if (!rollOverload) {
 			twoDices->rollDice();
 			cout << "Rolling your dice ........" << endl;
-                	cout << "and you get " << twoDices->diceSum() << endl;
+                	cout << "and you get ";
+			cout << twoDices->getDie1() << " + ";
+			cout << twoDices->getDie2() << " = ";
+			cout << twoDices->diceSum() << "!" << endl;
 		}
                 if (!twoDices->isDouble()) {
 		    if (!rollOverload) {
@@ -380,3 +383,10 @@ int main (int argc, char** argv) {
     }
 }
 
+
+// Sources:
+// cplusplus.com
+// encppreference.com
+// https://medium.com/prodopsio/solving-git-merge-conflicts-with-vim
+//   -c8a8617e3633
+// C Programming, A Modern Approach, 2nd Ed., by KN King
