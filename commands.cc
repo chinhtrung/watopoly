@@ -175,21 +175,22 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                 followAuctionCommand(group, curPlayer, steppingSquare);
             }
         }
-<<<<<<< HEAD
 
     } else { // they're on an unownable block
+	    int fundChange = 0;
+	    bool changeFund = false;
          if (steppingSquare == "SLC") {
              cout << "You have arrived at the SLC!" << endl;
              SLC::determinePlayerPos(curPlayer);
 	     followRollCommand(group, curPlayer, testMode, b);
 	     // update and draw board
          } else if (steppingSquare == "TUITION") {
-	     int fundChange = MonetaryServices::payTuition(curPlayer);
-	     bool changeFund = curPlayer->addFund(fundChange);
+	     fundChange = MonetaryServices::payTuition(curPlayer);
+	     changeFund = curPlayer->addFund(fundChange);
          } else if (steppingSquare == "NEEDLES HALL") {
              cout << "You have arrived at Needles Hall." << endl;
-	     int fundChange = MonetaryServices::needlesHall(curPlayer);
-	     bool changeFund = curPlayer->addFund(fundChange);
+	     fundChange = MonetaryServices::needlesHall(curPlayer);
+	     changeFund = curPlayer->addFund(fundChange);
          } else if (steppingSquare == "DC Tims Line") {
              cout << "You have arrived at DC Tims Line." << endl;
              cout << "You get your coffee immediately." << endl;
@@ -202,21 +203,20 @@ void followRollCommand(vector<shared_ptr<Player>> group,
              curPlayer->moveToDCTims();
          } else if (steppingSquare == "COOP FEE") {
              cout << "You are assessed a $150 co-op fee." << endl;
-	     int fundChange = MonetaryServices::payCoop();
-	     bool changeFund = curPlayer->addFund(fundChange);
+	     fundChange = MonetaryServices::payCoop();
+	     changeFund = curPlayer->addFund(fundChange);
          }
          if (!changeFund) {
-	 }		 
-	 cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
+	 	cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
                     cout << "Available commands [\"bankrupt\",\"mortage\",\"improve\"] with their according procedure"<< endl;
                     string action;
                     cin >> action;
 
                     // call other command here
                     if (action == BANKRUPT) {
-                        followBankruptCommandWithPlayer(curPlayer, propOwner);
+                        followBankruptCommandWithBank(curPlayer);
                         bankruptStatus = true;
-                        break;
+
                     }
 
                     if (action == TRADE) {
@@ -230,54 +230,10 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                     if (action == IMPROVE) {
                         followImproveCommand(group, curPlayer, b);
                     }
-
-=======
->>>>>>> 8282581e972547d94ede5fc1c4fdbd0538345dea
-    }
-    else
-    { // they're on an unownable block
-        if (steppingSquare == "SLC")
-        {
-            cout << "You have arrived at the SLC!" << endl;
-            SLC::determinePlayerPos(curPlayer);
-            followRollCommand(group, curPlayer, testMode, b);
-            // update and draw board
-        }
-        else if (steppingSquare == "TUITION")
-        {
-            int fundChange = MonetaryServices::payTuition(curPlayer);
-            bool changeFund = curPlayer->addFund(fundChange);
-        }
-        else if (steppingSquare == "NEEDLES HALL")
-        {
-            cout << "You have arrived at Needles Hall." << endl;
-            int fundChange = MonetaryServices::needlesHall(curPlayer);
-            bool changeFund = curPlayer->addFund(fundChange);
-        }
-        else if (steppingSquare == "DC Tims Line")
-        {
-            cout << "You have arrived at DC Tims Line." << endl;
-            cout << "You get your coffee immediately." << endl;
-        }
-        else if (steppingSquare == "Goose Nesting")
-        {
-            cout << "You are attacked by a flock of geese, but nothing ";
-            cout << "else happens." << endl;
-        }
-        else if (steppingSquare == "GO TO TIMS")
-        {
-            cout << "After pulling an all-nighter, you need coffee." << endl;
-            cout << "Unfortunately, the line is a mile long." << endl;
-            curPlayer->moveToDCTims();
-        }
-        else if (steppingSquare == "COOP FEE")
-        {
-            cout << "You are assessed a $150 co-op fee." << endl;
-            int fundChange = MonetaryServices::payCoop();
-            bool changeFund = curPlayer->addFund(fundChange);
-        }
+	 }
     }
 }
+
 
 // helper function
 bool isNumber(string a)
@@ -567,12 +523,6 @@ void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, std::sha
     }
 }
 
-<<<<<<< HEAD
 void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer) {
-   curPlayer->setBankruptStatus(true);
-   
-=======
-void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer)
-{
->>>>>>> 8282581e972547d94ede5fc1c4fdbd0538345dea
+	return;
 }
