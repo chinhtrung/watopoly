@@ -18,25 +18,54 @@ MonetaryServices::MonetaryServices(int ID, string name)
 
 int MonetaryServices::needlesHall() {
 	srand(time(NULL));
+	cout << "Your first spin will be a number from " << MIN_TIMS_ROLL;
+	cout << " to " << MAX_TIMS_ROLL << "!" << endl;
+	cout << "If your spin is " << SECRET_NUM << ", then you win ";
+	cout << "a Tims Roll up the Rim Cup, which you can use to ";
+	cout << "get out of DC Tims Line without rolling or paying!" << endl;
+	cout << "In that case, you stay where you are." << endl;
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 	       + MIN_TIMS_ROLL;
+	cout << "Your Tims Roll is " << timsRoll << "." << endl;
 	if (timsRoll == SECRET_NUM) {
+		cout << "Congratulations! You have won a TimsCup, which ";
+		cout << "you can use to get out of DC Tims Line free!" << endl;
+		p->addTimsCup();
 		return 0;
 	}
+	cout << "You did not receive a TimsCup, so you spin a second time.";
+   	cout << endl;
+	cout << "What happens to you depends on your spin, listed in the ";
+	cout << "table below." << endl;
+	cout << "1: Lose $200" << endl;
+	cout << "2-3: Lose $100" << endl;
+	cout << "4-6: Lose $50" << endl;
+	cout << "7-12: Win $25" << endl;
+	cout << "13-15: Win $50" << endl;
+	cout << "16-17: Win $100" << endl;
+	cout << "18: Win $200" << endl;
 	int spin = rand() % (MAX - MIN + 1) + MIN;
+	cout << "Your Needles Hall Spin is " << spin << "." << endl;
 	if (spin == 1) {
+		cout << "You lose $200!" << endl;
 		return -200;
 	} else if (spin >= 2 && spin <= 3) {
+		cout << "You lose $100!" << endl;
 		return -100;
 	} else if (spin >= 4 && spin <= 6) {
+		cout << "You lose $50!" << endl;
 		return -50;
 	} else if (spin >= 7 && spin <= 12) {
+		cout << "You win $25!" << endl;
 		return 25;
 	} else if (spin >= 13 && spin <= 15) {
+		cout << "You win $50!" << endl;
 		return 50;
 	} else if (spin >= 16 && spin <= 17) {
+		cout << "You win $100!" << endl;
 		return 100;
 	} else if (spin == 18) {
+		cout << "Your win $200!" << endl;
 		return 200;
 	} else {
 	}
@@ -46,28 +75,57 @@ int MonetaryServices::needlesHall() {
 int MonetaryServices::needlesHallTest() {
 
 	srand(103);
+	
+	cout << "Your first spin will be a number from " << MIN_TIMS_ROLL;
+	cout << " to " << MAX_TIMS_ROLL << "!" << endl;
+	cout << "If your spin is " << SECRET_NUM << ", then you win ";
+	cout << "a Tims Roll up the Rim Cup, which you can use to ";
+	cout << "get out of DC Tims Line without rolling or paying!" << endl;
+	cout << "In that case, you stay where you are." << endl;
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 	       + MIN_TIMS_ROLL;
+	cout << "Your Tims Roll is " << timsRoll << "." << endl;
 	if (timsRoll == SECRET_NUM) {
+		cout << "Congratulations! You have won a TimsCup, which ";
+		cout << "you can use to get out of DC Tims Line free!" << endl;
+		p->addTimsCup();
 		return 0;
 	}
+	cout << "You did not receive a TimsCup, so you spin a second time.";
+   	cout << endl;
+	cout << "What happens to you depends on your spin, listed in the ";
+	cout << "table below." << endl;
+	cout << "1: Lose $200" << endl;
+	cout << "2-3: Lose $100" << endl;
+	cout << "4-6: Lose $50" << endl;
+	cout << "7-12: Win $25" << endl;
+	cout << "13-15: Win $50" << endl;
+	cout << "16-17: Win $100" << endl;
+	cout << "18: Win $200" << endl;
 	int spin = rand() % (MAX - MIN + 1) + MIN;
+	cout << "Your Needles Hall Spin is " << spin << "." << endl;
 	if (spin == 1) {
+		cout << "You lose $200!" << endl;
 		return -200;
 	} else if (spin >= 2 && spin <= 3) {
+		cout << "You lose $100!" << endl;
 		return -100;
 	} else if (spin >= 4 && spin <= 6) {
+		cout << "You lose $50!" << endl;
 		return -50;
 	} else if (spin >= 7 && spin <= 12) {
+		cout << "You win $25!" << endl;
 		return 25;
 	} else if (spin >= 13 && spin <= 15) {
+		cout << "You win $50!" << endl;
 		return 50;
 	} else if (spin >= 16 && spin <= 17) {
+		cout << "You win $100!" << endl;
 		return 100;
 	} else if (spin == 18) {
+		cout << "Your win $200!" << endl;
 		return 200;
 	} else {
-
 	}
 	return 0;
 }
