@@ -110,9 +110,10 @@ int main (int argc, char** argv) {
                 }
             }
         }
+    }
     else {
         cout << "Fail to call load or testing mode, initiate a new game" << endl;
-    }
+    
         cout << "Please input the number of player for this game" << endl;
         int num = 0;
         cin >> num;
@@ -160,10 +161,10 @@ int main (int argc, char** argv) {
             piece = ' ';
         }
     }
-
+    
     // setup game tracker and helper method
     int currIndex = 0;
-    shared_ptr<Player> currActingPlayer = group[currIndex];
+    auto currActingPlayer = group[currIndex];
     auto twoDices = make_shared<Dice>();
     int numberOfPlayer = group.size();
     bool rollThisTurn = false;
@@ -379,3 +380,4 @@ int main (int argc, char** argv) {
         }
     }
 }
+
