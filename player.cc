@@ -272,12 +272,10 @@ void Player::printOwnedProp(){
 
 void Player::displayAssets(){
     cout << "Displaying assets of " << name << endl;
-    cout << "..............................." << endl;
     cout << "Funds: " << funds << endl;
     printOwnedProp();
     cout << "Tims Cups: " << timsCups << endl;
     cout << "Total worth: " << getAssets() << endl;
-    cout << "..............................." << endl;
 }
 
 void Player::loadUpdateAmountToPay(){
