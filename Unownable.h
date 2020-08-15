@@ -4,6 +4,8 @@
 #include <string>
 #include "player.h"
 
+class Player;
+
 class Unownable: public Square {
 	public:
 		Unownable(int ID, std::string name);

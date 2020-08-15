@@ -182,6 +182,7 @@ void Player::movePlayer(int roll) {
 void Player::moveToDCTims() {
     pos = 10; // position for DC Tims Line (hard coded)
     // action on DC Tims Line (need to change later)
+    return;
 }
 
 void Player::setPos(int pos) {
