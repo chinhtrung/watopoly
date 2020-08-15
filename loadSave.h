@@ -14,7 +14,7 @@ class Square;
 
 class LoadSave{
   public:
-    void loadProperty(std::string ownableName, std::shared_ptr<Player> buyer, int imprLevel);
+    static void loadProperty(std::string ownableName, std::shared_ptr<Player> buyer, int imprLevel);
 };
 
 #endif
