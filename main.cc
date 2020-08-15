@@ -233,7 +233,10 @@ int main (int argc, char** argv) {
 		if (!rollOverload) {
 			twoDices->rollDice();
 			cout << "Rolling your dice ........" << endl;
-                	cout << "and you get " << twoDices->diceSum() << endl;
+                	cout << "and you get ";
+			cout << twoDices->getDie1() << " + ";
+			cout << twoDices->getDie2() << " = ";
+			cout << twoDices->diceSum() << "!" << endl;
 		}
                 if (!twoDices->isDouble()) {
 		    if (!rollOverload) {
