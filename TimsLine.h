@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include "Unownable.h"
+#include "player.h"
 
 class Unownable;
 class Player;
@@ -12,7 +13,7 @@ class TimsLine: public Unownable {
 	std::map<char, int> captured; // e.g. "A": 2, "B": 0
 	public:
 		TimsLine(int ID, std::string name);
-		void actionAtIndex(std::shared_ptr<Player> p) override;
+		// void actionAtIndex(std::shared_ptr<Player> p) override;
 		void pushPlayer(std::shared_ptr<Player> p);
 		void addRoll(char player);
 		bool isCaptured(char player);

@@ -12,7 +12,7 @@ class Player;
 class MonetaryServices: public Unownable{
 	public:
 		MonetaryServices(int ID, std::string name);
-		virtual void actionAtIndex(std::shared_ptr<Player> p) override;
+		// virtual void actionAtIndex(std::shared_ptr<Player> p) override;
 		static int needlesHall(std::shared_ptr<Player> p);
 		static int needlesHallTest(std::shared_ptr<Player> p);
 		static int collectOSAP();
