@@ -25,7 +25,9 @@ class Transactions;
 // main drive
 int main (int argc, char** argv) {
 
-    cout << "WATOPOLY PROJECT" << endl;
+    cout << "************** $.$ **************" << endl;
+    cout << "---     WATOPOLY PROJECT      ---" << endl;
+    cout << "*********************************" << endl;
 
     vector<char> pieceCharTaken;
 
@@ -120,11 +122,16 @@ int main (int argc, char** argv) {
         }
     
         cout << "Please input the number of player for this game" << endl;
-        int num = 0;
+        string num;
         cin >> num;
-        
-        if (cin.fail()) cin.clear();
-        while (cin.fail() || num < MIN_PLAYERS || num > MAX_PLAYERS) {
+
+        while (!isNumber(num)) {
+            if (cin.fail()) break;
+            cout << "Please enter a number" << endl;
+            cin >> num;
+        }
+
+        while (cin.fail() || stoi(num) < MIN_PLAYERS || stoi(num) > MAX_PLAYERS) {
             if (cin.fail()) break;
             cout << "The number of players should be between 2 and 7." << endl;
             cout << "input number of player again" << endl;
@@ -133,7 +140,7 @@ int main (int argc, char** argv) {
 
         cout << "The number of player is " << num << endl;
 
-        for(int i = 0; i < num; i++) {
+        for(int i = 0; i < stoi(num); i++) {
             cout << "Hey player " << i + 1 << "! Please input your name " << endl;
             string name;
             cin >> name;
@@ -152,14 +159,15 @@ int main (int argc, char** argv) {
 
             if (cin.fail()) break;
             //pieceCharTaken.push_back(piece);
-            while (!isGamePiece(piece) && !cin.fail()) {
+            while (!isGamePiece(piece)) {
                 cout << "Your game piece should be one of the char here ";
                 showAllCharExcept(pieceCharTaken);
                 cin >> piece;
+                if (cin.fail()) break;
             }
             pieceCharTaken.push_back(piece);
             cout << "Hi " << name << "! Your piece is " << piece << endl;
-            cout << "---------------------------------" << endl;
+            cout << "---------------------------------" << endl << endl;
 
             auto newPlayer = make_shared<Player>(name, piece, defaultMoneyToStart);
             group.push_back(newPlayer);
