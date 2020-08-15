@@ -85,4 +85,6 @@ const std::vector<std::vector<std::string>> OWNABLE = {AL, ML, ECH, PAS, HH, RCH
                                                        MKV, UWP, V1, REV, PAC, CIF};
 const int OWNABLE_SIZE = OWNABLE.size();
 
+const int OSAP_SALARY = 200;
+
 #endif

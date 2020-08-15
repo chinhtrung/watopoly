@@ -172,7 +172,10 @@ int Player::getAssets() const {
 
 void Player::movePlayer(int roll) {
     pos += roll;
-    pos = pos % MAP_GAME_SIZE;
+    if (pos >= MAP_GAME_SIZE) {
+        pos = pos % MAP_GAME_SIZE;
+        this->addFund(OSAP_SALARY);
+    }
 }
 
 void Player::moveToDCTims() {
