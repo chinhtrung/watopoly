@@ -39,7 +39,7 @@ int main (int argc, char** argv) {
     const int TUITION_POS = 4;
     const int DC_TIMS_POS = 10;
 
-    auto b = std::make_unique<Board>();
+    auto b = std::make_shared<Board>();
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
 
