@@ -16,7 +16,7 @@ MonetaryServices::MonetaryServices(int ID, string name)
 	: Unownable(ID, name)
 {}
 
-int MonetaryServices::needlesHall() {
+int MonetaryServices::needlesHall(shared_ptr<Player> p) {
 	srand(time(NULL));
 	cout << "Your first spin will be a number from " << MIN_TIMS_ROLL;
 	cout << " to " << MAX_TIMS_ROLL << "!" << endl;
@@ -72,7 +72,7 @@ int MonetaryServices::needlesHall() {
 	return 0;
 }
 
-int MonetaryServices::needlesHallTest() {
+int MonetaryServices::needlesHallTest(shared_ptr<Player> p) {
 
 	srand(103);
 	
@@ -168,7 +168,7 @@ void MonetaryServices::actionAtIndex(shared_ptr<Player> p) {
 	} else if (p->getCurrPos() == TUITION) {
 		amt = payTuition(p);
 	} else if (p->getCurrPos() == NEEDLES_HALL) {
-		amt = needlesHall();
+		amt = needlesHall(p);
 	} else if (p->getCurrPos() == COOP_FEE) {
 		amt = payCoop();
 	}
