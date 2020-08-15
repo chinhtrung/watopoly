@@ -1,6 +1,6 @@
 #ifndef RESIDENCE_H
 #define RESIDENCE_H
-
+#include <iostream>
 #include <string>
 #include "ownable.h"
 #include "seeds.h"

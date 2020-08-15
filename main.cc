@@ -369,9 +369,9 @@ int main (int argc, char** argv) {
 		if (!owned){
 		    outf << "BANK" << " ";
 		}
-		outf << b->getImpr(OWNABLE[i][0]) << endl;*/
-	    //}
-	    
+		outf << b->getImpr(OWNABLE[i][0]) << endl;
+	    }
+	    */
 
         } else {
             cout << "Unrecognized command!" << endl;

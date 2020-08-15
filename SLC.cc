@@ -1,8 +1,6 @@
-#include <cstdlib>
-#include <ctime>
 #include "SLC.h"
-using namespace std;
 
+using namespace std;
 
 static const int MIN_TIMS_ROLL = 1;
 static const int MAX_TIMS_ROLL = 100;

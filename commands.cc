@@ -1,7 +1,4 @@
 #include "commands.h"
-#include "MonetaryServices.h"
-#include "SLC.h"
-#include "positionMap.h"
 
 using namespace std;
 
