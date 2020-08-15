@@ -28,7 +28,6 @@ class TimsLine;
 // main drive
 int main(int argc, char **argv)
 {
-
     cout << "************** $.$ **************" << endl;
     cout << "---     WATOPOLY PROJECT      ---" << endl;
     cout << "*********************************" << endl;
@@ -378,6 +377,7 @@ int main(int argc, char **argv)
             currIndex = currIndex % group.size();
             rollThisTurn = false;
             nextPlayer = true;
+            cout << "Your turn finish, go to the next player!" << endl;
             cout << endl;
             cout << ">-------------------------------------------------------------<" << endl;
         }

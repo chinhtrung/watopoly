@@ -417,10 +417,11 @@ void followUnmortgageCommand(shared_ptr<Player> curPlayer)
 void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::string ownableItem)
 {
     // make new auction
+    cout << endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "The BANK is now running auction on " << ownableItem << " property" << endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    cout << "Each player is now asked for bidding decision" << endl;
+    cout << "Each player is now asked for bidding decision" << endl << endl;
 
     // setup before bidding
     auto newAuction = make_shared<Auction>(group, curPlayer, ownableItem);
@@ -438,24 +439,41 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
     }
     // we want a person who is next to the one calling auction bid first
     curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
+    bool nextBidder = true;
 
     string action; // can choose between RAISE/WITHDRAW
-    while (numberOfBidder == 1)
+    while (true)
     {
+        string curPlayerName = group[curIndexPlayer]->getName();
+
+        if (numberOfBidder == 1) {
+            cout << "Congratulation! You are the winner " << curPlayerName << endl;
+            // process to buy stuff
+            break;
+        }
+
+        
         if (trackingGiveUpBid[curIndexPlayer])
         {
             curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
             continue;
         }
 
-        string curPlayerName = group[curIndexPlayer]->getName();
-        cout << "The current bidding player is " << curPlayerName << endl;
-        cout << "Please choose your action \"raise <amount>\" or \"withdraw\" for the bid " << endl;
+        if (nextBidder) {
+            cout << "----------> $$$ -------------> Property ----------------> $$$$$$" << endl;
+            cout << "The current bidding player is " << curPlayerName << endl;
+            cout << "---------------------------------------------------------" << endl << endl;
+            nextBidder = false;
+        }
+        
+        cout << "--> Please choose your action \"raise\" or \"withdraw\" for the bid " << endl;
         cin >> action;
+        if (cin.fail()) break; 
 
         if (action == RAISE)
         {
             std::string amount;
+            cout << "please enter the amount you want to bid" << endl;
             cin >> amount;
             while (!isNumber(amount))
             {
@@ -477,17 +495,19 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
                 }
             }
             curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
+            nextBidder = true;
         }
         else if (action == WITHDRAW)
         {
             newAuction->withdrawBid(group[curIndexPlayer]);
             trackingGiveUpBid[curIndexPlayer] = true;
             curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
+            nextBidder = true;
             numberOfBidder--;
         }
         else
         {
-            cout << "unregconized action for bidding, the BANK will be prompted to ask you again" << endl;
+            cout << "unregconized action for bidding, the BANK will be prompted to ask you again" << endl << endl;
         }
     }
 }

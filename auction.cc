@@ -24,8 +24,10 @@ bool Auction::placeBid(shared_ptr<Player> from, int amt) {
 	}
 
 	bidLog[from] = amt;
+	maxBid = amt;
 	maxBidder = from;
-	cout << from->getName() << " current bid " << amt << endl;
+	cout << "--- Congratulation! New bid is set ---" << endl;
+	cout << from->getName() << " beast the recent bid with " << amt << "$" << endl;
 	return true;
 }
 
@@ -41,7 +43,7 @@ void Auction::withdrawBid(shared_ptr<Player> from) {
 			cout << bid.first << " win the property " << ownableItem << " with the price " << bid.second << endl;
 			// process to buy this prop and finish
 			Transactions::addPropByAuction(ownableItem, bid.first, bid.second);
-			cout << bid.first << " now own " << ownableItem << endl;
+			cout << bid.first->getName() << " now own " << ownableItem << endl;
 		}
 
 		return;
