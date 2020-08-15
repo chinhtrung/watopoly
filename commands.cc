@@ -1,3 +1,4 @@
+#include <cmath>
 #include "commands.h"
 
 using namespace std;
@@ -186,11 +187,19 @@ void followRollCommand(vector<shared_ptr<Player>> group,
 	     // update and draw board
          } else if (steppingSquare == "TUITION") {
 	     fundChange = MonetaryServices::payTuition(curPlayer);
-	     changeFund = curPlayer->addFund(fundChange);
+	     if (fundChange > 0) {
+	     	     changeFund = curPlayer->addFund(fundChange);
+	     } else {
+		     changeFund = curPlayer->payFund(abs(fundChange));
+	     }
          } else if (steppingSquare == "NEEDLES HALL") {
              cout << "You have arrived at Needles Hall." << endl;
 	     fundChange = MonetaryServices::needlesHall(curPlayer);
-	     changeFund = curPlayer->addFund(fundChange);
+	     if (fundChange > 0) {
+		     changeFund = curPlayer->addFund(fundChange);
+	     } else {
+		     changeFund = curPlayer->payFund(abs(fundChange));
+	     }
          } else if (steppingSquare == "DC Tims Line") {
              cout << "You have arrived at DC Tims Line." << endl;
              cout << "You get your coffee immediately." << endl;
@@ -204,7 +213,11 @@ void followRollCommand(vector<shared_ptr<Player>> group,
          } else if (steppingSquare == "COOP FEE") {
              cout << "You are assessed a $150 co-op fee." << endl;
 	     fundChange = MonetaryServices::payCoop();
-	     changeFund = curPlayer->addFund(fundChange);
+	     if (fundChange > 0) {
+	     	     changeFund = curPlayer->addFund(fundChange);
+	     } else {
+		     changeFund = curPlayer->payFund(abs(fundChange));
+	     }
          }
          if (!changeFund) {
 	 	cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
