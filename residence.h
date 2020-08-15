@@ -6,11 +6,9 @@
 #include "seeds.h"
 
 class Residence: public Ownable {
-	int rent;
 	public:
 		Residence(int ID, std::string name, int costToBuy, char owner);
 		virtual int amountToPay() override;
-		void setRent();
 };
 
 #endif
