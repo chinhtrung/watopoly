@@ -354,7 +354,7 @@ int main(int argc, char **argv)
                 {
                     if (availableDoubleRoll == 1)
                     {
-                        cout << "Congrats! You have rolled double ";
+                        cout << "Congrats! You have rolled a double ";
                         cout << "3 times in a row, go to Tims Line!" << endl;
                         //send to jail
                         currActingPlayer->moveToDCTims();
@@ -365,10 +365,17 @@ int main(int argc, char **argv)
                         rollValue = twoDices->diceSum();
                     }
                     //acting here;
+
                     currActingPlayer->movePlayer(rollValue);
                     b->movePlayer(currActingPlayer->getGamePiece(),
                                   currActingPlayer->getCurrPos());
                     b->drawBoard();
+
+                    cout << "--> Congratulation, You have rolled a double <--" << endl;
+                    cout << "--> Type anything to start rolling <--" << endl;
+                    
+                    string dummy;
+                    cin >> dummy;
                     followRollCommand(group, currActingPlayer, testMode, b);
 
                     availableDoubleRoll--;
@@ -434,11 +441,14 @@ int main(int argc, char **argv)
         {
 
             if (currActingPlayer->getCurrPos() != TUITION_POS)
-            {
-                cout << "Displaying assets of all players." << endl;
+            {   
+                cout << endl;
+                cout << "--> Displaying assets of all players." << endl;
+                cout << ".................." << endl;
                 for (unsigned int i = 0; i < group.size(); ++i)
                 {
                     group[i]->displayAssets();
+                    cout << ".................." << endl;
                 }
             }
             else
