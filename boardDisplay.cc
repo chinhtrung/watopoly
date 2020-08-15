@@ -19,6 +19,7 @@ void BoardDisplay::reset(){
     std::ifstream disFile{ "display.txt" };
     char c;
 
+    disFile.get(c);
     for (int i = 0; i < B_ROWS; i++){
         for (int j = 0; j < B_COLS; j++){
             disFile.get(c);
