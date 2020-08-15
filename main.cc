@@ -28,7 +28,6 @@ class TimsLine;
 // main drive
 int main(int argc, char **argv)
 {
-
     cout << "************** $.$ **************" << endl;
     cout << "---     WATOPOLY PROJECT      ---" << endl;
     cout << "*********************************" << endl;
@@ -290,7 +289,7 @@ int main(int argc, char **argv)
 
         cout << endl;
         cout << "Available commands - [\"roll\",\"next\",\"trade\",\"improve\",\"mortgage\",\"unmortgage\",\"assets\",\"all\",\"save\"]" << endl;
-        cout << "Please type a command with the procedure accordingly" << endl;
+        cout << "Please type a command with the procedure accordingly" << currActingPlayer->getName() << endl;
         cout << "-------------" << endl;
 
         cin >> command;
@@ -304,26 +303,28 @@ int main(int argc, char **argv)
                 continue;
             }
             int availableDoubleRoll = 3;
-            int rollValue;
+            int rollValue = 0;
 
             while (availableDoubleRoll > 0)
             {
                 // roll two dices
-                bool rollOverload = false;
-                string rollStr1 = "";
-                string rollStr2 = "";
-                if (testMode)
-                {
-                    cin >> rollStr1 >> rollStr2;
-                    if (!cin.fail() && isNumber(rollStr1) &&
-                        isNumber(rollStr2))
+                
+		bool rollOverload = false;
+                    if (testMode)
                     {
-                        int roll1 = stoi(rollStr1);
-                        int roll2 = stoi(rollStr2);
-                        rollValue = roll1 + roll2;
-                        rollOverload = true;
+                        std::string die1;
+                        std::string die2;
+                        cin >> die1;
+                        if (!cin.fail() && isNumber(die1))
+                        {
+                            cin >> die2;
+                            if (!cin.fail() && isNumber(die2))
+                            {
+                                rollValue = std::stoi(die1) + std::stoi(die2);
+                                rollOverload = true;
+                            } 
+                        }
                     }
-                }
                 if (!rollOverload)
                 {
                     twoDices->rollDice();
@@ -385,6 +386,7 @@ int main(int argc, char **argv)
             currIndex = currIndex % group.size();
             rollThisTurn = false;
             nextPlayer = true;
+            cout << "Your turn finish, go to the next player!" << endl;
             cout << endl;
             cout << ">-------------------------------------------------------------<" << endl;
         }

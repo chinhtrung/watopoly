@@ -172,7 +172,11 @@ int Player::getAssets() const {
 
 void Player::movePlayer(int roll) {
     pos += roll;
-    pos = pos % MAP_GAME_SIZE;
+    if (pos >= MAP_GAME_SIZE) {
+        std::cout << "***You receive OSAP SALARY for landing or passing it!***" << std::endl;
+        pos = pos % MAP_GAME_SIZE;
+        this->addFund(OSAP_SALARY);
+    }
 }
 
 void Player::moveToDCTims() {
