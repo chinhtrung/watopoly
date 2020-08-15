@@ -1,11 +1,13 @@
 #ifndef TIMSLINE_H
 #define TIMSLINE_H
-
-
 #include <memory>
+#include "Unownable.h"
+#include "player.h"
 
+class Unownable;
+class Player;
 
-class TimsLine: public Unownable {
+class TimsLine : public Unownable {
 	map<char, int> captured; // e.g. "A": 2, "B": 0
 	public:
 		TimsLine();
@@ -14,6 +16,5 @@ class TimsLine: public Unownable {
 		bool isCaptured(char player);
 		int turnsInLine(char player);
 };
-
 
 #endif

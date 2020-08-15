@@ -24,7 +24,6 @@ class Player {
     bool inJail = false;
     std::vector<std::shared_ptr<Ownable>> ownedProperties;
     std::vector<std::string> monopolyBlocks; // ie: {"Sci1", "Math", "Eng"}
-    std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
 
   public:
     Player(std::string name, char gamePiece, int funds);
@@ -46,8 +45,6 @@ class Player {
     void movePlayer(int roll);
     void moveToDCTims();
     void setPos(int pos);
-    void declareBankruptcy();
-    void auctionProperty(std::string squareName);
     void addTimsCup();
     void setTimsCups(int cups);  // used when loading from a game
     int getTimsCups();
@@ -55,9 +52,6 @@ class Player {
     bool getBankruptStatus();
     std::vector<std::shared_ptr<Ownable>> getOwnedPropList();
     void updateMonopolyBlock(); // used when adding new properties
-
-    static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
-    static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
 };
 
 #endif

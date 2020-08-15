@@ -1,12 +1,12 @@
 #include "TimsLine.h"
-using namespace std;
 
+using namespace std;
 
 TimsLine::TimsLine() {
 }
 
 
-void actionAtIndex(shared_ptr<Player> p) {
+void TimsLine::actionAtIndex(shared_ptr<Player> p) {
 	captured.insert(pair<char, int>(p->gamePiece, 0));
 	return;
 }
@@ -26,6 +26,6 @@ bool TimsLine::isCaptured(char player) {
 	return it != captured.end();
 }
 
-int TimsLine:turnInLine(char player){
+int TimsLine::turnInLine(char player){
         return captured[player];
 }
