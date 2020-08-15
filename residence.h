@@ -3,7 +3,7 @@
 
 #include <string>
 #include "ownable.h"
-#include "./utility/seeds.h"
+#include "seeds.h"
 
 class Residence: public Ownable {
 	int rent;
