@@ -336,7 +336,6 @@ int main (int argc, char** argv) {
 	    }
 
         } else if ( command == SAVE ) {
-		/*
 	    string file;
 	    cin >> file;
 	    cout << "Saving game to " << file << endl;
@@ -355,14 +354,14 @@ int main (int argc, char** argv) {
 		    char gp = group[i]->getGamePiece();
 	            // check if player is in Line
 		    // ^ (at start of game, TimsLine square is created by main,
-		     bool inLine = tl->isCaptured(gp);
+		    /* bool inLine = tl->isCaptured(gp);
 		     if (inLine){
 		         int turnsInLine = tl->turnsInLine(gp);
 		         outf << " " << 1 << " ";
 		         outf << turnsInLine << endl;
 		     } else {
 		         outf << " " << 0 << endl;
-		     }	
+		     }*/	
 		} else {
 		    outf << endl;
 		}
@@ -385,7 +384,6 @@ int main (int argc, char** argv) {
 		}
 		outf << b->getImpr(OWNABLE[i][0]) << endl;
 	    }
-	    */
 
         } else {
             cout << "Unrecognized command!" << endl;
