@@ -299,26 +299,28 @@ int main(int argc, char **argv)
                 continue;
             }
             int availableDoubleRoll = 3;
-            int rollValue;
+            int rollValue = 0;
 
             while (availableDoubleRoll > 0)
             {
                 // roll two dices
-                bool rollOverload = false;
-                string rollStr1 = "";
-                string rollStr2 = "";
-                if (testMode)
-                {
-                    cin >> rollStr1 >> rollStr2;
-                    if (!cin.fail() && isNumber(rollStr1) &&
-                        isNumber(rollStr2))
+                
+		bool rollOverload = false;
+                    if (testMode)
                     {
-                        int roll1 = stoi(rollStr1);
-                        int roll2 = stoi(rollStr2);
-                        rollValue = roll1 + roll2;
-                        rollOverload = true;
+                        std::string die1;
+                        std::string die2;
+                        cin >> die1;
+                        if (!cin.fail() && isNumber(die1))
+                        {
+                            cin >> die2;
+                            if (!cin.fail() && isNumber(die2))
+                            {
+                                rollValue = std::stoi(die1) + std::stoi(die2);
+                                rollOverload = true;
+                            } 
+                        }
                     }
-                }
                 if (!rollOverload)
                 {
                     twoDices->rollDice();

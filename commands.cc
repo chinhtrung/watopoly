@@ -220,7 +220,7 @@ void followRollCommand(vector<shared_ptr<Player>> group,
 	     }
          }
          if (!changeFund) {
-	 	cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
+	 	cout << "You don't have enough money to pay for the service. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
                     cout << "Available commands [\"bankrupt\",\"mortage\",\"improve\"] with their according procedure"<< endl;
                     string action;
                     cin >> action;
