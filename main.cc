@@ -3,10 +3,10 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "./utility/commands.h"
-#include "./utility/seeds.h"
-#include "./utility/positionMap.h"
-#include "./utility/gamePieces.h"
+#include "commands.h"
+#include "seeds.h"
+#include "positionMap.h"
+#include "gamePieces.h"
 #include "player.h"
 #include "dice.h"
 #include "transactions.h"
