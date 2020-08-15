@@ -33,32 +33,47 @@ void followRollCommand(vector<shared_ptr<Player>> group,
 
             cout << "You are stepping on " << steppingSquare << ", which belongs to ";
 
-            if (propOwner != curPlayer && !propPointer->getMortStatus()) { // check if the property belongs to the current player
+	    if (propOwner == curPlayer){
+	        cout << propOwner->getName() << ". That's you! No payment required." << endl;
+	    } else if (propOwner != curPlayer && !propPointer->getMortStatus()) {
+		    // ^check if the property belongs to the current player and not mortgaged
                 cout << propOwner->getName() << ", let's pay fee" << endl;
 
 		if (isGym(propPointer->getName())){
 		    cout << "You landed on a Gym. Please roll again to calculate the fee you owe." << endl;
-		    int roll;
+		    auto gym = std::dynamic_pointer_cast<Gym>(propPointer);
+		    int roll = 0;
+		    bool rollOverload = false;
 		    string command;
 		    cin >> command;
 		    while (command != ROLL){
-		        cin >> command;
+		        cout << "Sorry, you have to roll first." << endl;
+			cin >> command;
 		    }
 
 		    if (testMode){
 		        std::string die1;
                         std::string die2;
                         cin >> die1;
-			if (!cin.fail()){
+			if (!cin.fail() && isNumber(die1)){
                             cin >> die2;
-                            roll = std::stoi(die1) + std::stoi(die2);		
-			    auto gym = std::dynamic_pointer_cast<Gym>(propPointer);
+			    if (!cin.fail() && isNumber(die2)){
+			        roll = std::stoi(die1) + std::stoi(die2);
+				rollOverload = true;
+			    }
 		            gym->setRoll(roll);	    
-			} else {
-			
 			}
 		    }
-		     
+
+		    if (!rollOverload){
+			auto twoDices = make_unique<Dice>();
+		        cout << "Rolling your dice ........" << endl;
+                        cout << "and you get ";
+                        cout << twoDices->getDie1() << " + ";
+                        cout << twoDices->getDie2() << " = ";
+                        cout << twoDices->diceSum() << "!" << endl;
+			gym->setRoll(twoDices->diceSum());
+		    }
 		}
 
                 // pay rent action
