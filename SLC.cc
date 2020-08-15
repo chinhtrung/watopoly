@@ -23,7 +23,7 @@ bool passOSAP(int pos, int changeInPos){
     return false;
 }
 
-void SLC::actionAtIndex(shared_ptr<Player> p) {
+void SLC::determinePlayerPos(shared_ptr<Player> p) {
 	srand(time(NULL));
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 		+ MIN_TIMS_ROLL;

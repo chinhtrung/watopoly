@@ -6,7 +6,7 @@
 
 class Square;
 
-class Ownable : public Square {
+class Ownable : Square {
     char owner;
     int costToBuy;
     int imprLevel = 0;

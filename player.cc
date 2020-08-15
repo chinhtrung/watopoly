@@ -62,9 +62,9 @@ bool Player::addProp(std::shared_ptr<Ownable> prop) {
         return false;
     }
 
-    if (isGym(tmpSquare->getName)){
+    if (isGym(prop->getName())){
         numGymOwned++;
-    } else if (isResidence(tmpSquare->getName)){
+    } else if (isResidence(prop->getName())){
         numResOwned++;
     }
     ownedProperties.push_back(prop);

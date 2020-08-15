@@ -4,22 +4,18 @@
 #include "gym.h"
 using namespace std;
 
-
-static const int MIN_ROLL = 1;
-static const int MAX_ROLL = 6;
-static const int OWN_1 = 4;
-static const int OWN_2 = 10;
-
+const int MIN_ROLL = 1;
+const int MAX_ROLL = 6;
+const int OWN_1 = 4;
+const int OWN_2 = 10;
 
 Gym::Gym(int ID, string name, int costToBuy, char owner)
 	: Ownable(ID, name, costToBuy, owner)
 {}
 
-
 int Gym::amountToPay(int roll) {
     return roll * costToPayImprProp(name, this->getPayLevel());
 }
-
 
 void Gym::setRent() {
 	srand(time(NULL));
@@ -30,7 +26,6 @@ void Gym::setRent() {
 	rent = getPayLevel() * roll;
 	return;
 }
-
 
 void Gym::setRentTest() {
 	srand(10565);
