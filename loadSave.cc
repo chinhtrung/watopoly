@@ -6,6 +6,7 @@
 #include "academic.h"
 #include "gym.h"
 #include "seeds.h"
+#include "transactions.h"
 
 // assume the ownableName is passed in correctly
 static void LoadSave::loadProperty(std::string ownableName, std::shared_ptr<Player> buyer,

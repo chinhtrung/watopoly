@@ -2,15 +2,14 @@
 #define _LOADSAVE_H
 #include <string>
 #include <memory>
-#include "player.h"
-#include "ownable.h"
 
 class Player;
+class Square;
 class Ownable;
 class Academic;
 class Residence;
 class Gym;
-class Square;
+class Transactions;
 
 class LoadSave{
   public:
