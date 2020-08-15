@@ -1,5 +1,6 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
+#include <stdexcept>
 #include <string>
 #include <iostream>
 #include <memory>
