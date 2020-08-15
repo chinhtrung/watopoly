@@ -1,8 +1,7 @@
 #include "academic.h"
-#include "seeds.h"
 
 Academic::Academic(int ID, std::string name, int costToBuy, 
-		           char owner, std::string monopolyBlock) 
+		           char owner) 
     : Ownable(ID, name, costToBuy, owner) {
     monopolyBlock = monoBlockOfProp(name);
     tuition = costToPayUnimprProp(name);    
@@ -10,20 +9,20 @@ Academic::Academic(int ID, std::string name, int costToBuy,
 
 int Academic::amountToPay() {
     if (blockOwned){
-        return costToPayUnimprPropBlock(name);
+        return costToPayUnimprPropBlock(this->getName());
     } else if (this->getImprLevel() == 0){
-        return costToPayUnimprProp(name);
+        return costToPayUnimprProp(this->getName());
     }
-    return costToPayImprProp(name, this->getImprLevel);
+    return costToPayImprProp(this->getName(), this->getImprLevel());
 }
 
 void Academic::updateTuition() {
     if (blockOwned){
-        tuition = costToPayUnimprPropBlock(name);
+        tuition = costToPayUnimprPropBlock(this->getName());
     } else if (this->getImprLevel() == 0){
-        tuition = costToPayUnimprProp(name);
+        tuition = costToPayUnimprProp(this->getName());
     } else {
-        tuition = costToPayImprProp(name, this->getImprLevel);
+        tuition = costToPayImprProp(this->getName(), this->getImprLevel());
     } 
 }
 
@@ -35,6 +34,6 @@ bool Academic::getBlockOwned(){
     return blockOwned;
 }
 
-std::string Academic::getMonoBlock() {
+std::string Academic::getMonoBlock() const {
     return monopolyBlock;
 }

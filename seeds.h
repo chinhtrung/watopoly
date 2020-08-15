@@ -18,6 +18,7 @@ int costToPayImprProp(std::string squareName, int imprLevel);
 bool isGym(std::string squareName);
 bool isResidence(std::string squareName);
 bool isAcademic(std::string squareName);
+int costToPayUnimprPropBlock(std::string squareName);
 
 // vector<string> nameOfBuilding = [Name, Monopoly Block, Purchase Cost, Improvement Cost, Impr price 0, Impr price 1, Impr price 2, Impr price 3, Impr price 4, Impr price 5]
 // the according index of the vector

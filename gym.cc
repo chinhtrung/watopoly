@@ -14,7 +14,7 @@ Gym::Gym(int ID, string name, int costToBuy, char owner)
 {}
 
 int Gym::amountToPay() {
-    return roll * costToPayImprProp(name, this->getPayLevel());
+    return roll * costToPayImprProp(this->getName(), this->getPayLevel());
 }
 
 void Gym::setRent() {

@@ -194,7 +194,7 @@ bool Transactions::buyProperty(std::string ownableName, std::shared_ptr<Player> 
     // check if the buyer has enough money to buy
     if (!checkFundIsEnoughToUse(buyer, propCostToBuy)) return false;
 
-    std::make_shared<Ownable> ownable = nullptr;
+    std::shared_ptr<Ownable> ownable;
 
     if (isGym(ownableName)){
         auto production = std::make_shared<Gym>(propID, ownableName, propCostToBuy, propOwner);
@@ -286,7 +286,7 @@ bool Transactions::mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_p
     if (isGym(prop->getName())){
         own->removeGym();
     } else if (isResidence(prop->getName())){
-        own->removeResidence();
+        own->removeRes();
     } else if (isAcademic(prop->getName())){
 	std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
         if (acad->getBlockOwned()){
@@ -355,7 +355,7 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
     int propCostToBuy = costToBuyProp(ownableName);
     char propOwner = buyer->getGamePiece();
 
-    std::make_shared<Ownable> ownable = nullptr;
+    std::shared_ptr<Ownable> ownable;
 
     if (isGym(ownableName)){
         auto production = std::make_shared<Gym>(propID, ownableName, propCostToBuy, propOwner);
@@ -392,8 +392,8 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
 
     // charge money to buy
     buyer->payFund(price);
-    buyer->addProp(production);
+    buyer->addProp(ownable);
     buyer->updateMonopolyBlock();
-    ownedList.push_back(production);
+    ownedList.push_back(ownable);
     std::cout << "Buy " << ownableName << " successfully" << std::endl;
 }

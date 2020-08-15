@@ -11,7 +11,7 @@ class Academic : public Ownable {
     int tuition;
     bool blockOwned = 0;
   public:
-    Academic(int ID, std::string name, int costToBuy, char owner, std::string monopolyBlock);
+    Academic(int ID, std::string name, int costToBuy, char owner);
     virtual int amountToPay() override;
     void updateTuition();
     void setBlockOwned(bool status);
