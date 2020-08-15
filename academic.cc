@@ -3,7 +3,6 @@
 Academic::Academic(int ID, std::string name, int costToBuy, 
 		           char owner) 
     : Ownable(ID, name, costToBuy, owner) {
-    monopolyBlock = monoBlockOfProp(name);
     tuition = costToPayUnimprProp(name);    
 }
 
@@ -22,8 +21,4 @@ void Academic::setBlockOwned(bool status){
 
 bool Academic::getBlockOwned(){
     return blockOwned;
-}
-
-std::string Academic::getMonoBlock() const {
-    return monopolyBlock;
 }
