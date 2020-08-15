@@ -50,7 +50,7 @@ void testing() {
                     cout << "Invalid Roll" << endl;
                 } else {
                     int roll = d1 + d2;
-                    movePlayer(roll);
+                    player->movePlayer(roll);
                 }
             }
 	return;

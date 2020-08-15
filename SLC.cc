@@ -12,8 +12,9 @@ static const int MAX = 24;
 static const int BOARD_SIZE = 40;
 static const int OSAP = 200;
 
-SLC::SLC() {
-}
+SLC::SLC(int ID, string name) 
+	: Unownable(ID, name)
+{}
 
 bool passOSAP(int pos, int changeInPos){
     if (pos + changeInPos < 0 || pos + changeInPos > BOARD_SIZE){
