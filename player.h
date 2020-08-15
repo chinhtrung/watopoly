@@ -7,8 +7,8 @@
 #include "square.h"
 #include "ownable.h"
 #include "gameState.h"
-#include "utility/seeds.h"
-#include "utility/positionMap.h"
+#include "seeds.h"
+#include "positionMap.h"
 
 class Square;
 class Ownable;
