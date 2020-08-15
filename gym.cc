@@ -34,3 +34,7 @@ void Gym::setRentTest() {
 	rent = getPayLevel() * roll;
 	return;
 }
+
+void Gym::setRoll(int n){
+    roll = n;
+}
