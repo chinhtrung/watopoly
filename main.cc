@@ -311,8 +311,8 @@ int main(int argc, char **argv)
             while (availableDoubleRoll > 0)
             {
                 // roll two dices
-
                 bool rollOverload = false;
+
                 if (testMode)
                 {
                     std::string die1;
@@ -328,6 +328,7 @@ int main(int argc, char **argv)
                         }
                     }
                 }
+
                 if (!rollOverload)
                 {
                     twoDices->rollDice();
@@ -337,6 +338,7 @@ int main(int argc, char **argv)
                     cout << twoDices->getDie2() << " = ";
                     cout << twoDices->diceSum() << "!" << endl;
                 }
+
                 if (!twoDices->isDouble())
                 {
                     if (!rollOverload)
@@ -371,12 +373,13 @@ int main(int argc, char **argv)
                                   currActingPlayer->getCurrPos());
                     b->drawBoard();
 
+                    followRollCommand(group, currActingPlayer, testMode, b);
+
                     cout << "--> Congratulation, You have rolled a double <--" << endl;
                     cout << "--> Type anything to start rolling <--" << endl;
                     
                     string dummy;
                     cin >> dummy;
-                    followRollCommand(group, currActingPlayer, testMode, b);
 
                     availableDoubleRoll--;
                 }
@@ -444,11 +447,10 @@ int main(int argc, char **argv)
             {   
                 cout << endl;
                 cout << "--> Displaying assets of all players." << endl;
-                cout << ".................." << endl;
+                cout << "..............................." << endl;
                 for (unsigned int i = 0; i < group.size(); ++i)
                 {
                     group[i]->displayAssets();
-                    cout << ".................." << endl;
                 }
             }
             else
