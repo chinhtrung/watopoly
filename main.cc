@@ -109,7 +109,9 @@ int main (int argc, char** argv) {
                     if (group[i]->getName() == name){
                         playerIndex = i;
                     }
-                }  
+                }
+		cout << "property name is: " << name << endl;
+		cout << "property owner is: " << owner << endl;
 	        LoadSave::loadProperty(name, group[playerIndex], imprLevel);
             }
         }
