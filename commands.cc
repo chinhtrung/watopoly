@@ -151,6 +151,7 @@ void followRollCommand(vector<shared_ptr<Player>> group,
          if (steppingSquare == "SLC") {
              cout << "You have arrived at the SLC!" << endl;
              SLC::determinePlayerPos(curPlayer);
+	     followRollCommand(group, curPlayer, testMode, b);
 	     // update and draw board
          } else if (steppingSquare == "TUITION") {
              curPlayer->addFund(MonetaryServices::payTuition(curPlayer));
