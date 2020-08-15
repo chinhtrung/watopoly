@@ -156,14 +156,24 @@ int main (int argc, char** argv) {
             showAllCharExcept(pieceCharTaken);
             char piece;
             cin >> piece;
+            int sizePiecesTaken = pieceCharTaken.size();
+            bool takenStatus = false;
 
-            if (cin.fail()) break;
-            //pieceCharTaken.push_back(piece);
-            while (!isGamePiece(piece)) {
+            while (true) {
+                if (cin.fail()) break;
+                for (int i = 0; i < sizePiecesTaken; i++) {
+                    if (pieceCharTaken[i] == piece) {
+                        cout << piece << " has been taken, please choose another one" << endl;
+                        takenStatus = true;
+                        break;
+                    }
+                }
+                if (!takenStatus && isGamePiece(piece)) break;
+                takenStatus = false;
+
                 cout << "Your game piece should be one of the char here ";
                 showAllCharExcept(pieceCharTaken);
                 cin >> piece;
-                if (cin.fail()) break;
             }
             pieceCharTaken.push_back(piece);
             cout << "Hi " << name << "! Your piece is " << piece << endl;
@@ -195,6 +205,9 @@ int main (int argc, char** argv) {
         // this will return empty share_ptr of player
         return result;
     };
+
+    cout << "+++ GAME START +++" << endl;
+    cout << "---------------------------------" << endl;
 
     while (true) {
         if (cin.fail()) break;
