@@ -3,12 +3,15 @@
 #include <string>
 #include <iostream>
 #include <memory>
-#include "../player.h"
-#include "../ownable.h"
-#include "../Unownable.h"
-#include "../dice.h"
-#include "../transactions.h"
-#include "../auction.h"
+#include "player.h"
+#include "ownable.h"
+#include "Unownable.h"
+#include "dice.h"
+#include "transactions.h"
+#include "auction.h"
+#include "MonetaryServices.h"
+#include "SLC.h"
+#include "positionMap.h"
 
 class Player;
 class Ownable;
@@ -16,6 +19,8 @@ class Unownable;
 class Dice;
 class Transactions;
 class Auction;
+class SLC;
+class MonetaryServices;
 
 bool isNumber(std::string a);
 void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);

@@ -6,7 +6,6 @@
 #include <memory>
 #include "square.h"
 #include "ownable.h"
-#include "gameState.h"
 #include "seeds.h"
 #include "positionMap.h"
 

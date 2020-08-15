@@ -109,15 +109,7 @@ int main (int argc, char** argv) {
                 }
             }
         }
-<<<<<<< HEAD
-
-        if (argv[1] == TESTING) {
-            testing();
-        }
-    } else {
-=======
     else {
->>>>>>> 1b10a757b5f99f700db72eed3cb9904df2076354
         cout << "Fail to call load or testing mode, initiate a new game" << endl;
     }
         cout << "Please input the number of player for this game" << endl;
