@@ -10,7 +10,3 @@ int Residence::amountToPay() {
     return costToPayImprProp(this->getName(), this->getPayLevel());
 }
 
-void Residence::setRent() {
-	rent = costToPayImprProp(this->getName(), this->getPayLevel()); 
-	return;
-}
