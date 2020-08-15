@@ -2,7 +2,9 @@
 using namespace std;
 
 
-TimsLine::TimsLine() {}
+TimsLine::TimsLine(int ID, string name) 
+	: Unownable(ID, name)
+{}
 
 
 void TimsLine::actionAtIndex(shared_ptr<Player> p) {
