@@ -20,12 +20,10 @@ class Academic;
 class Gym;
 class Residence;
 
-class Transactions{
-    static std::vector<std::shared_ptr<Ownable>> ownedList;
+static std::vector<std::shared_ptr<Ownable>> ownedList;
 
+class Transactions{
   public:
-//   Transactions();
-    
     static bool isInOwnedList(std::string nameSquare); // return true if nameSquare is already in the ownedList, false otherwise
     static bool tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int give, std::shared_ptr<Ownable> receive); // return true if successfully trading, false otherwise
     static bool tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, std::shared_ptr<Ownable> give, std::shared_ptr<Ownable> receive); // return true if successfully trading, false otherwise
