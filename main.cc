@@ -33,7 +33,7 @@ int main (int argc, char** argv) {
 
     string command, name, give, receive, property, action, filename;
 
-    int MAX_TIMS = 4;
+    //int MAX_TIMS = 4;
     const int MAX_PLAYERS = 7;
     const int MIN_PLAYERS = 2;
     const int TUITION_POS = 4;
@@ -349,7 +349,6 @@ int main (int argc, char** argv) {
 	    }
 
         } else if ( command == SAVE ) {
-		/*
 	    string file;
 	    cin >> file;
 	    cout << "Saving game to " << file << endl;
@@ -368,14 +367,14 @@ int main (int argc, char** argv) {
 		    char gp = group[i]->getGamePiece();
 	            // check if player is in Line
 		    // ^ (at start of game, TimsLine square is created by main,
-		     bool inLine = tl->isCaptured(gp);
+		    /* bool inLine = tl->isCaptured(gp);
 		     if (inLine){
 		         int turnsInLine = tl->turnsInLine(gp);
 		         outf << " " << 1 << " ";
 		         outf << turnsInLine << endl;
 		     } else {
 		         outf << " " << 0 << endl;
-		     }	
+		     }*/	
 		} else {
 		    outf << endl;
 		}
@@ -398,7 +397,6 @@ int main (int argc, char** argv) {
 		}
 		outf << b->getImpr(OWNABLE[i][0]) << endl;
 	    }
-	    */
 
         } else {
             cout << "Unrecognized command!" << endl;

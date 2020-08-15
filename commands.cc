@@ -151,12 +151,13 @@ void followRollCommand(vector<shared_ptr<Player>> group,
          if (steppingSquare == "SLC") {
              cout << "You have arrived at the SLC!" << endl;
              SLC::determinePlayerPos(curPlayer);
+	     followRollCommand(group, curPlayer, testMode, b);
 	     // update and draw board
          } else if (steppingSquare == "TUITION") {
              curPlayer->addFund(MonetaryServices::payTuition(curPlayer));
          } else if (steppingSquare == "NEEDLES HALL") {
              cout << "You have arrived at Needles Hall." << endl;
-             curPlayer->addFund(MonetaryServices::needlesHall());
+             curPlayer->addFund(MonetaryServices::needlesHall(curPlayer));
          } else if (steppingSquare == "DC Tims Line") {
              cout << "You have arrived at DC Tims Line." << endl;
              cout << "You get your coffee immediately." << endl;

@@ -48,8 +48,8 @@ bool Transactions::tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Play
 
     // if block of receive was owned by to, set blockOwned of receive to false
     if (isAcademic(receiveName)){
-        if (to->checkIfInMonopolyBlock(receiveName)){
-            auto acad = std::dynamic_pointer_cast<Academic>(receive);
+	auto acad = std::dynamic_pointer_cast<Academic>(receive);
+        if (acad->getBlockOwned()){
             acad->setBlockOwned(false);
         }
     }
@@ -65,12 +65,8 @@ bool Transactions::tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Play
 
     // set correct paylevel and tuition
     if (isGym(receiveName)){
-        from->removeGym();
-	to->addGym();
 	receive->setPayLevel(to->getNumGymOwned() - 1);
     } else if (isResidence(receiveName)){
-        from->removeRes();
-	to->addRes();
 	receive->setPayLevel(to->getNumResOwned() - 1);
     } else if (isAcademic(receiveName)){
         if (from->checkIfInMonopolyBlock(receiveName)){
@@ -99,16 +95,16 @@ bool Transactions::tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Play
 
     // if block of give was owned by from, set blockOwned of give to false
     if (isAcademic(giveName)){
-        if (from->checkIfInMonopolyBlock(giveName)){
-	    auto acad = std::dynamic_pointer_cast<Academic>(give);
+	auto acad = std::dynamic_pointer_cast<Academic>(give);
+        if (acad->getBlockOwned()) {
             acad->setBlockOwned(false);
         } 
     }
 
-    // if block of receive was owned by to, set blockOwned of receiveName to false
+    // if block of receive was owned by to, set blockOwned of receive to false
     if (isAcademic(receiveName)){
-        if (from->checkIfInMonopolyBlock(receiveName)){
-	    auto acad = std::dynamic_pointer_cast<Academic>(receive);
+	auto acad = std::dynamic_pointer_cast<Academic>(receive);
+        if (acad->getBlockOwned()){
             acad->setBlockOwned(false);
         }
     }
@@ -125,12 +121,8 @@ bool Transactions::tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Play
 
     // set correct paylevel and tuition
     if (isGym(receiveName)){
-        from->removeGym();
-        to->addGym();
         receive->setPayLevel(to->getNumGymOwned() - 1);
     } else if (isResidence(receiveName)){
-        from->removeRes();
-        to->addRes();
         receive->setPayLevel(to->getNumResOwned() - 1);
     } else if (isAcademic(receiveName)){
         if (from->checkIfInMonopolyBlock(receiveName)){
@@ -141,12 +133,8 @@ bool Transactions::tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Play
 
     // set correct paylevel and tuition
     if (isGym(giveName)){
-        to->removeGym();
-        from->addGym();
         give->setPayLevel(from->getNumGymOwned() - 1);
     } else if (isResidence(giveName)){
-        to->removeRes();
-        from->addRes();
         give->setPayLevel(from->getNumResOwned() - 1);
     } else if (isAcademic(giveName)){
         if (from->checkIfInMonopolyBlock(giveName)){
@@ -236,6 +224,18 @@ bool Transactions::improveProperty(std::shared_ptr<Ownable> prop, std::shared_pt
     int cost = costToImprProp(prop->getName());
     if (!checkFundIsEnoughToUse(own, cost)) return false;
 
+    // checks if prop is improvable (i.e. is Academic and own owns the block)
+    if (isGym(prop->getName()) || isResidence(prop->getName())){
+	std::cout << "You can't improve a gym or residence!" << std::endl;
+	return false;
+    } else {
+	auto acad = std::dynamic_pointer_cast<Academic>(prop);
+        if (!acad->getBlockOwned()){
+	    std::cout << "You can't improve this academic building because you don't own the block yet!" << std::endl;
+            return false;
+	}	
+    }
+
     // the transaction occur if all check pass
     own->payFund(cost);
     prop->setImprLevel(prop->getImprLevel() + 1);
@@ -247,8 +247,10 @@ bool Transactions::sellImprove(std::shared_ptr<Ownable> prop, std::shared_ptr<Pl
     // check if the player is actually own this property
     if(!checkIfPlayerOwnProp(own, prop)) return false;
 
-    // check if the propery level is 0
-    if (prop->getImprLevel() == 0) {
+    // check if the propery level is 0 or -1
+    // assumes Gyms and Residences always have imprLevel of 0 or -1
+    // assumes that if imprLevel > 0, prop's block is owned by own
+    if (prop->getImprLevel() <= 0) {
         std::cout << "(testing) there is no improvement to sell" << std::endl;
         return false;
     }
@@ -256,7 +258,6 @@ bool Transactions::sellImprove(std::shared_ptr<Ownable> prop, std::shared_ptr<Pl
     // the transaction occur if all check pass
     own->addFund(costToSellImprProp(prop->getName()));
     prop->setImprLevel(prop->getImprLevel() - 1);
-    prop->setPayLevel(prop->getPayLevel() - 1);
     return true;
 }
 
@@ -274,18 +275,14 @@ bool Transactions::mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_p
     int price = costToMortProp(prop->getName());
     own->addFund(price);
     prop->setMortStatus(true);
-
-    if (isGym(prop->getName())){
-        own->removeGym();
-    } else if (isResidence(prop->getName())){
-        own->removeRes();
-    } else if (isAcademic(prop->getName())){
+    own->updateMonopolyBlock();
+        
+    if (isAcademic(prop->getName())){
 	std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
         if (acad->getBlockOwned()){
 	    acad->setBlockOwned(false);
-	    own->updateMonopolyBlock();
 	}
-    }
+    } 
     return true;
 }
 
@@ -306,14 +303,10 @@ bool Transactions::unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared
     // the transaction occur if all check pass
     own->payFund(cost);
     prop->setMortStatus(false);
+    own->updateMonopolyBlock();
 
-    if (isGym(prop->getName())){
-        own->addGym();
-    } else if (isResidence(prop->getName())){
-        own->addRes();
-    } else if (isAcademic(prop->getName())){
+    if (isAcademic(prop->getName())){
 	std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
-        own->updateMonopolyBlock();
         if (own->checkIfInMonopolyBlock(acad->getMonoBlock())){
 	    acad->setBlockOwned(true);
 	}
@@ -376,11 +369,6 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
             acad->setBlockOwned(true);
         }
     }
-
-    // charge money to buy
-    buyer->payFund(price);
-    buyer->addProp(ownable);
-    buyer->updateMonopolyBlock();
-    ownedList.push_back(ownable);
+ 
     std::cout << "Buy " << ownableName << " successfully" << std::endl;
 }
