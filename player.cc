@@ -62,6 +62,11 @@ bool Player::addProp(std::shared_ptr<Ownable> prop) {
         return false;
     }
 
+    if (isGym(tmpSquare->getName)){
+        numGymOwned++;
+    } else if (isResidence(tmpSquare->getName)){
+        numResOwned++;
+    }
     ownedProperties.push_back(prop);
     return true;
 }
@@ -244,4 +249,20 @@ void Player::updateMonopolyBlock() {
         }
     }
 
+}
+
+void Player::removeGym(){
+    numGymOwned--;
+}
+
+void Player::removeRes(){
+    numResOwned--;
+}
+
+void Player::addGym(int gyms){
+    numGymOwned++;
+}
+
+void Player::addRes(int res){
+    numResOwned++;
 }

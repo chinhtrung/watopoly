@@ -22,6 +22,8 @@ class Player {
     int timsCups = 0;
     bool bankruptStatus = false;
     bool inJail = false;
+    int numResOwned = 0;
+    int numGymOwned = 0;
     std::vector<std::shared_ptr<Ownable>> ownedProperties;
     std::vector<std::string> monopolyBlocks; // ie: {"Sci1", "Math", "Eng"}
     std::map<std::string, int> improvements; // ie: {"MC": 0, "DC": 5}
@@ -55,6 +57,10 @@ class Player {
     bool getBankruptStatus();
     std::vector<std::shared_ptr<Ownable>> getOwnedPropList();
     void updateMonopolyBlock(); // used when adding new properties
+    int removeGym(); //decreases numGymOwned by 1
+    int removeRes(); // decreases numResOwned by 1
+    int addGym();  // increases numGymOwned by 1
+    int addRes();  // increases numResOwned by 1
 
     static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
     static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
