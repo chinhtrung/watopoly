@@ -302,12 +302,8 @@ int main (int argc, char** argv) {
 		    cout << "paying tuition!" << endl;
 	    }
 
-            // replace this code
-            cout << "+ calling " << command << endl;
-
         } else if ( command == ALL ) {
            	
-            // replace this code
             cout << "+ calling " << command << endl;
 	     if (currActingPlayer->getCurrPos() != TUITION_POS) {
 		    cout << "The list below shows each player, ";
