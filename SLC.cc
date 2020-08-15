@@ -1,3 +1,4 @@
+#include "player.h"
 #include "SLC.h"
 
 using namespace std;
@@ -23,10 +24,17 @@ bool passOSAP(int pos, int changeInPos){
 
 void SLC::determinePlayerPos(shared_ptr<Player> p) {
 	srand(time(NULL));
+	cout << "Your first spin will be a number from " << MIN_TIMS_ROLL;
+	cout << " to " << MAX_TIMS_ROLL << "!" << endl;
+	cout << "If your spin is " << SECRET_NUM << ", then you win ";
+	cout << "a Tims Roll up the Rim Cup, which you can use to ";
+	cout << "get out of DC Tims Line without rolling or paying!" << endl;
 	int timsRoll = rand() % (MAX_TIMS_ROLL - MIN_TIMS_ROLL + 1) 
 		+ MIN_TIMS_ROLL;
 	// Need access to board
 	if (timsRoll == SECRET_NUM) {
+		cout << "Congratulations! You have won a TimsCup, which ";
+		cout << "you can use to get out of DC Tims Line free!" << endl;
 		p->addTimsCup();
 		return;
 	}
