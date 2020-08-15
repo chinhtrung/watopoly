@@ -9,6 +9,7 @@
 #include "ownable.h"
 #include "seeds.h"
 #include "positionMap.h"
+#include "TimsLine.h"
 
 class Square;
 class Ownable;
