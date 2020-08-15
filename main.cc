@@ -3,11 +3,10 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "utility/commands.h"
-#include "utility/seeds.h"
-#include "utility/positionMap.h"
-#include "utility/gamePieces.h"
-#include "utility/testing.h"
+#include "./utility/commands.h"
+#include "./utility/seeds.h"
+#include "./utility/positionMap.h"
+#include "./utility/gamePieces.h"
 #include "player.h"
 #include "dice.h"
 #include "transactions.h"
@@ -37,7 +36,7 @@ int main (int argc, char** argv) {
     const int TUITION_POS = 4;
     const int DC_TIMS_POS = 10;
 
-    auto b = std::make_unique<Board>();
+    auto b = std::make_shared<Board>();
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
 
@@ -110,12 +109,17 @@ int main (int argc, char** argv) {
                 }
             }
         }
+<<<<<<< HEAD
 
         if (argv[1] == TESTING) {
             testing();
         }
     } else {
+=======
+    else {
+>>>>>>> 1b10a757b5f99f700db72eed3cb9904df2076354
         cout << "Fail to call load or testing mode, initiate a new game" << endl;
+    }
         cout << "Please input the number of player for this game" << endl;
         int num = 0;
         cin >> num;
@@ -212,18 +216,36 @@ int main (int argc, char** argv) {
                 cout << "You rolled this turn, please make other commands" << endl;
                 continue;
             }
-
             int availableDoubleRoll = 3;
             int rollValue;
 
             while (availableDoubleRoll > 0) {
-                // roll two dices 
-                twoDices->rollDice();
-                cout << "Rolling your dices ........" << endl;
-                cout << "and you get " << twoDices->diceSum() << endl;
- 
+                // roll two dices
+		bool testMode = false;
+		bool rollOverload = false;
+		if (argc > 1 && (argv[1] == TESTING || argv[3] == TESTING)) {
+			testMode = true;
+		}
+		string rollStr1 = "";
+		string rollStr2 = "";
+		if (testMode) {
+			cin >> rollStr1 >> rollStr2;
+			if (isNumber(rollStr1) && isNumber(rollStr2)) {
+				int roll1 = stoi(rollStr1);
+				int roll2 = stoi(rollStr2);
+				rollValue = roll1 + roll2;
+				rollOverload = true;
+			}
+		}
+		if (!rollOverload) {
+			twoDices->rollDice();
+			cout << "Rolling your dice ........" << endl;
+                	cout << "and you get " << twoDices->diceSum() << endl;
+		}
                 if (!twoDices->isDouble()) {
-                    rollValue = twoDices->diceSum();
+		    if (!rollOverload) {
+			    rollValue = twoDices->diceSum();
+		    }
                     currActingPlayer->movePlayer(rollValue);
                     b->drawBoard();
                     followRollCommand(group, currActingPlayer);
@@ -234,7 +256,9 @@ int main (int argc, char** argv) {
                         //send to jail
                         continue;
                     }
-                    rollValue = twoDices->diceSum();
+		    if (!rollOverload) {
+                    	rollValue = twoDices->diceSum();
+		    }
                     //acting here;
                     currActingPlayer->movePlayer(rollValue);
                     b->drawBoard();
@@ -359,7 +383,5 @@ int main (int argc, char** argv) {
         } else {
             cout << "Unrecognized command!" << endl;
         }
-
     }
-
 }

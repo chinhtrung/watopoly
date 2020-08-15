@@ -3,6 +3,7 @@
 
 
 #include <memory>
+#include <string>
 #include "Unownable.h"
 
 
@@ -16,7 +17,7 @@ class MonetaryServices: public Unownable{
 	int payCoop();
 	int payTuition(std::shared_ptr<Player> p);
 	public:
-		MonetaryServices();
+		MonetaryServices(int ID, std::string name);
 		virtual void actionAtIndex(std::shared_ptr<Player> p) override;
 };
 

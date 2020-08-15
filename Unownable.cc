@@ -2,5 +2,6 @@
 using namespace std;
 
 
-Unownable::Unownable() {
-}
+Unownable::Unownable(int ID, string name) 
+	: Square{ID, name}
+{}

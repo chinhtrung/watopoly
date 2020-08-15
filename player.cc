@@ -213,7 +213,9 @@ void Player::updateMonopolyBlock() {
 
     for (int i = 0; i < sizeOwnedProp; i++) {
         eachBlock = ownedProperties[i]->getMonoBlock();
-        trackingBuilding[eachBlock] += 1;
+	if (!ownedProperties[i]->getMortStatus()){
+	    trackingBuilding[eachBlock] += 1;
+	}
     }
 
     for (auto &block: trackingBuilding) {

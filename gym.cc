@@ -27,7 +27,7 @@ void Gym::setRent() {
 	int roll2 = rand() % (MAX_ROLL - MIN_ROLL + 1) + MIN_ROLL;
 	cout << "You rolled " << roll1 << " and " << roll2 << "!" << endl;
 	int roll = roll1 + roll2;
-	rent = this->payLevel * roll;
+	rent = getPayLevel() * roll;
 	return;
 }
 
@@ -38,6 +38,6 @@ void Gym::setRentTest() {
 	int roll2 = rand() % (MAX_ROLL - MIN_ROLL + 1) + MIN_ROLL;
 	cout << "You rolled " << roll1 << " and " << roll2 << "!" << endl;
 	int roll = roll1 + roll2;
-	rent = this->payLevel * roll;
+	rent = getPayLevel() * roll;
 	return;
 }

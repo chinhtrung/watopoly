@@ -9,10 +9,14 @@ class Ownable;
 class Academic : public Ownable {
     std::string monopolyBlock;
     int tuition;
+    bool blockOwned = 0;
   public:
     Academic(int ID, std::string name, int costToBuy, char owner, std::string monopolyBlock);
     virtual int amountToPay() override;
     void updateTuition();
+    void setBlockOwned(bool status);
+    bool getBlockOwned();
+    std::string getMonoBlock() const;
 };
 
 #endif
