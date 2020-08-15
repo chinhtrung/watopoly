@@ -108,38 +108,41 @@ bool Transactions::buyProperty(std::string ownableName, std::shared_ptr<Player> 
     // check if the buyer has enough money to buy
     if (!checkFundIsEnoughToUse(buyer, propCostToBuy)) return false;
 
-    // initiate new product
-    //auto production = std::make_shared<Ownable>(propID, ownableName, propCostToBuy, propOwner);
+    std::make_shared<Ownable> ownable = nullptr;
 
     if (isGym(ownableName)){
         auto production = std::make_shared<Gym>(propID, ownableName, propCostToBuy, propOwner);
-	buyer->addProp(production);
-	ownedList.push_back(production);
+	ownable = std::dynamic_pointer_cast<Ownable>(production);	
     }
     else if (isResidence(ownableName)){
 	auto production = std::make_shared<Residence>(propID, ownableName, propCostToBuy, propOwner);
-        buyer->addProp(production);
-        ownedList.push_back(production);
+        ownable = std::dynamic_pointer_cast<Ownable>(production); 
     }
     else if (isAcademic(ownableName)){
-	string monoBlock = monoBlockOfProp(ownableName);
-	auto production = std::make_shared<Academic>(propID, ownableName, propCostToBuy, 
-			       propOwner, monoBlock);
-        buyer->addProp(production);
-	buyer->updateMonopolyBlock();
-	buyer->payFund(propCostToBuy);
-	ownedList.push_back(production);
-
-	if (buyer->checkIfInMonopolyBlock(ownableName)){
-	   production->setBlockOwned(true);
-	   production->updateTuition();
-	}
-	std::cout << "Successfully buy " << ownableName << "!" << std::endl;
-        return true;
+	auto production = std::make_shared<Academic>(propID, ownableName, propCostToBuy, propOwner);
+	ownable = std::dynamic_pointer_cast<Ownable>(production);
     }
 
     // charge money to buy
+    buyer->addProp(ownable);
+    buyer->updateMonopolyBlock();
+    ownedList.push_back(ownable);
     buyer->payFund(propCostToBuy);
+
+    // set correct payLevel and tuition for the property
+    if (isGym(ownableName)){
+        ownable->setPayLevel(buyer->getNumGymOwned() - 1);
+    } else if (isResidence(ownableName)){
+        ownable->setPayLevel(buyer->getNumResOwned() - 1);
+    } else if (isAcademic(ownableName)){
+        auto acad = std::dynamic_pointer_cast<Academic>(ownable);
+
+	if (buyer->checkIfInMonopolyBlock(ownableName)){
+	    acad->setBlockOwned(true);
+	    acad->updateTuition();
+	}
+    }  
+
     std::cout << "Successfully buy " << ownableName << "!" << std::endl;
     return true;
 }
@@ -198,7 +201,11 @@ bool Transactions::mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_p
     own->addFund(price);
     prop->setMortStatus(true);
 
-    if (isAcademic(prop->getName())){
+    if (isGym(prop->getName())){
+        own->removeGym();
+    } else if (isResidence(prop->getName())){
+        own->removeResidence();
+    } else if (isAcademic(prop->getName())){
 	std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
         if (acad->getBlockOwned()){
 	    acad->setBlockOwned(false);
@@ -228,7 +235,11 @@ bool Transactions::unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared
     own->payFund(cost);
     prop->setMortStatus(false);
 
-    if (isAcademic(tmp->getName())){
+    if (isGym(prop->getName())){
+        own->addGym();
+    } else if (isResidence(prop->getName())){
+        own->addRes();
+    } else if (isAcademic(tmp->getName())){
 	std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
         own->updateMonopolyBlock();
         if (own->checkIfInMonopolyBlock(acad->getMonoBlock())){
@@ -265,38 +276,39 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
     // initiate new product
     //auto production = std::make_shared<Ownable>(propID, ownableName, propCostToBuy, propOwner);
 
-    // charge money to buy
-    buyer->payFund(price);
-    //buyer->addProp(production);
-    //buyer->updateMonopolyBlock();
+    std::make_shared<Ownable> ownable = nullptr;
 
     if (isGym(ownableName)){
         auto production = std::make_shared<Gym>(propID, ownableName, propCostToBuy, propOwner);
-        buyer->addProp(production);
-        ownedList.push_back(production);
-	buyer->updateMonopolyBlock();
+        ownable = std::dynamic_pointer_cast<Ownable>(production);
     }
     else if (isResidence(ownableName)){
         auto production = std::make_shared<Residence>(propID, ownableName, propCostToBuy, propOwner);
-        buyer->addProp(production);
-        ownedList.push_back(production);
-	buyer->updateMonopolyBlock();
+        ownable = std::dynamic_pointer_cast<Ownable>(production);
     }
     else if (isAcademic(ownableName)){
-        string monoBlock = monoBlockOfProp(ownableName);
-        auto production = std::make_shared<Academic>(propID, ownableName, propCostToBuy,
-                               propOwner, monoBlock);
-        buyer->addProp(production);
-        buyer->updateMonopolyBlock();
-        ownedList.push_back(production);
+        auto production = std::make_shared<Academic>(propID, ownableName, propCostToBuy, propOwner);
+        ownable = std::dynamic_pointer_cast<Ownable>(production);
+    }
+
+    // charge money to buy
+    buyer->addProp(ownable);
+    buyer->updateMonopolyBlock();
+    ownedList.push_back(ownable);
+    buyer->payFund(price);
+
+    // set correct payLevel and tuition for the property
+    if (isGym(ownableName)){
+        ownable->setPayLevel(buyer->getNumGymOwned() - 1);
+    } else if (isResidence(ownableName)){
+        ownable->setPayLevel(buyer->getNumResOwned() - 1);
+    } else if (isAcademic(ownableName)){
+        auto acad = std::dynamic_pointer_cast<Academic>(ownable);
 
         if (buyer->checkIfInMonopolyBlock(ownableName)){
-           production->setBlockOwned(true);
-           production->updateTuition();
+            acad->setBlockOwned(true);
+            acad->updateTuition();
         }
-
-	std::cout << "Buy " << ownableName << " successfully" << std::endl;
-        return;
     }
 
     std::cout << "Buy " << ownableName << " successfully" << std::endl;
