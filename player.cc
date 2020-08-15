@@ -257,8 +257,26 @@ int Player::getNumResOwned(){
 
 void Player::printOwnedProp(){
     int sizeOwnedProp = ownedProperties.size();
-    cout << "Printing all properites owned by " << name << endl;
+    cout << "Displaying all properites owned by " << name << endl;
     for (int i = 0; i < sizeOwnedProp; i++) {
-        cout << ownedProperties[i]->getName() << endl;
+	std::string propName = ownedProperties[i]->getName();
+        cout << propName << "\t";
+	cout << "Cost: $" << costToBuyProp(propName) << "\t";
+	cout << "Mortgaged: " ;
+	if (ownedProperties[i]->getMortStatus()){
+	    cout << "Yes" << endl;
+	} else {
+	    cout << "No\t";
+	    cout << "Improvements: " << ownedProperties[i]->getImprLevel() << "\t";
+	    cout << "Improvement Cost: " << costToImprProp(propName) << endl;
+	} 
     }
+}
+
+void Player::displayAssets(){
+    cout << "Displaying assets of " << name << endl;
+    cout << "Funds: " << funds << endl;
+    printOwnedProp();
+    cout << "Tims Cups: " << timsCups << endl;
+    cout << "Total worth: " << getAssets() << endl;
 }
