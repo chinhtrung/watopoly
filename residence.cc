@@ -9,7 +9,7 @@ Residence::Residence(int ID, string name, int costToBuy, char owner)
 
 
 int Residence::amountToPay() {
-	return rent;
+    return costToPayImprProp(this->getName(), this->getPayLevel());
 }
 
 

@@ -1,8 +1,10 @@
 #include "academic.h"
+#include "seeds.h"
 
 Academic::Academic(int ID, std::string name, int costToBuy, 
 		           char owner, std::string monopolyBlock) 
-    : Ownable(ID, name, costToBuy, owner), monopolyBlock{monopolyBlock} {
+    : Ownable(ID, name, costToBuy, owner) {
+    monopolyBlock = monoBlockOfProp(name);
     tuition = costToPayUnimprProp(name);    
 }
 
@@ -11,9 +13,7 @@ int Academic::amountToPay() {
 }
 
 void Academic::updateTuition() {
-    if (this->getMortStatus()){
-        tuition = 0;
-    } else if (blockOwned){
+    if (blockOwned){
         tuition = costToPayUnimprPropBlock(name);
     } else if (this->getImprLevel() == 0){
         tuition = costToPayUnimprProp(name);

@@ -13,8 +13,8 @@ Gym::Gym(int ID, string name, int costToBuy, char owner)
 	: Ownable(ID, name, costToBuy, owner)
 {}
 
-int Gym::amountToPay() {
-	return rent;
+int Gym::amountToPay(int roll) {
+    return roll * costToPayImprProp(name, this->getPayLevel());
 }
 
 void Gym::setRent() {

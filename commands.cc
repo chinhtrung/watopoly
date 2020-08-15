@@ -34,7 +34,7 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
 
             cout << "You are stepping on " << steppingSquare << ", which belongs to ";
 
-            if (propOwner != curPlayer) { // check if the property belongs to the current player
+            if (propOwner != curPlayer && !propPointer->getMortStatus()) { // check if the property belongs to the current player
                 cout << propOwner->getName() << ", let's pay fee" << endl;
 
                 // pay rent action
