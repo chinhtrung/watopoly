@@ -24,7 +24,7 @@ class Transactions{
     static std::vector<std::shared_ptr<Ownable>> ownedList;
 
   public:
-    Transactions();
+//   Transactions();
     
     static bool isInOwnedList(std::string nameSquare); // return true if nameSquare is already in the ownedList, false otherwise
     static bool tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Player> to, int give, std::shared_ptr<Ownable> receive); // return true if successfully trading, false otherwise
