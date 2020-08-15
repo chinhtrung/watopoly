@@ -9,10 +9,10 @@ char charByName(std::string name);
 void showAllCharExcept(std::vector<char> vec);
 bool isGamePiece(char c);
 
-std::vector<std::string> GAMEPIECE_NAME = 
+const std::vector<std::string> GAMEPIECE_NAME = 
     {"Goose", "GRT Bus", "Tim Hortons Doughnut", "Professor", "Student", "Money", "Laptop", "Pink tie"};
-std::vector<char> GAMEPIECE_CHAR = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
-int GAMEPIECE_SIZE = GAMEPIECE_NAME.size();
+const std::vector<char> GAMEPIECE_CHAR = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
+const int GAMEPIECE_SIZE = GAMEPIECE_NAME.size();
 
 // gamePieces["Goose"] = 'G';
 // gamePieces["GRT Bus"] = 'B';
