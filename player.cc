@@ -239,22 +239,6 @@ void Player::updateMonopolyBlock() {
     }
 }
 
-void Player::removeGym(){
-    numGymOwned--;
-}
-
-void Player::removeRes(){
-    numResOwned--;
-}
-
-void Player::addGym(){
-    numGymOwned++;
-}
-
-void Player::addRes(){
-    numResOwned++;
-}
-
 int Player::getNumGymOwned(){
     return numGymOwned;
 }
@@ -287,4 +271,22 @@ void Player::displayAssets(){
     printOwnedProp();
     cout << "Tims Cups: " << timsCups << endl;
     cout << "Total worth: " << getAssets() << endl;
+}
+
+void Player::loadUpdateAmountToPay(){
+    int sizeOwnedProp = ownedProperties.size();
+    for (int i = 0; i < sizeOwnedProp; i++){
+	std::string propName = ownedProperties[i]->getName();
+        if (isGym(propName)){
+	    ownedProperties[i]->setPayLevel(numGymOwned - 1);
+	} else if (isResidence(propName)){
+	    ownedProperties[i]->setPayLevel(numResOwned - 1);
+	} else {
+	    bool blockOwned = checkIfInMonopolyBlock(propName);
+	    if (blockOwned){
+		auto acad = std::dynamic_pointer_cast<Academic>(ownedProperties[i]);
+		acad->setBlockOwned(true);
+	    }
+	}
+    }
 }

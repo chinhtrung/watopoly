@@ -187,12 +187,14 @@ void followRollCommand(vector<shared_ptr<Player>> group,
         }
         else if (steppingSquare == "TUITION")
         {
-            curPlayer->addFund(MonetaryServices::payTuition(curPlayer));
+            int fundChange = MonetaryServices::payTuition(curPlayer);
+            bool changeFund = curPlayer->addFund(fundChange);
         }
         else if (steppingSquare == "NEEDLES HALL")
         {
             cout << "You have arrived at Needles Hall." << endl;
-            curPlayer->addFund(MonetaryServices::needlesHall(curPlayer));
+            int fundChange = MonetaryServices::needlesHall(curPlayer);
+            bool changeFund = curPlayer->addFund(fundChange);
         }
         else if (steppingSquare == "DC Tims Line")
         {
@@ -213,7 +215,8 @@ void followRollCommand(vector<shared_ptr<Player>> group,
         else if (steppingSquare == "COOP FEE")
         {
             cout << "You are assessed a $150 co-op fee." << endl;
-            curPlayer->addFund(MonetaryServices::payCoop());
+            int fundChange = MonetaryServices::payCoop();
+            bool changeFund = curPlayer->addFund(fundChange);
         }
     }
 }
