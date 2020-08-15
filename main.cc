@@ -110,10 +110,9 @@ int main (int argc, char** argv) {
                 }
             }
         }
-    }
     else {
         cout << "Fail to call load or testing mode, initiate a new game" << endl;
-    
+    }
         cout << "Please input the number of player for this game" << endl;
         int num = 0;
         cin >> num;
@@ -149,7 +148,7 @@ int main (int argc, char** argv) {
                 showAllCharExcept(pieceCharTaken);
                 cin >> piece;
             }
-            pieceCharTaken.push_back(piece);
+	    pieceCharTaken.push_back(piece);
             cout << "Hi " << name << "! Your piece is " << piece << endl;
             cout << "---------------------------------" << endl;
 
@@ -161,10 +160,10 @@ int main (int argc, char** argv) {
             piece = ' ';
         }
     }
-    
+
     // setup game tracker and helper method
     int currIndex = 0;
-    auto currActingPlayer = group[currIndex];
+    shared_ptr<Player> currActingPlayer = group[currIndex];
     auto twoDices = make_shared<Dice>();
     int numberOfPlayer = group.size();
     bool rollThisTurn = false;
@@ -303,13 +302,8 @@ int main (int argc, char** argv) {
 		    cout << "paying tuition!" << endl;
 	    }
 
-            // replace this code
-            cout << "+ calling " << command << endl;
-
         } else if ( command == ALL ) {
            	
-            // replace this code
-            cout << "+ calling " << command << endl;
 	     if (currActingPlayer->getCurrPos() != TUITION_POS) {
 		    cout << "The list below shows each player, ";
 		    cout << "listed by total assets." << endl;
@@ -380,4 +374,3 @@ int main (int argc, char** argv) {
         }
     }
 }
-
