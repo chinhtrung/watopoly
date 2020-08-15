@@ -52,7 +52,7 @@ int main(int argc, char **argv)
     if (argc > 1 && argv[1] == LOAD)
     {
 
-        cout << "Loading in saved game from " << argv[2] << endl;
+        cout << "Loading in saved game from " << argv[2] << "\n" << endl;
 
         std::ifstream inf{argv[2]};
 
@@ -105,27 +105,24 @@ int main(int argc, char **argv)
 
         for (int i = 0; i < OWNABLE_SIZE; i++)
         {
-            string name;
+            string propName;
             string owner;
             int imprLevel;
-            inf >> name;
+            inf >> propName;
             inf >> owner;
             inf >> imprLevel;
 
-            if (name != "BANK")
+            if (owner != "BANK")
             {
                 int playerIndex = 0;
-                int size = group.size();
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < numPlayers; i++)
                 {
-                    if (group[i]->getName() == name)
+                    if (group[i]->getName() == owner)
                     {
                         playerIndex = i;
                     }
                 }
-		cout << "property name is: " << name << endl;
-		cout << "property owner is: " << owner << endl;
-	        LoadSave::loadProperty(name, group[playerIndex], imprLevel);
+	        LoadSave::loadProperty(propName, group[playerIndex], imprLevel);
             }
         }
 
@@ -134,6 +131,14 @@ int main(int argc, char **argv)
             group[i]->updateMonopolyBlock();
             group[i]->loadUpdateAmountToPay();
         }
+
+	cout << "Here are the current assets of all players, and the state of the board.\n " << endl;
+	for (int i = 0; i < numPlayers; i++){
+	    group[i]->displayAssets();
+	    cout << "\n" << endl;
+	}
+
+	b->drawBoard();
     }
     else
     {
