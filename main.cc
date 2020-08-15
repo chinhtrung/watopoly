@@ -304,8 +304,7 @@ int main (int argc, char** argv) {
 
         } else if ( command == ASSETS ) {
             if (currActingPlayer->getCurrPos() != TUITION_POS) {
-		    cout << "Your total assets are worth $";
-	    	    cout << currActingPlayer->getAssets() << endl;
+		    currActingPlayer->displayAssets();
 	    } else {
 		    cout << "You may not check your assets when ";
 		    cout << "paying tuition!" << endl;
@@ -315,12 +314,9 @@ int main (int argc, char** argv) {
            	
             cout << "+ calling " << command << endl;
 	     if (currActingPlayer->getCurrPos() != TUITION_POS) {
-		    cout << "The list below shows each player, ";
-		    cout << "listed by total assets." << endl;
+		    cout << "Displaying assets of all players." << endl;
 		    for (unsigned int i = 0; i < group.size(); ++i) {
-			    cout << group[i]->getName() << " ";
-			    cout << group[i]->getGamePiece() << " ";
-			    cout << group[i]->getAssets() << endl;
+		        group[i]->displayAssets(); 
 		    }
 	    } else {
 		    cout << "You may not check your assets when ";
