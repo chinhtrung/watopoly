@@ -225,7 +225,6 @@ bool Transactions::buyProperty(std::string ownableName, std::shared_ptr<Player> 
 
 	if (buyer->checkIfInMonopolyBlock(ownableName)){
 	    acad->setBlockOwned(true);
-	    acad->updateTuition();
 	}
     }  
 
@@ -291,7 +290,6 @@ bool Transactions::mortgageProperty(std::shared_ptr<Ownable> prop, std::shared_p
 	std::shared_ptr<Academic> acad = std::dynamic_pointer_cast<Academic>(prop);
         if (acad->getBlockOwned()){
 	    acad->setBlockOwned(false);
-	    acad->updateTuition();
 	    own->updateMonopolyBlock();
 	}
     }
@@ -326,7 +324,6 @@ bool Transactions::unmortgageProperty(std::shared_ptr<Ownable> prop, std::shared
         own->updateMonopolyBlock();
         if (own->checkIfInMonopolyBlock(acad->getMonoBlock())){
 	    acad->setBlockOwned(true);
-	    acad->updateTuition();
 	}
     }
 
@@ -386,7 +383,6 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
 
         if (buyer->checkIfInMonopolyBlock(ownableName)){
             acad->setBlockOwned(true);
-            acad->updateTuition();
         }
     }
 
