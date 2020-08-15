@@ -52,7 +52,8 @@ bool Transactions::tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Play
     // if block of receive was owned by to, set blockOwned of receive to false
     if (isAcademic(receiveName)){
         if (to->checkIfInMonopolyBlock(receiveName)){
-            receive->setBlockOwned(false);
+            auto acad = std::dynamic_pointer_cast<Academic>(receive);
+            acad->setBlockOwned(false);
         }
     }
 
@@ -77,7 +78,8 @@ bool Transactions::tradeMforP(std::shared_ptr<Player> from, std::shared_ptr<Play
 	receive->setPayLevel(to->getNumResOwned() - 1);
     } else if (isAcademic(receiveName)){
         if (from->checkIfInMonopolyBlock(receiveName)){
-	    receive->setBlockOwned(true);	    
+	    auto acad = std::dynamic_pointer_cast<Academic>(receive);
+            acad->setBlockOwned(true);
 	}
     }
 
@@ -102,14 +104,16 @@ bool Transactions::tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Play
     // if block of give was owned by from, set blockOwned of give to false
     if (isAcademic(giveName)){
         if (from->checkIfInMonopolyBlock(giveName)){
-            give->setBlockOwned(false);
+	    auto acad = std::dynamic_pointer_cast<Academic>(give);
+            acad->setBlockOwned(false);
         } 
     }
 
     // if block of receive was owned by to, set blockOwned of receiveName to false
     if (isAcademic(receiveName)){
         if (from->checkIfInMonopolyBlock(receiveName)){
-            receive->setBlockOwned(false);
+	    auto acad = std::dynamic_pointer_cast<Academic>(receive);
+            acad->setBlockOwned(false);
         }
     }
 
@@ -134,7 +138,8 @@ bool Transactions::tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Play
         receive->setPayLevel(to->getNumResOwned() - 1);
     } else if (isAcademic(receiveName)){
         if (from->checkIfInMonopolyBlock(receiveName)){
-            receive->setBlockOwned(true);
+	    auto acad = std::dynamic_pointer_cast<Academic>(receive);
+            acad->setBlockOwned(true);
         }
     }
 
@@ -149,7 +154,8 @@ bool Transactions::tradePforP(std::shared_ptr<Player> from, std::shared_ptr<Play
         give->setPayLevel(from->getNumResOwned() - 1);
     } else if (isAcademic(giveName)){
         if (from->checkIfInMonopolyBlock(giveName)){
-            give->setBlockOwned(true);
+	    auto acad = std::dynamic_pointer_cast<Academic>(give);
+            acad->setBlockOwned(true);
         }
     }
 

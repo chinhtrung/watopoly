@@ -6,7 +6,8 @@
 using namespace std;
 
 // methods
-void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer) {
+void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer,
+		bool testMode, shared_ptr<Board> b) {
     bool bankruptStatus = false;
 
     // inner helper function
@@ -36,6 +37,31 @@ void followRollCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curP
 
             if (propOwner != curPlayer && !propPointer->getMortStatus()) { // check if the property belongs to the current player
                 cout << propOwner->getName() << ", let's pay fee" << endl;
+
+		if (isGym(propPointer->getName())){
+		    cout << "You landed on a Gym. Please roll again to calculate the fee you owe." << endl;
+		    int roll;
+		    string command;
+		    cin >> command;
+		    while (command != ROLL){
+		        cin >> command;
+		    }
+
+		    if (testMode){
+		        std::string die1;
+                        std::string die2;
+                        cin >> die1;
+			if (!cin.fail()){
+                            cin >> die2;
+                            roll = std::stoi(die1) + std::stoi(die2);		
+			    auto gym = std::dynamic_pointer_cast<Gym>(propPointer);
+		            gym->setRoll(roll);	    
+			} else {
+			
+			}
+		    }
+		     
+		}
 
                 // pay rent action
                 while (!Transactions::payPlayer(curPlayer, propOwner, propPointer->amountToPay())) { //if not success paying
