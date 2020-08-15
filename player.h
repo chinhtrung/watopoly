@@ -5,13 +5,14 @@
 #include <vector>
 #include <memory>
 #include "square.h"
+#include "academic.h"
 #include "ownable.h"
 #include "seeds.h"
 #include "positionMap.h"
 
 class Square;
 class Ownable;
-class GameState;
+class Academic;
 
 class Player {
     std::string name;
@@ -53,17 +54,11 @@ class Player {
     bool getBankruptStatus();
     std::vector<std::shared_ptr<Ownable>> getOwnedPropList();
     void updateMonopolyBlock(); // used when adding new properties
-    void removeGym(); //decreases numGymOwned by 1
-    void removeRes(); // decreases numResOwned by 1
-    void addGym();  // increases numGymOwned by 1
-    void addRes();  // increases numResOwned by 1
     int getNumGymOwned();
     int getNumResOwned();
     void printOwnedProp();
     void displayAssets();
-
-    static bool loadFromSave(std::string saveFile); // return true if successfully load saved game
-    static bool saveGame(std::string saveFile); // write game state to saveFile, return true if successfully save
+    void loadUpdateAmountToPay();
 };
 
 #endif
