@@ -170,5 +170,5 @@ bool isAcademic(std::string squareName){
 	    return true;
 	}
     }
-
+    return false;
 }
