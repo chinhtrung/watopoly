@@ -15,8 +15,9 @@ static const int NEEDLES_HALL = 36;
 static const int COOP_FEE = 38;
 
 
-MonetaryServices::MonetaryServices() {
-}
+MonetaryServices::MonetaryServices(int ID, string name) 
+	: Unownable(ID, name)
+{}
 
 
 int MonetaryServices::needlesHall() {
@@ -90,7 +91,8 @@ int MonetaryServices::payCoop() {
 int MonetaryServices::payTuition(shared_ptr<Player> p) {
 	char option = '\0';
 	while (option != 'A' && option != 'B' && !cin.fail()) {
-		cout << "You have landed on the Tuition square!" << endl;
+		cout << "It's time to pay tuition!" << endl;
+		cout << "Please select one of the following options." << endl;
 		cout << "Enter 'A' if you wish to pay a $300 ";
 		cout << "flat tuition fee." << endl;
 		cout << "Enter 'B' if you wish to pay 10% of ";
