@@ -282,7 +282,7 @@ int main(int argc, char **argv)
 
         cout << endl;
         cout << "Available commands - [\"roll\",\"next\",\"trade\",\"improve\",\"mortgage\",\"unmortgage\",\"assets\",\"all\",\"save\"]" << endl;
-        cout << "Please type a command with the procedure accordingly" << endl;
+        cout << "Please type a command with the procedure accordingly" << currActingPlayer->getName() << endl;
         cout << "-------------" << endl;
 
         cin >> command;

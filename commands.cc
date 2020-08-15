@@ -462,37 +462,29 @@ void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::share
         if (nextBidder) {
             cout << "----------> $$$ -------------> Property ----------------> $$$$$$" << endl;
             cout << "The current bidding player is " << curPlayerName << endl;
-            cout << "---------------------------------------------------------" << endl << endl;
+            cout << "----------------------------------------------------------------" << endl << endl;
             nextBidder = false;
         }
         
-        cout << "--> Please choose your action \"raise\" or \"withdraw\" for the bid " << endl;
+        cout << "--> Please choose your action \"raise\" or \"withdraw\" for the bid " << curPlayerName << endl;
         cin >> action;
         if (cin.fail()) break; 
 
         if (action == RAISE)
         {
             std::string amount;
-            cout << "please enter the amount you want to bid" << endl;
+            cout << "--> please enter the amount you want to bid" << endl;
             cin >> amount;
             while (!isNumber(amount))
             {
-                cout << "The bidding amount have to be a number" << endl;
-                cout << "Please enter the amount you want to raise " << curPlayerName << endl;
+                cout << "--> The bidding amount have to be a number" << endl;
+                cout << "--> Please enter the amount you want to raise " << curPlayerName << endl;
                 cin >> amount;
             }
-            while (!newAuction->placeBid(group[curIndexPlayer], stoi(amount)))
-            {
-                cout << "Bid has not been placed, please try another amount or type \"withdraw\" to withdraw from auction " << endl;
-                cin >> amount;
 
-                if (amount == WITHDRAW)
-                {
-                    newAuction->withdrawBid(group[curIndexPlayer]);
-                    trackingGiveUpBid[curIndexPlayer] = true;
-                    numberOfBidder--;
-                    break;
-                }
+            if (!newAuction->placeBid(group[curIndexPlayer], stoi(amount))) {
+                cout << "--> Bid has not been placed, please try \"raise\" again or type \"withdraw\" to withdraw from auction " << curPlayerName << endl;
+                continue;
             }
             curIndexPlayer = (curIndexPlayer + 1) % sizeGroup;
             nextBidder = true;
