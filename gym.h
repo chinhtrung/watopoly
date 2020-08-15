@@ -7,6 +7,7 @@ class Ownable;
 
 class Gym : Ownable {
 	int rent;
+	int roll;
   public:
 	Gym(int ID, std::string name, int costToBuy, char owner);
 	virtual int amountToPay() override;
