@@ -51,6 +51,7 @@ const std::string ALL = "all";
 const std::string SAVE = "save";
 const std::string LOAD = "-load";
 const std::string TESTING = "-testing";
+const std::string QUIT = "quit";
 
 // helper command
 const std::string AUCTION = "auction"; // to call auction command
