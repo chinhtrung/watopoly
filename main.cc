@@ -459,9 +459,11 @@ int main(int argc, char **argv)
         }
         else if (command == SAVE)
         {
+            cout << "--> " << currActingPlayer->getName() << "is about to save the game <--" << endl;
+            cout << "--> input the name file you want to save" << endl;
             string file;
             cin >> file;
-            cout << "Saving game to " << file << endl;
+            cout << "--> Saving game to " << file << " successfully" << endl;
             std::ofstream outf{file};
 
             int size = group.size();
