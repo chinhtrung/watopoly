@@ -15,15 +15,6 @@ int Gym::amountToPay() {
     return roll * costToPayImprProp(this->getName(), this->getPayLevel());
 }
 
-int Gym::rentTest() {
-	srand(10565);
-	int roll1 = rand() % (MAX_ROLL - MIN_ROLL + 1) + MIN_ROLL;
-	int roll2 = rand() % (MAX_ROLL - MIN_ROLL + 1) + MIN_ROLL;
-	cout << "You rolled " << roll1 << " and " << roll2 << "!" << endl;
-	int roll = roll1 + roll2;
-	return roll * costToPayImprProp(this->getName(), this->getPayLevel());
-}
-
 void Gym::setRoll(int n){
     roll = n;
 }

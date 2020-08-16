@@ -14,7 +14,6 @@ class Gym : public Ownable {
 	Gym(int ID, std::string name, int costToBuy, char owner);
 	virtual int amountToPay() override;
 	void setRoll(int roll);
-	int rentTest();
 };
 
 #endif
