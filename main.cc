@@ -478,7 +478,8 @@ int main(int argc, char **argv)
                 outf << group[i]->getCurrPos();
                 if (group[i]->getCurrPos() == DC_TIMS_POS)
                 {
-		    // check if player is in Line
+		    outf << " " << 0 << endl;
+			// check if player is in Line
                     /* bool inLine = tl->isCaptured(gp);
                     if (inLine){
                         int turnsInLine = tl->turnsInLine(gp);
