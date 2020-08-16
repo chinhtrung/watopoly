@@ -64,6 +64,6 @@ void Auction::withdrawBid(shared_ptr<Player> from) {
 
 
 
-	cout << "==> The current highest bid is " << maxBid << " by " << maxBidder << endl;
+	cout << "==> The current highest bid is " << maxBid << " by " << maxBidder->getName() << endl;
 	return;
 }
