@@ -476,11 +476,6 @@ int main(int argc, char **argv)
                 outf << group[i]->getCurrPos();
                 if (group[i]->getCurrPos() == DC_TIMS_POS)
                 {
-<<<<<<< HEAD
-                    //char gp = group[i]->getGamePiece();
-=======
-                    // char gp = group[i]->getGamePiece();
->>>>>>> 578894eaf930206966e34704bb74bd0a100de35f
                     // check if player is in Line
                     // ^ (at start of game, TimsLine square is created by main,
                     /* bool inLine = tl->isCaptured(gp);
