@@ -128,35 +128,11 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                     cin >> action;
 
 		    followWhenInsufficientFunds(group, curPlayer, b, propOwner, false);
-                    /*// call other command here
-                    if (action == BANKRUPT)
-                    {
-                        followBankruptCommandWithPlayer(curPlayer, propOwner);
-                        bankruptStatus = true;
-                        break;
-                    }
-
-                    if (action == TRADE)
-                    {
-                        followTradeCommand(group, curPlayer);
-                    }
-
-                    if (action == MORTGAGE)
-                    {
-                        followMortgageCommand(curPlayer);
-                    }
-
-                    if (action == IMPROVE)
-                    {
-                        followImproveCommand(group, curPlayer, b);
-                    }*/
                 }
 
 		if (!curPlayer->getBankruptStatus()){
 		    cout << "fee pay successfully" << endl;
 		}
-                //if (!bankruptStatus)
-                  //  cout << "fee pay successfully" << endl;
             }
         }
         else
