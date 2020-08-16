@@ -94,8 +94,8 @@ void SLC::determinePlayerPos(shared_ptr<Player> p) {
 	if (spin != 24 && spin != 10){
 	    if (passOSAP(p->getCurrPos(), changeInPos)){
 	        p->addFund(OSAP);
+		cout << "You passed Collect OSAP! Enjoy your $200!" << endl;
 	    }
-	    cout << "You passed Collect OSAP! Enjoy your $200!" << endl;
 	    p->setPos((p->getCurrPos() + changeInPos) % BOARD_SIZE); 
 	}
 	return;
