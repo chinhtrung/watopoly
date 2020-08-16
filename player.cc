@@ -264,9 +264,12 @@ void Player::printOwnedProp(){
 	    cout << "Yes" << endl;
 	} else {
 	    cout << "No\t";
+	}
+
+	if (isAcademic(ownedProperties[i]->getName())) {
 	    cout << "Improvements: " << ownedProperties[i]->getImprLevel() << "\t";
 	    cout << "Improvement Cost: " << costToImprProp(propName) << endl;
-	} 
+	}
     }
 }
 
