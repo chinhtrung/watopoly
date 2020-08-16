@@ -2,6 +2,35 @@
 
 using namespace std;
 
+void followWhenInsufficientFunds(vector<shared_ptr<Player>> group, 
+		shared_ptr<Player> curPlayer, bool testMode, shared_ptr<Board> b,
+		bool bankruptStatus){
+    cout << "Please select one of the available commands to increase your funds, or declare bankruptcy." << endl;
+    cout << "Available commands [\"bankrupt\",\"mortage\",\"improve\"] with their according procedure" << endl;
+    
+    string action;
+    cin >> action;
+
+    // call other command here
+    if (action == BANKRUPT)
+    {
+    //    followBankruptCommandWithPlayer(curPlayer, propOwner);
+       bankruptStatus = true;
+    }
+    else if (action == TRADE)
+    {
+       followTradeCommand(group, curPlayer);
+    }
+    else if (action == MORTGAGE)
+    {
+        followMortgageCommand(curPlayer);
+    }
+    else if (action == IMPROVE)
+    {
+        followImproveCommand(group, curPlayer, b);
+    }
+}
+
 // methods
 void followRollCommand(vector<shared_ptr<Player>> group,
                        shared_ptr<Player> curPlayer, bool testMode,
@@ -125,10 +154,6 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                 if (!bankruptStatus)
                     cout << "fee pay successfully" << endl;
             }
-            else
-            {
-                cout << "you! You're good to go" << endl;
-            }
         }
         else
         { // buy or auction
@@ -178,46 +203,50 @@ void followRollCommand(vector<shared_ptr<Player>> group,
     }
     else
     { // they're on an unownable block
-        if (steppingSquare == "SLC")
-        {
+        if (steppingSquare == "SLC"){
             cout << "You have arrived at the SLC!" << endl;
             SLC::determinePlayerPos(curPlayer);
-            followRollCommand(group, curPlayer, testMode, b);
-            // update and draw board
-        }
-        else if (steppingSquare == "TUITION")
-        {
-            int fundChange = MonetaryServices::payTuition(curPlayer);
-            bool changeFund = curPlayer->addFund(fundChange);
-        }
-        else if (steppingSquare == "NEEDLES HALL")
-        {
-            cout << "You have arrived at Needles Hall." << endl;
-            int fundChange = MonetaryServices::needlesHall(curPlayer);
-            bool changeFund = curPlayer->addFund(fundChange);
-        }
-        else if (steppingSquare == "DC Tims Line")
-        {
-            cout << "You have arrived at DC Tims Line." << endl;
-            cout << "You get your coffee immediately." << endl;
-        }
-        else if (steppingSquare == "Goose Nesting")
-        {
-            cout << "You are attacked by a flock of geese, but nothing ";
-            cout << "else happens." << endl;
-        }
-        else if (steppingSquare == "GO TO TIMS")
-        {
-            cout << "After pulling an all-nighter, you need coffee." << endl;
+            b->movePlayer(curPlayer->getGamePiece(), curPlayer->getCurrPos());
+            b->drawBoard();
+            followRollCommand(group, curPlayer, testMode, b);	
+	} 
+	else if (steppingSquare == "DC Tims Line"){
+	    cout << "You have arrived at DC Tims Line." << endl;
+            cout << "You get your coffee immediately." << endl;	
+	} 
+	else if (steppingSquare == "GO TO TIMS") {
+	    cout << "After pulling an all-nighter, you need coffee." << endl;
             cout << "Unfortunately, the line is a mile long." << endl;
-            curPlayer->moveToDCTims();
-        }
-        else if (steppingSquare == "COOP FEE")
-        {
-            cout << "You are assessed a $150 co-op fee." << endl;
-            int fundChange = MonetaryServices::payCoop();
-            bool changeFund = curPlayer->addFund(fundChange);
-        }
+            curPlayer->moveToDCTims();	
+	} 
+	else if (steppingSquare == "NEEDLES HALL") {
+	    cout << "You have arrived at Needles Hall." << endl;
+            int changeInFunds = MonetaryServices::needlesHall(curPlayer);
+            if (changeInFunds < 0){
+	        while (!Transactions::payBank(curPlayer, changeInFunds)){
+                cout << "Insufficient funds! Please make command TRADE, MORTGAGE, or IMPROVE to gain more funds" << endl;
+                // helper
+                }
+	    } else {
+	        curPlayer->addFund(changeInFunds);
+	    }   
+	} else {
+	    int payment = 0; 
+	    if (steppingSquare == "TUITION"){
+                payment = MonetaryServices::payTuition(curPlayer);
+            } else if (steppingSquare == "COOP FEE"){
+                int payment = MonetaryServices::payCoop();
+	        cout << "You are assessed a $" << payment << " co-op fee." << endl;
+            } else if (steppingSquare == "Goose Nesting"){
+	        cout << "You are attacked by a flock of geese, but nothing ";
+                cout << "else happens." << endl; 
+	    }   
+
+	    while (!Transactions::payBank(curPlayer, payment)){
+	        cout << "Insufficient funds! Please make command TRADE, MORTGAGE, or IMPROVE to gain more funds" << endl;
+	        // helper
+	    }
+	} 
     }
 }
 
@@ -280,20 +309,27 @@ void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> cur
     }
 
     cout << "--> You are now trading with " << pointerReceiver->getName() << " <--" << endl;
-    cout << "--> here is the list of properties of " << pointerReceiver->getName() << " <--" << endl;
-    int sizeList = pointerReceiver->getOwnedPropList().size();
-    for (int i = 0; i < sizeList; i++) {
-        cout << "~> " << pointerReceiver->getOwnedPropList()[i]->getName(); 
-        cout << " - original cost:" << pointerReceiver->getOwnedPropList()[i]->getCostToBuy()  << endl;
-    }
+    
 
     cout << endl;
 
     cout << "--> Enter the name of item or the amount of money you want to offer" << endl;
+    cout << "--> here is the list of your properties" << " <--" << endl;
+    int sizeListY = curPlayer->getOwnedPropList().size();
+    for (int i = 0; i < sizeListY; i++) {
+        cout << "~> " << curPlayer->getOwnedPropList()[i]->getName(); 
+        cout << " - original cost:" << curPlayer->getOwnedPropList()[i]->getCostToBuy()  << endl;
+    }
 
     cin >> offer;
 
-    cout << "--> Enter the name of item or the amount of money you want to have" << endl;
+    cout << "--> Enter the name of item or the amount of money you want to take" << endl;
+    cout << "--> here is the list of properties of " << pointerReceiver->getName() << " <--" << endl;
+    int sizeListR = pointerReceiver->getOwnedPropList().size();
+    for (int i = 0; i < sizeListR; i++) {
+        cout << "~> " << pointerReceiver->getOwnedPropList()[i]->getName(); 
+        cout << " - original cost:" << pointerReceiver->getOwnedPropList()[i]->getCostToBuy()  << endl;
+    }
 
     cin >> want;
 
@@ -323,13 +359,27 @@ void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> cur
         }
     }
 
+    string permission;
+    cout << "========================= IMPORTANT =========================" << endl;
+    cout << "--> " << curPlayer->getName() << " wants to trade "<< offer << " with "; 
+    cout << pointerReceiver->getName() << " for " << want << " <--" << endl;
+    cout << "Hi " << pointerReceiver->getName() <<"! please type YES to make the transaction, type otherwise to cancel" << endl;
+    cout << "=============================================================" << endl;
+    cin >> permission;
+
+    if (permission != "YES") {
+        cout << "--> This trading action has been cancel by " << pointerReceiver->getName() << " <--" << endl;
+        return;
+    }
+
+
     if (isNumber(offer))
     {
         if (!Transactions::tradeMforP(curPlayer, pointerReceiver, stoi(offer), Transactions::pointerOfProp(want)))
         {
             cout << "--> Abort trading! <--" << endl;
-            return;
         }
+        return;
     }
 
     if (isNumber(want))
@@ -337,8 +387,8 @@ void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> cur
         if (!Transactions::tradePforM(curPlayer, pointerReceiver, Transactions::pointerOfProp(offer), stoi(want)))
         {
             cout << "--> Abort trading! <--" << endl;
-            return;
         }
+        return;
     }
 
     if (!Transactions::tradePforP(curPlayer, pointerReceiver, Transactions::pointerOfProp(offer), Transactions::pointerOfProp(want)))

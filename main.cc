@@ -371,12 +371,13 @@ int main(int argc, char **argv)
                                   currActingPlayer->getCurrPos());
                     b->drawBoard();
 
+                    followRollCommand(group, currActingPlayer, testMode, b);
+
                     cout << "--> Congratulation, You have rolled a double and get one more roll turn  <--" << endl;
                     cout << "--> Type anything to start rolling <--" << endl;
                     
                     string dummy;
                     cin >> dummy;
-                    followRollCommand(group, currActingPlayer, testMode, b);
 
                     availableDoubleRoll--;
                 }

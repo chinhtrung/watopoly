@@ -135,7 +135,7 @@ int MonetaryServices::collectOSAP() {
 }
 
 int MonetaryServices::payCoop() {
-	return -150;
+	return 150;
 }
 
 int MonetaryServices::payTuition(shared_ptr<Player> p) {
@@ -149,7 +149,7 @@ int MonetaryServices::payTuition(shared_ptr<Player> p) {
 		cout << "your total worth." << endl;
 		cin >> option;
 		if (option == 'A') {
-			return -300;
+			return 300;
 		} else if (option == 'B') {
 			if (p->getAssets() % 10 < 5) {
 				return p->getAssets() / 10 * -1;
