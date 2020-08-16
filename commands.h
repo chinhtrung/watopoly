@@ -26,6 +26,7 @@ class SLC;
 class MonetaryServices;
 
 bool isNumber(std::string a);
+void followWhenInsufficientFunds(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, bool testMode, std::shared_ptr<Board> b, bool bankruptStatus);
 void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, bool testMode, std::shared_ptr<Board> b);
 void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
 void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::shared_ptr<Board> b);
