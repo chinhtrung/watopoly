@@ -22,7 +22,6 @@ class Player {
     int pos = 0;
     int timsCups = 0;
     bool bankruptStatus = false;
-    bool inJail = false;
     int numResOwned = 0;
     int numGymOwned = 0;
     std::vector<std::shared_ptr<Ownable>> ownedProperties;
