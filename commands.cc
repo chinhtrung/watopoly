@@ -248,11 +248,20 @@ bool isNumber(string a)
 void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer)
 {
     string receiver, offer, want;
-    cin >> receiver >> offer >> want;
+    int sizeGroup = group.size();
+
+    cout << "--> Please enter the name of the player you want to trade with. List of remaining players and the game piece" << endl;
+
+    for (int i = 0; i < sizeGroup; i++) {
+        if (group[i] == curPlayer) continue;
+        cout << " ~> name:" << group[i]->getName() << " - piece:" << group[i]->getGamePiece() << endl;
+    }
+
+    cin >> receiver;
+
     shared_ptr<Player> pointerReceiver;
     bool validateReceiver = false;
 
-    int sizeGroup = group.size();
     for (int i = 0; i < sizeGroup; i++)
     {
         if (group[i]->getName() == receiver)
@@ -270,32 +279,55 @@ void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> cur
         return;
     }
 
+    cout << "--> You are now trading with " << pointerReceiver->getName() << " <--" << endl;
+    cout << "--> here is the list of properties of " << pointerReceiver->getName() << " <--" << endl;
+    int sizeList = pointerReceiver->getOwnedPropList().size();
+    for (int i = 0; i < sizeList; i++) {
+        cout << "~> " << pointerReceiver->getOwnedPropList()[i]->getName(); 
+        cout << " - original cost:" << pointerReceiver->getOwnedPropList()[i]->getCostToBuy()  << endl;
+    }
+
+    cout << endl;
+
+    cout << "--> Enter the name of item or the amount of money you want to offer" << endl;
+
+    cin >> offer;
+
+    cout << "--> Enter the name of item or the amount of money you want to have" << endl;
+
+    cin >> want;
+
     if (isNumber(offer) && isNumber(want))
     {
-        cout << "Please don't offer money for money" << endl;
-        cout << "Abort trading!" << endl;
+        cout << "*** Please don't offer money for money ***" << endl;
         return;
     }
 
-    if (!isOwnableBlock(offer) && !isNumber(offer))
+    if ( !isNumber(offer))
     {
-        cout << "Your offer item is not either a property or money" << endl;
-        cout << "Abort trading!" << endl;
-        return;
+        if (!isOwnableBlock(offer)) 
+        {
+            cout << "*** Your offer item is not either a property or money ***" << endl;
+            cout << "--> Abort trading! <--" << endl;
+            return;
+        }
     }
 
-    if (!isOwnableBlock(want) && !isNumber(want))
+    if (!isNumber(want))
     {
-        cout << "Your wanted item is not either a property or money" << endl;
-        cout << "Abort trading!" << endl;
-        return;
+        if (!isOwnableBlock(want)) 
+        {
+            cout << "*** Your wanted item is not either a property or money ***" << endl;
+            cout << "--> Abort trading! <--" << endl;
+            return;
+        }
     }
 
     if (isNumber(offer))
     {
         if (!Transactions::tradeMforP(curPlayer, pointerReceiver, stoi(offer), Transactions::pointerOfProp(want)))
         {
-            cout << "Abort trading!" << endl;
+            cout << "--> Abort trading! <--" << endl;
             return;
         }
     }
@@ -304,14 +336,14 @@ void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> cur
     {
         if (!Transactions::tradePforM(curPlayer, pointerReceiver, Transactions::pointerOfProp(offer), stoi(want)))
         {
-            cout << "Abort trading!" << endl;
+            cout << "--> Abort trading! <--" << endl;
             return;
         }
     }
 
     if (!Transactions::tradePforP(curPlayer, pointerReceiver, Transactions::pointerOfProp(offer), Transactions::pointerOfProp(want)))
     {
-        cout << "Abort trading!" << endl;
+        cout << "--> Abort trading! <--" << endl;
         return;
     }
 }

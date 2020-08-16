@@ -354,8 +354,8 @@ int main(int argc, char **argv)
                 {
                     if (availableDoubleRoll == 1)
                     {
-                        cout << "Congrats! You have rolled a double ";
-                        cout << "3 times in a row, go to Tims Line!" << endl;
+                        cout << "--> Congrats! You have rolled a double ";
+                        cout << "3 times in a row, go to Tims Line!!!! <--" << endl;
                         //send to jail
                         currActingPlayer->moveToDCTims();
                         continue;
@@ -371,7 +371,7 @@ int main(int argc, char **argv)
                                   currActingPlayer->getCurrPos());
                     b->drawBoard();
 
-                    cout << "--> Congratulation, You have rolled a double <--" << endl;
+                    cout << "--> Congratulation, You have rolled a double and get one more roll turn  <--" << endl;
                     cout << "--> Type anything to start rolling <--" << endl;
                     
                     string dummy;
