@@ -13,7 +13,6 @@ class SLC: public Unownable {
 	public:
 		SLC(int ID, std::string name);
 		static void determinePlayerPos(std::shared_ptr<Player>);
-	 	void testAction(std::shared_ptr<Player>);
 };
 
 #endif
