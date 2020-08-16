@@ -7,12 +7,6 @@ TimsLine::TimsLine(int ID, string name)
 {}
 
 
-// void TimsLine::actionAtIndex(shared_ptr<Player> p) {
-// 	captured.insert(pair<char, int>(p->getGamePiece(), 0));
-// 	return;
-// }
-
-
 void TimsLine::addRoll(char player) {
 	map<char, int>::iterator it = captured.find(player);
 	if (it != captured.end()) {
