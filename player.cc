@@ -157,16 +157,6 @@ int Player::getAssets() const {
 	    result += imprLevel * costToImprProp(propName);
 	}
     }
-    /*for (int i = 0; i < sizeOwnProp; i++) {
-        result += costToMortProp(ownedProperties[i]->getName());
-    }
-
-    // minus the mortgaged properties prize
-    for (int i = 0; i < sizeOwnProp; i++) {
-        if (ownedProperties[i]->getMortStatus() == true) {}
-            result -= costToMortProp(ownedProperties[i]->getName());
-    }*/
-
     return result;
 }
 
@@ -180,7 +170,7 @@ void Player::movePlayer(int roll) {
 }
 
 void Player::moveToDCTims() {
-    pos = 10; // position for DC Tims Line (hard coded)
+    pos = DC_TIMS_LINE; 
     // action on DC Tims Line (need to change later)
     return;
 }
