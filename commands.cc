@@ -2,9 +2,10 @@
 
 using namespace std;
 
+// methods
 void followWhenInsufficientFunds(vector<shared_ptr<Player>> group, 
-		shared_ptr<Player> curPlayer, bool testMode, shared_ptr<Board> b,
-		bool bankruptStatus){
+		shared_ptr<Player> curPlayer, shared_ptr<Board> b, shared_ptr<Player> propOwner,
+		bool payBank){
     cout << "Please select one of the available commands to increase your funds, or declare bankruptcy." << endl;
     cout << "Available commands [\"bankrupt\",\"mortage\",\"improve\"] with their according procedure" << endl;
     
@@ -14,8 +15,10 @@ void followWhenInsufficientFunds(vector<shared_ptr<Player>> group,
     // call other command here
     if (action == BANKRUPT)
     {
-       followBankruptCommandWithPlayer(curPlayer, propOwner);
-       bankruptStatus = true;
+       if (!payBank){
+	   curPlayer->setBankruptStatus(true);
+           followBankruptCommandWithPlayer(curPlayer, propOwner);
+       }
     }
     else if (action == TRADE)
     {
@@ -31,12 +34,11 @@ void followWhenInsufficientFunds(vector<shared_ptr<Player>> group,
     }
 }
 
-// methods
 void followRollCommand(vector<shared_ptr<Player>> group,
                        shared_ptr<Player> curPlayer, bool testMode,
                        shared_ptr<Board> b)
 {
-    bool bankruptStatus = false;
+//    bool bankruptStatus = false;
 
     // inner helper function
     auto pointerOfPlayer = [group](char trackingPiece) {
@@ -123,11 +125,12 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                 while (!Transactions::payPlayer(curPlayer, propOwner, propPointer->amountToPay()))
                 { //if not success paying
                     cout << "You don't have enough money to pay the rent. Please make other commands to gain more funds or \"bankrupt\" to declare bankruptcy" << endl;
-                    cout << "Available commands [\"bankrupt\",\"mortage\",\"improve\"] with their according procedure" << endl;
+
                     string action;
                     cin >> action;
 
-                    // call other command here
+		    followWhenInsufficientFunds(group, curPlayer, b, propOwner, false);
+                    /*// call other command here
                     if (action == BANKRUPT)
                     {
                         followBankruptCommandWithPlayer(curPlayer, propOwner);
@@ -148,11 +151,14 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                     if (action == IMPROVE)
                     {
                         followImproveCommand(group, curPlayer, b);
-                    }
+                    }*/
                 }
 
-                if (!bankruptStatus)
-                    cout << "fee pay successfully" << endl;
+		if (!curPlayer->getBankruptStatus()){
+		    cout << "fee pay successfully" << endl;
+		}
+                //if (!bankruptStatus)
+                  //  cout << "fee pay successfully" << endl;
             }
         }
         else
@@ -223,14 +229,21 @@ void followRollCommand(vector<shared_ptr<Player>> group,
 	    cout << "You have arrived at Needles Hall." << endl;
             int changeInFunds = MonetaryServices::needlesHall(curPlayer);
             if (changeInFunds < 0){
+
+		// if player does not have enough money
 	        while (!Transactions::payBank(curPlayer, changeInFunds)){
-                cout << "Insufficient funds! Please make command TRADE, MORTGAGE, or IMPROVE to gain more funds" << endl;
-                // helper
+                    cout << "Insufficient funds!" << endl;	
+                    followWhenInsufficientFunds(group, curPlayer, b, nullptr, true);
                 }
+
+		if (!curPlayer->getBankruptStatus()){
+		    cout << "Successfully paid!" << endl;
+		}
+
 	    } else {
 	        curPlayer->addFund(changeInFunds);
 	    }   
-	} else {
+	} else {  // step on payment square
 	    int payment = 0; 
 	    if (steppingSquare == "TUITION"){
                 payment = MonetaryServices::payTuition(curPlayer);
@@ -242,9 +255,15 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                 cout << "else happens." << endl; 
 	    }   
 
+	    // if player does not have enough money
 	    while (!Transactions::payBank(curPlayer, payment)){
-	        cout << "Insufficient funds! Please make command TRADE, MORTGAGE, or IMPROVE to gain more funds" << endl;
+	        cout << "Insufficient funds!" << endl;
 	        // helper
+		followWhenInsufficientFunds(group, curPlayer, b, nullptr, true);
+	    }
+
+	    if (!curPlayer->getBankruptStatus()){
+	        cout << "Successfully paid!" << endl;
 	    }
 	} 
     }
