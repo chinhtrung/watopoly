@@ -1,0 +1,18 @@
+roll
+next
+trade A MC 3000
+trade Rob DC MC
+trade Kevin 100 290
+trade Kevin MC 500
+improve MC buy
+improve DC sell
+mortgage AHS
+unmortgage AHS
+assets
+all
+save myFirstSave.txt
+save stopForDinner.txt
+break
+haha
+lol
+bankrupt
