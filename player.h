@@ -60,7 +60,6 @@ class Player {
     void printOwnedProp();
     void displayAssets();
     void loadUpdateAmountToPay();
-    bool enoughFunds(int payment);
 };
 
 #endif
