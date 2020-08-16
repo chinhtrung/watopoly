@@ -295,3 +295,10 @@ void Player::loadUpdateAmountToPay(){
 	}
     }
 }
+
+bool Player::enoughFunds(int payment){
+    if (funds < payment){
+        return false;
+    }
+    return true;
+}
