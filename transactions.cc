@@ -372,3 +372,4 @@ void Transactions::addPropByAuction(std::string ownableName, std::shared_ptr<Pla
  
     std::cout << "Buy " << ownableName << " successfully" << std::endl;
 }
+

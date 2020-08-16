@@ -295,3 +295,4 @@ void Player::loadUpdateAmountToPay(){
 	}
     }
 }
+

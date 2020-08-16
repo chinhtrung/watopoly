@@ -136,8 +136,7 @@ int main(int argc, char **argv)
         for (int i = 0; i < numPlayers; i++)
         {
             group[i]->displayAssets();
-            cout << "\n"
-                 << endl;
+            cout << "\n" << endl;
         }
 
         b->drawBoard();

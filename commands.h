@@ -26,16 +26,33 @@ class SLC;
 class MonetaryServices;
 
 bool isNumber(std::string a);
-void followRollCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, bool testMode, std::shared_ptr<Board> b);
-void followTradeCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer);
-void followImproveCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::shared_ptr<Board> b);
+void followWhenInsufficientFunds(std::vector<std::shared_ptr<Player>> group, 
+		std::shared_ptr<Player> curPlayer, std::shared_ptr<Board> b, 
+		std::shared_ptr<Player> propOwner, bool payBank);
+
+void followRollCommand(std::vector<std::shared_ptr<Player>> group, 
+		std::shared_ptr<Player> curPlayer, bool testMode, 
+		std::shared_ptr<Board> b);
+
+void followTradeCommand(std::vector<std::shared_ptr<Player>> group, 
+		std::shared_ptr<Player> curPlayer);
+
+void followImproveCommand(std::vector<std::shared_ptr<Player>> group, 
+		std::shared_ptr<Player> curPlayer, std::shared_ptr<Board> b);
+
 void followMortgageCommand(std::shared_ptr<Player> curPlayer);
+
 void followUnmortgageCommand(std::shared_ptr<Player> curPlayer);
-void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, std::shared_ptr<Player> toPlayer);
+
+void followBankruptCommandWithPlayer(std::shared_ptr<Player> curPlayer, 
+		std::shared_ptr<Player> toPlayer);
+
 void followBankruptCommandWithBank(std::shared_ptr<Player> curPlayer);
 void followAssetsCommand(std::shared_ptr<Player> curPlayer);
 void followAllCommand(std::vector<std::shared_ptr<Player>> group);
-void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, std::shared_ptr<Player> curPlayer, std::string ownableItem);
+
+void followAuctionCommand(std::vector<std::shared_ptr<Player>> group, 
+		std::shared_ptr<Player> curPlayer, std::string ownableItem);
 
 // basic command (such as roll, next,...) and action (such as buy, sell)
 const std::string ROLL = "roll";
