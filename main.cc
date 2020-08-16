@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     vector<shared_ptr<Player>> group;
     int defaultMoneyToStart = 1500;
     bool testMode = false;
-    auto tl = std::make_shared<TimsLine>(10, "DC Tims Line");
+    auto tl = std::make_shared<TimsLine>(DC_TIMS_POS, MAP_GAME[DC_TIMS_POS]);
 
     if (argc > 1 && argv[1] == LOAD)
     {
