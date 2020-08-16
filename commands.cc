@@ -38,8 +38,6 @@ void followRollCommand(vector<shared_ptr<Player>> group,
                        shared_ptr<Player> curPlayer, bool testMode,
                        shared_ptr<Board> b)
 {
-//    bool bankruptStatus = false;
-
     // inner helper function
     auto pointerOfPlayer = [group](char trackingPiece) {
         int sizeGroup = group.size();
