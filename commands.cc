@@ -421,7 +421,32 @@ void followImproveCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> c
                           std::shared_ptr<Board> b)
 {
     string property, action;
-    cin >> property >> action;
+
+    cout << "--> Hi " << curPlayer->getName() << " please choose your property to improve <--" << endl;
+    int sizeListY = curPlayer->getOwnedPropList().size();
+    if (sizeListY == 0) {
+        cout << "--> You don't have any property to make improvement <--" << endl;
+        cout << "--> Abort Improvement action! <--" << endl;
+        return;
+    }
+    cout << "--> here is the list of your properties" << " <--" << endl;
+    for (int i = 0; i < sizeListY; i++) {
+        cout << "~> " << curPlayer->getOwnedPropList()[i]->getName(); 
+        cout << " - original cost:" << curPlayer->getOwnedPropList()[i]->getCostToBuy()  << endl;
+    }
+
+    cin >> property;
+
+    cout << "--> please type in \"buy\" or \"sell\" action" << endl;
+
+    cin >> action;
+
+    while (true) {
+        if (action == BUY || action == SELL || cin.fail()) break;
+        cout << "--> unregconize action for improvement command! <--" << endl;
+        cout << "--> please type in \"buy\" or \"sell\" action" << endl;
+        cin >> action;
+    }
 
     shared_ptr<Ownable> pointerProperty;
 
