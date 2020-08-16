@@ -1,32 +1,7 @@
-3
-Sam D 2 980 13
-Cat B 1 2000 4
-William G 0 650 31
-AL BANK 0
-ML Sam 0
-MKV Cat -1
-ECH Cat 1
-PAS Cat 0
-HH Cat 2
-RCH William 0
-PAC Sam 0
-DWE William 1
-CPH William 0
-UWP Cat 0
-LHI BANK 0
-BMH BANK 0
-OPT Sam 0
-EV1 Sam 2
-EV2 Sam 5
-EV3 Sam 1
-V1 Cat 0
-PHYS Cat 0
-B1 Cat 0
-CIF Sam 0
-B2 William 0
-EIT Sam 0
-ESC Cat 0
-C2 BANK 0
-REV Sam -1
-MC William 1
-DC William 2
+all
+assets
+trade Scooby DC MC
+all
+assets
+save game1
+
