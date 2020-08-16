@@ -16,7 +16,6 @@ void followWhenInsufficientFunds(vector<shared_ptr<Player>> group,
     {
        followBankruptCommandWithPlayer(curPlayer, propOwner);
        bankruptStatus = true;
-       break;
     }
     else if (action == TRADE)
     {
