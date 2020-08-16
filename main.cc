@@ -353,8 +353,8 @@ int main(int argc, char **argv)
                 {
                     if (availableDoubleRoll == 1)
                     {
-                        cout << "Congrats! You have rolled a double ";
-                        cout << "3 times in a row, go to Tims Line!" << endl;
+                        cout << "--> Congrats! You have rolled a double ";
+                        cout << "3 times in a row, go to Tims Line!!!! <--" << endl;
                         //send to jail
                         currActingPlayer->moveToDCTims();
                         continue;
@@ -370,12 +370,13 @@ int main(int argc, char **argv)
                                   currActingPlayer->getCurrPos());
                     b->drawBoard();
 
-                    cout << "--> Congratulation, You have rolled a double <--" << endl;
+                    followRollCommand(group, currActingPlayer, testMode, b);
+
+                    cout << "--> Congratulation, You have rolled a double and get one more roll turn  <--" << endl;
                     cout << "--> Type anything to start rolling <--" << endl;
                     
                     string dummy;
                     cin >> dummy;
-                    followRollCommand(group, currActingPlayer, testMode, b);
 
                     availableDoubleRoll--;
                 }
@@ -475,17 +476,17 @@ int main(int argc, char **argv)
                 outf << group[i]->getCurrPos();
                 if (group[i]->getCurrPos() == DC_TIMS_POS)
                 {
-                    char gp = group[i]->getGamePiece();
+                    // char gp = group[i]->getGamePiece();
                     // check if player is in Line
                     // ^ (at start of game, TimsLine square is created by main,
                     /* bool inLine = tl->isCaptured(gp);
-		     if (inLine){
-		         int turnsInLine = tl->turnsInLine(gp);
-		         outf << " " << 1 << " ";
-		         outf << turnsInLine << endl;
-		     } else {
-		         outf << " " << 0 << endl;
-		     }*/
+                    if (inLine){
+                        int turnsInLine = tl->turnsInLine(gp);
+                        outf << " " << 1 << " ";
+                        outf << turnsInLine << endl;
+                    } else {
+                        outf << " " << 0 << endl;
+                    }*/
                 }
                 else
                 {

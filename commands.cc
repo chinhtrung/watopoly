@@ -296,11 +296,20 @@ bool isNumber(string a)
 void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> curPlayer)
 {
     string receiver, offer, want;
-    cin >> receiver >> offer >> want;
+    int sizeGroup = group.size();
+
+    cout << "--> Please enter the name of the player you want to trade with. List of remaining players and the game piece" << endl;
+
+    for (int i = 0; i < sizeGroup; i++) {
+        if (group[i] == curPlayer) continue;
+        cout << " ~> name:" << group[i]->getName() << " - piece:" << group[i]->getGamePiece() << endl;
+    }
+
+    cin >> receiver;
+
     shared_ptr<Player> pointerReceiver;
     bool validateReceiver = false;
 
-    int sizeGroup = group.size();
     for (int i = 0; i < sizeGroup; i++)
     {
         if (group[i]->getName() == receiver)
@@ -318,48 +327,92 @@ void followTradeCommand(vector<shared_ptr<Player>> group, shared_ptr<Player> cur
         return;
     }
 
+    cout << "--> You are now trading with " << pointerReceiver->getName() << " <--" << endl;
+    
+
+    cout << endl;
+
+    cout << "--> Enter the name of item or the amount of money you want to offer" << endl;
+    cout << "--> here is the list of your properties" << " <--" << endl;
+    int sizeListY = curPlayer->getOwnedPropList().size();
+    for (int i = 0; i < sizeListY; i++) {
+        cout << "~> " << curPlayer->getOwnedPropList()[i]->getName(); 
+        cout << " - original cost:" << curPlayer->getOwnedPropList()[i]->getCostToBuy()  << endl;
+    }
+
+    cin >> offer;
+
+    cout << "--> Enter the name of item or the amount of money you want to take" << endl;
+    cout << "--> here is the list of properties of " << pointerReceiver->getName() << " <--" << endl;
+    int sizeListR = pointerReceiver->getOwnedPropList().size();
+    for (int i = 0; i < sizeListR; i++) {
+        cout << "~> " << pointerReceiver->getOwnedPropList()[i]->getName(); 
+        cout << " - original cost:" << pointerReceiver->getOwnedPropList()[i]->getCostToBuy()  << endl;
+    }
+
+    cin >> want;
+
     if (isNumber(offer) && isNumber(want))
     {
-        cout << "Please don't offer money for money" << endl;
-        cout << "Abort trading!" << endl;
+        cout << "*** Please don't offer money for money ***" << endl;
         return;
     }
 
-    if (!isOwnableBlock(offer) && !isNumber(offer))
+    if ( !isNumber(offer))
     {
-        cout << "Your offer item is not either a property or money" << endl;
-        cout << "Abort trading!" << endl;
+        if (!isOwnableBlock(offer)) 
+        {
+            cout << "*** Your offer item is not either a property or money ***" << endl;
+            cout << "--> Abort trading! <--" << endl;
+            return;
+        }
+    }
+
+    if (!isNumber(want))
+    {
+        if (!isOwnableBlock(want)) 
+        {
+            cout << "*** Your wanted item is not either a property or money ***" << endl;
+            cout << "--> Abort trading! <--" << endl;
+            return;
+        }
+    }
+
+    string permission;
+    cout << "========================= IMPORTANT =========================" << endl;
+    cout << "--> " << curPlayer->getName() << " wants to trade "<< offer << " with "; 
+    cout << pointerReceiver->getName() << " for " << want << " <--" << endl;
+    cout << "Hi " << pointerReceiver->getName() <<"! please type YES to make the transaction, type otherwise to cancel" << endl;
+    cout << "=============================================================" << endl;
+    cin >> permission;
+
+    if (permission != "YES") {
+        cout << "--> This trading action has been cancel by " << pointerReceiver->getName() << " <--" << endl;
         return;
     }
 
-    if (!isOwnableBlock(want) && !isNumber(want))
-    {
-        cout << "Your wanted item is not either a property or money" << endl;
-        cout << "Abort trading!" << endl;
-        return;
-    }
 
     if (isNumber(offer))
     {
         if (!Transactions::tradeMforP(curPlayer, pointerReceiver, stoi(offer), Transactions::pointerOfProp(want)))
         {
-            cout << "Abort trading!" << endl;
-            return;
+            cout << "--> Abort trading! <--" << endl;
         }
+        return;
     }
 
     if (isNumber(want))
     {
         if (!Transactions::tradePforM(curPlayer, pointerReceiver, Transactions::pointerOfProp(offer), stoi(want)))
         {
-            cout << "Abort trading!" << endl;
-            return;
+            cout << "--> Abort trading! <--" << endl;
         }
+        return;
     }
 
     if (!Transactions::tradePforP(curPlayer, pointerReceiver, Transactions::pointerOfProp(offer), Transactions::pointerOfProp(want)))
     {
-        cout << "Abort trading!" << endl;
+        cout << "--> Abort trading! <--" << endl;
         return;
     }
 }
