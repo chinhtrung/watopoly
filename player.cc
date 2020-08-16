@@ -261,12 +261,16 @@ void Player::printOwnedProp(){
 	cout << "Cost: $" << costToBuyProp(propName) << "\t";
 	cout << "Mortgaged: " ;
 	if (ownedProperties[i]->getMortStatus()){
-	    cout << "Yes" << endl;
+	    cout << "Yes\t" << endl;
 	} else {
 	    cout << "No\t";
-	    cout << "Improvements: " << ownedProperties[i]->getImprLevel() << "\t";
-	    cout << "Improvement Cost: " << costToImprProp(propName) << endl;
-	} 
+	    if (isAcademic(ownedProperties[i]->getName())) {
+	        cout << "Improvements: " << ownedProperties[i]->getImprLevel() << "\t";
+	        cout << "Improvement Cost: " << costToImprProp(propName) << endl;
+	    } else {
+	        cout << endl;
+	    }
+	}
     }
 }
 
