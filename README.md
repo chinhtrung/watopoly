@@ -8,6 +8,7 @@ Watopoly is among many choices of topic to choose for the final project of CS246
 [![watopoly screenshot][watopoly-screenshot]][watopoly-screenshot]
 
 ## Install, Setup and Play
+Please make sure you can compile C++ on your local machine beforehand
 1. Clone the current repo
     ```sh
     $ git clone https://github.com/chinhtrung/watopoly.git
@@ -20,16 +21,18 @@ Watopoly is among many choices of topic to choose for the final project of CS246
     ```sh
     $ ./watopoly
     ```
-4. Follow the commands from terminal to play the game 🎲
+4. Follow the commands from terminal to play 🎲🤑
 
-## Plan of attack
+## For contributors only
+
+### Plan of attack
 The components are shared to build between teamate and are subject to change as the first plan of attack. We also breakdown the whole project relative classes/components with their relationship into the UML model diagram  
 The completed plan of attack this problem can be found [HERE](./documents/initial_game_plan.pdf) and the UML model is [HERE](./documents/UML.pdf)
 
-## Convention on parameters, classes, file names and preprocessor guards for contributors
+### Convention on parameters, classes, file names and preprocessor guards for contributors
 Here we want to be consistent in naming each code components for the sake of readability and debugging activity
 
-### Parameters
+#### Parameters
 The parameters name, including variables and methods, should be in camelCase except for ID keywords (which is in allcaps)
 ```CPP
 std::string gameName;
@@ -39,7 +42,7 @@ int getID();
 int die1 = 6;
 int rollDice()
 ```
-### Classes
+#### Classes
 The class name should be in UpperCamelCase
 ```CPP
 class Square{
@@ -50,7 +53,7 @@ class GameState{
     GameState();
 };
 ```
-### File names
+#### File names
 The file name should be in camelCase
 ```sh
 gameState.h
@@ -59,7 +62,7 @@ player.h
 player.cc
 main.cc
 ```
-### Preprocessor guards
+#### Preprocessor guards
 Followed by the convention of CS246 course note, please note that DO NOT USE `using namespace std;` in the `.h` files to minimize the chance of conflict due to implicit interpretation
 ```CPP
 #ifndef GAMESTATE_H
@@ -70,7 +73,7 @@ Followed by the convention of CS246 course note, please note that DO NOT USE `us
 #endif
 ```
 
-## Tools / Cheat sheet
+### Tools / Cheat sheet
 1. To set up to track remote branch for reference without merging to your current branch
 ```sh
 git branch -f <local_branch> origin/<remote_branch>
